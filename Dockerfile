@@ -25,8 +25,8 @@ COPY Takerman.Marketplace.Tests/. ./Takerman.Marketplace.Tests/
 COPY ["takerman.marketplace.client/nuget.config", "./"]
 COPY ["takerman.marketplace.client/nuget.config", "takerman.marketplace.client/"]
 
-RUN dotnet nuget add source https://nuget.pkg.github.com/takermanltd/index.json -n github -u takerman --store-password-in-clear-text -p ${NUGET_PASSWORD} 
-RUN dotnet nuget list source
+# RUN dotnet nuget add source https://nuget.pkg.github.com/takermanltd/index.json -n github -u takerman --store-password-in-clear-text -p ${NUGET_PASSWORD} 
+# RUN dotnet nuget list source
 
 COPY ["Takerman.Marketplace.Server/Takerman.Marketplace.Server.csproj", "Takerman.Marketplace.Server/"]
 COPY ["takerman.marketplace.client/takerman.marketplace.client.esproj", "takerman.marketplace.client/"]
