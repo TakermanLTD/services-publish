@@ -1,6 +1,6 @@
 @Takerman.Marketplace.Server_HostAddress = http://localhost:5282
 
-GET {{Takerman.Marketplace.Server_HostAddress}}/weatherforecast/
+GET {{Takerman.Marketplace.Server_HostAddress}}/api/
 Accept: application/json
 
 ###
