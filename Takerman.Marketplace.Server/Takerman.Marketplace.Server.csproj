@@ -20,6 +20,7 @@
     <ProjectReference Include="..\takerman.marketplace.client\takerman.marketplace.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\Takerman.Marketplace.Services\Takerman.Marketplace.Services.csproj" />
   </ItemGroup>
 
 </Project>

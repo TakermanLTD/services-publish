@@ -1,9 +1,4 @@
 <template>
-  <section class="container">
-    <hgroup>
-      <h1>Marketplace</h1>
-    </hgroup>
-  </section>
   <PublishItem />
 </template>
 <script>
