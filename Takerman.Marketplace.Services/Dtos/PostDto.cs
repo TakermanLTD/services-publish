@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Takerman.Marketplace.Services.Enums;
-
-namespace Takerman.Marketplace.Services.Dtos
+﻿namespace Takerman.Marketplace.Services.Dtos
 {
     public class PostDto
     {

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Options;
+using Takerman.Marketplace.Services.Configuration;
 using Takerman.Marketplace.Services.Dtos;
 
 namespace Takerman.Marketplace.Services.Services
 {
     public interface IPublishService
     {
-        Task<bool> PublishAsync(PostDto model);
+        Task<bool> PublishAsync(PostDto model, IOptions<PlatformsConfig> _platformConfigs);
     }
 }

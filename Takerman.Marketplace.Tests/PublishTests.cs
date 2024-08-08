@@ -5,7 +5,6 @@ namespace Takerman.Marketplace.Tests
         [Fact]
         public void Test1()
         {
-
         }
     }
 }

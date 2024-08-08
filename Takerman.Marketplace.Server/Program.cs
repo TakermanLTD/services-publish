@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.Configure<IEnumerable<PlatformConfig>>(builder.Configuration.GetSection("Platforms"));
+builder.Services.Configure<PlatformsConfig>(builder.Configuration.GetSection(nameof(PlatformsConfig)));
 builder.Services.AddTransient<IPublishService, PublishService>();
 
 var app = builder.Build();

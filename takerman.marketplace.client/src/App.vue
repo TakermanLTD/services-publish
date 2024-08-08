@@ -1,5 +1,5 @@
 <template>
-  <PublishItem />
+    <PublishItem />
 </template>
 <script>
 import PublishItem from "./components/PublishItem.vue";

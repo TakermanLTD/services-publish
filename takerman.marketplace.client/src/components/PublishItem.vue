@@ -262,32 +262,32 @@
 
 <script lang="js">
 export default {
-  data() {
-    return {
-      postType: 'Marketplaces',
-      postPlatforms: [],
-      postName: '',
-      postDescription: '',
-      postPictures: []
-    }
-  },
-  methods: {
-    async publish() {
-      const data = JSON.stringify({
-        Type: this.postType,
-        Platforms: this.postPlatforms,
-        Name: this.postName,
-        Description: this.postDescription,
-        Pictures: this.postPictures
-      });
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: data
-      };
-      const result = await fetch('Publish/PublishPost', requestOptions);
-    }
-  }
+	data() {
+		return {
+			postType: 'Marketplaces',
+			postPlatforms: [],
+			postName: '',
+			postDescription: '',
+			postPictures: []
+		}
+	},
+	methods: {
+		async publish() {
+			const data = JSON.stringify({
+				Type: this.postType,
+				Platforms: this.postPlatforms,
+				Name: this.postName,
+				Description: this.postDescription,
+				Pictures: this.postPictures
+			});
+			const requestOptions = {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: data
+			};
+			const result = await fetch('Publish/PublishPost', requestOptions);
+		}
+	}
 }
 </script>
 
