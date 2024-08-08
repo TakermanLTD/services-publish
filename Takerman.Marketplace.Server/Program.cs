@@ -1,3 +1,4 @@
+using Takerman.Marketplace.Server.Middleware;
 using Takerman.Marketplace.Services.Configuration;
 using Takerman.Marketplace.Services.Services;
 
@@ -8,21 +9,22 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
-// Add services to the container.
-
+var config = new PlatformsConfig();
+var platformsSection = builder.Configuration.GetSection(nameof(PlatformsConfig));
+platformsSection.Bind(config);
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.Configure<PlatformsConfig>(builder.Configuration.GetSection(nameof(PlatformsConfig)));
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.Configure<PlatformsConfig>(platformsSection);
 builder.Services.AddTransient<IPublishService, PublishService>();
+builder.Services.AddHttpClient<AlobgService>();
 
 var app = builder.Build();
-
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -30,9 +32,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.Use(async (context, next) =>
 {
     // context.Response.Headers.Add("Content-Security-Policy", "default-src 'self';");
@@ -48,9 +48,6 @@ app.Use(async (context, next) =>
     context.Response.Headers.TryAdd("X-Powered-By", "Takerman");
     await next();
 });
-
 app.MapControllers();
-
 app.MapFallbackToFile("/index.html");
-
 app.Run();

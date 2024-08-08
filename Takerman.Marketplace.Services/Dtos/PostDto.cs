@@ -8,6 +8,8 @@
 
         public string Type { get; set; }
 
+        public decimal Price { get; set; }
+
         public IEnumerable<string> Platforms { get; set; }
 
         public IEnumerable<string> Pictures { get; set; }
