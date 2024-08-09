@@ -4,6 +4,18 @@ namespace Takerman.Marketplace.Services.Dtos.Alobg
 {
     public class AlobgItemDto
     {
+        public AlobgItemDto()
+        {
+        }
+
+        public AlobgItemDto(PostDto post) : this()
+        {
+            Name = post.Name;
+            Description = post.Description;
+            Price = post.Price;
+            Images = post.Pictures;
+        }
+
         [JsonPropertyName("_comment")]
         private string Comment { get; set; } = "Електроника » Други";
 

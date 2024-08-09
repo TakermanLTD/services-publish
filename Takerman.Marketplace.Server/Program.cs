@@ -19,7 +19,7 @@ builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.Configure<PlatformsConfig>(platformsSection);
 builder.Services.AddTransient<IPublishService, PublishService>();
-builder.Services.AddHttpClient<AlobgService>();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 app.UseDefaultFiles();

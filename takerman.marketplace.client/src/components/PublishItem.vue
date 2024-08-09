@@ -15,7 +15,7 @@
 								class="form-check-input"
 								name="postType"
 								id="typeMarketplaces"
-								value="Marketplaces"
+								:value="0"
 							/>
 							Marketplaces
 						</label>
@@ -28,7 +28,7 @@
 								class="form-check-input"
 								name="postType"
 								id="typeSocial"
-								value="Social"
+								:value="1"
 							/>
 							Social
 						</label>
@@ -41,7 +41,7 @@
 								class="form-check-input"
 								name="postType"
 								id="typeBlogging"
-								value="Blogging"
+								:value="2"
 							/>
 							Blogging
 						</label>
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<div class="col">
-				<div class="form-group" v-if="postType === 'Marketplaces'">
+				<div class="form-group" v-if="postType == 0">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
 							<input
@@ -57,7 +57,7 @@
 								type="checkbox"
 								name="cbxAlobg"
 								id="cbxAlobg"
-								value="Alobg"
+								:value="0"
 								v-model="postPlatforms"
 							/>
 							Alo.bg
@@ -71,7 +71,7 @@
 								type="checkbox"
 								name="cbxAmazon"
 								id="cbxAmazon"
-								value="Amazon"
+								:value="1"
 								v-model="postPlatforms"
 							/>
 							Amazon
@@ -85,7 +85,7 @@
 								type="checkbox"
 								name="cbxOlx"
 								id="cbxOlx"
-								value="OLX"
+								:value="2"
 								v-model="postPlatforms"
 							/>
 							OLX
@@ -99,7 +99,7 @@
 								type="checkbox"
 								name="cbxBazar"
 								id="cbxBazar"
-								value="Bazar"
+								:value="3"
 								v-model="postPlatforms"
 							/>
 							Bazar
@@ -113,7 +113,7 @@
 								type="checkbox"
 								name="cbxEbay"
 								id="cbxEbay"
-								value="Ebay"
+								:value="4"
 								v-model="postPlatforms"
 							/>
 							Ebay
@@ -127,14 +127,14 @@
 								type="checkbox"
 								name="cbxEtsy"
 								id="cbxEtsy"
-								value="Etsy"
+								:value="5"
 								v-model="postPlatforms"
 							/>
 							Etsy
 						</label>
 					</div>
 				</div>
-				<div class="form-group" v-if="postType === 'Social'">
+				<div class="form-group" v-if="postType == 1">
 					<div class="form-check">
 						<label class="form-check-label">
 							<input
@@ -142,7 +142,7 @@
 								class="form-check-input"
 								name="cbxFacebook"
 								id="cbxFacebook"
-								value="Facebook"
+								:value="6"
 								v-model="postPlatforms"
 							/>
 							Facebook
@@ -155,7 +155,7 @@
 								class="form-check-input"
 								name="cbxInstagram"
 								id="cbxInstagram"
-								value="Instagram"
+								:value="7"
 								v-model="postPlatforms"
 							/>
 							Instagram
@@ -168,7 +168,7 @@
 								class="form-check-input"
 								name="cbxLinkedIn"
 								id="cbxLinkedIn"
-								value="Linkedin"
+								:value="8"
 								v-model="postPlatforms"
 							/>
 							LinkedIn
@@ -181,14 +181,14 @@
 								class="form-check-input"
 								name="cbxTikTok"
 								id="cbxTikTok"
-								value="TikTok"
+								:value="9"
 								v-model="postPlatforms"
 							/>
 							TikTok
 						</label>
 					</div>
 				</div>
-				<div class="form-group" v-if="postType === 'Blogging'">
+				<div class="form-group" v-if="postType == 2">
 					<div class="form-check">
 						<label class="form-check-label">
 							<input
@@ -196,7 +196,7 @@
 								class="form-check-input"
 								name="cbxMedium"
 								id="cbxMedium"
-								value="Medium"
+								:value="10"
 								v-model="postPlatforms"
 							/>
 							Medium
@@ -209,7 +209,7 @@
 								class="form-check-input"
 								name="cbxBlogger"
 								id="cbxBlogger"
-								value="Blogger"
+								:value="11"
 								v-model="postPlatforms"
 							/>
 							Blogger
@@ -264,7 +264,7 @@
 export default {
 	data() {
 		return {
-			postType: 'Marketplaces',
+			postType: 0,
 			postPlatforms: [],
 			postName: '',
 			postDescription: '',

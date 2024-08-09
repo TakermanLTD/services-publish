@@ -1,4 +1,6 @@
-﻿namespace Takerman.Marketplace.Services.Dtos
+﻿using Takerman.Marketplace.Services.Enums;
+
+namespace Takerman.Marketplace.Services.Dtos
 {
     public class PostDto
     {
@@ -6,11 +8,11 @@
 
         public string Description { get; set; }
 
-        public string Type { get; set; }
+        public PlatformType Type { get; set; }
 
         public decimal Price { get; set; }
 
-        public IEnumerable<string> Platforms { get; set; }
+        public IEnumerable<Platform> Platforms { get; set; }
 
         public IEnumerable<string> Pictures { get; set; }
     }
