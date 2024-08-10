@@ -7,43 +7,16 @@
 		<div class="row">
 			<div class="col">
 				<div class="form-group">
-					<div class="form-check">
+					<div v-for="(platformType, index) in platformTypes" class="form-check">
 						<label class="form-check-label">
 							<input
 								v-model="postType"
 								type="radio"
 								class="form-check-input"
 								name="postType"
-								id="typeMarketplaces"
-								:value="0"
+								:value="index"
 							/>
-							Marketplaces
-						</label>
-					</div>
-					<div class="form-check">
-						<label class="form-check-label">
-							<input
-								v-model="postType"
-								type="radio"
-								class="form-check-input"
-								name="postType"
-								id="typeSocial"
-								:value="1"
-							/>
-							Social
-						</label>
-					</div>
-					<div class="form-check">
-						<label class="form-check-label">
-							<input
-								v-model="postType"
-								type="radio"
-								class="form-check-input"
-								name="postType"
-								id="typeBlogging"
-								:value="2"
-							/>
-							Blogging
+							{{ platformType }}
 						</label>
 					</div>
 				</div>
@@ -246,6 +219,19 @@
 			<small id="postDescription" class="text-muted">Put the description here</small>
 		</div>
 		<br />
+		<div v-if="this.postType == 0" class="form-group">
+			<label for="postPrice">Price</label>
+			<input
+				name="postPrice"
+				id="postPrice"
+				class="form-control"
+				placeholder="Price"
+				aria-describedby="postPrice"
+				v-model="postPrice"
+			></input>
+			<small id="postPrice" class="text-muted">Put the price here</small>
+		</div>
+		<br />
 		<div class="custom-file mt-3 mb-3">
 			<input
 				type="file"
@@ -268,8 +254,17 @@ export default {
 			postPlatforms: [],
 			postName: '',
 			postDescription: '',
-			postPictures: []
+			postPrice: 0,
+			postPictures: [],
+			platforms: [],
+			platformTypes: [],
+			profiles: []
 		}
+	},
+	async mounted() {
+		this.platforms = await (await fetch('Home/GetEnum?enumName=Platform')).json();
+		this.platformTypes = await (await fetch('Home/GetEnum?enumName=PlatformType')).json();
+		this.profiles = await (await fetch('Home/GetEnum?enumName=Profile')).json();
 	},
 	methods: {
 		async publish() {
@@ -278,6 +273,7 @@ export default {
 				Platforms: this.postPlatforms,
 				Name: this.postName,
 				Description: this.postDescription,
+				Price: this.postPrice,
 				Pictures: this.postPictures
 			});
 			const requestOptions = {

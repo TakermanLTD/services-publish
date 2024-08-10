@@ -52,6 +52,10 @@ export default defineConfig({
             '^/Publish': {
                 target: 'https://localhost:7023/',
                 secure: false
+            },
+            '^/Home': {
+                target: 'https://localhost:7023/',
+                secure: false
             }
         },
         port: 5175,
