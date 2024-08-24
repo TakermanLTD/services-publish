@@ -1,0 +1,12 @@
+{
+  "CommonConfig": {
+    "HuggingFaceAPI": "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"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}

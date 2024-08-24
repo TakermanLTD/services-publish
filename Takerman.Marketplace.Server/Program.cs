@@ -17,8 +17,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.Configure<CommonConfig>(builder.Configuration.GetSection(nameof(CommonConfig)));
 builder.Services.Configure<PlatformsConfig>(platformsSection);
 builder.Services.AddTransient<IPublishService, PublishService>();
+builder.Services.AddTransient<IArtificialInteligenceService, ArtificialInteligenceService>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
