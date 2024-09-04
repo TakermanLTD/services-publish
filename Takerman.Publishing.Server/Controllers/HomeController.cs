@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using Takerman.Marketplace.Services.Services;
 
-namespace Takerman.Marketplace.Server.Controllers
+namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HomeController(ILogger<HomeController> logger, IArtificialInteligenceService _artificialInteligenceService) : ControllerBase
+    public class HomeController(ILogger<HomeController> logger) : ControllerBase
     {
         private readonly ILogger<HomeController> _logger = logger;
 
@@ -16,7 +15,7 @@ namespace Takerman.Marketplace.Server.Controllers
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                var type = assembly.GetType("Takerman.Marketplace.Services.Enums." + enumName);
+                var type = assembly.GetType("Takerman.Publishing.Services.Enums." + enumName);
 
                 if (type == null)
                     continue;

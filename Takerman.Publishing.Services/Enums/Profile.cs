@@ -1,4 +1,4 @@
-﻿namespace Takerman.Marketplace.Services.Enums
+﻿namespace Takerman.Publishing.Services.Enums
 {
     public enum Profile
     {

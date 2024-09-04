@@ -1,4 +1,4 @@
-﻿namespace Takerman.Marketplace.Services.Configuration
+﻿namespace Takerman.Publishing.Services.Configuration
 {
     public class PlatformConfig
     {

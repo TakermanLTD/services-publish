@@ -1,26 +1,21 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Takerman.Marketplace.Server.Middleware
+namespace Takerman.Publishing.Server.Middleware
 {
-    public sealed class BadRequestExceptionHandler(ILogger<BadRequestExceptionHandler> _logger) : IExceptionHandler
+    public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> _logger) : IExceptionHandler
     {
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            if (exception is not BadHttpRequestException badRequestException)
-            {
-                return false;
-            }
-
             var message = exception.Message + (exception.InnerException == null ? string.Empty : exception.InnerException.Message);
 
-            _logger.LogError(badRequestException, $"Exception occurred: {message}");
+            _logger.LogError(exception, $"Exception occurred: {message}");
 
             var problemDetails = new ProblemDetails
             {
-                Status = StatusCodes.Status400BadRequest,
-                Title = "Bad Request",
-                Detail = badRequestException.Message
+                Status = StatusCodes.Status500InternalServerError,
+                Title = "Server error",
+                Detail = "An exception occurred. Please send us an email with details to contact@sreshti.net"
             };
 
             httpContext.Response.StatusCode = problemDetails.Status.Value;

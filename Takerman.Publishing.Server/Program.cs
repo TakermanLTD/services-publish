@@ -1,6 +1,5 @@
-using Takerman.Marketplace.Server.Middleware;
-using Takerman.Marketplace.Services.Configuration;
-using Takerman.Marketplace.Services.Services;
+using Takerman.Publishing.Services.Configuration;
+using Takerman.Publishing.Server.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
@@ -17,10 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.Configure<CommonConfig>(builder.Configuration.GetSection(nameof(CommonConfig)));
 builder.Services.Configure<PlatformsConfig>(platformsSection);
-builder.Services.AddTransient<IPublishService, PublishService>();
-builder.Services.AddTransient<IArtificialInteligenceService, ArtificialInteligenceService>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

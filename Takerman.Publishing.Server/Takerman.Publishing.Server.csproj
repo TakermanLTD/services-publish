@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <SpaRoot>..\takerman.marketplace.client</SpaRoot>
+    <SpaRoot>..\takerman.publishing.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:5173</SpaProxyServerUrl>
   </PropertyGroup>
@@ -14,13 +14,14 @@
       <Version>8.0.8</Version>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
+    <PackageReference Include="Takerman.Publishing" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\takerman.marketplace.client\takerman.marketplace.client.esproj">
+    <ProjectReference Include="..\takerman.publishing.client\takerman.publishing.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\Takerman.Marketplace.Services\Takerman.Marketplace.Services.csproj" />
+    <ProjectReference Include="..\Takerman.Publishing.Services\Takerman.Publishing.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,6 @@
+@Takerman.Publishing.Server_HostAddress = http://localhost:5282
+
+GET {{Takerman.Publishing.Server_HostAddress}}/api/
+Accept: application/json
+
+###
