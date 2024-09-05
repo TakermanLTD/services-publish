@@ -2,11 +2,11 @@
 
 namespace Takerman.Publishing.Data
 {
-    public class PlatformConfigData : PlatformConfig
+    public class Project
     {
         [Key]
         public int Id { get; set; }
 
-        public Platform Platform { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

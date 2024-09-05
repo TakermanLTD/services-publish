@@ -1,14 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Takerman.Publishing.Data
 {
-    public class PlatformPostType
+    public class ProjectPlatformsPosts
     {
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        [ForeignKey(nameof(Project))]
+        public int ProjectId { get; set; }
 
+        public virtual Project Project { get; set; } = new Project();
+
+        [ForeignKey(nameof(PlatformConfigData))]
         public int PlatformConfigDataId { get; set; }
 
         public virtual PlatformConfigData PlatformConfigData { get; set; } = new PlatformConfigData();
