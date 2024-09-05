@@ -3,6 +3,7 @@ using Takerman.Mail;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Initialization;
 using Takerman.Publishing.Server.Middleware;
+using Takerman.Publishing.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<DefaultContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("Takerman.Publishing.Data")));
 builder.Services.AddTransient<DbContext, DefaultContext>();
+builder.Services.AddTransient<IProjectsService, ProjectsService>();
 builder.Services.AddTransient<IContextInitializer, ContextInitializer>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

@@ -1,21 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
+using Takerman.Publishing.Data;
+using Takerman.Publishing.Services;
 
 namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HomeController(ILogger<HomeController> logger) : ControllerBase
+    public class HomeController(ILogger<HomeController> logger, IProjectsService projectsService) : ControllerBase
     {
         private readonly ILogger<HomeController> _logger = logger;
+        private readonly IProjectsService _projectsService = projectsService;
 
         [HttpGet("GetEnum")]
-        public IActionResult GetEnum(string enumName)
+        public async Task<IActionResult> GetEnum(string enumName)
         {
             var dict = new Dictionary<int, string>();
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                var type = assembly.GetType("Takerman.Publishing.Services.Enums." + enumName);
+                var type = assembly.GetType("Takerman.Publishing." + enumName);
 
                 if (type == null)
                     continue;
@@ -28,6 +31,23 @@ namespace Takerman.Publishing.Server.Controllers
                     }
                 }
             }
+
+            return Ok(dict);
+        }
+
+        [HttpGet("GetProjects")]
+        public async Task<List<Project>> GetProjects()
+        {
+            return await _projectsService.GetProjects();
+        }
+
+        [HttpGet("GetPlatforms")]
+        public async Task<IActionResult> GetPlatforms(int project, PostType postType)
+        {
+            var platforms = await _projectsService.GetPlatforms(project, postType);
+            var dict = new Dictionary<int, string>();
+            foreach (var platform in platforms)
+                dict.Add((int)platform, Enum.GetName(platform));
 
             return Ok(dict);
         }
