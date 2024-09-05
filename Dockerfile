@@ -20,7 +20,7 @@ RUN --mount=type=secret,id=NUGET_PASSWORD export NUGET_PASSWORD=$(cat /run/secre
 
 WORKDIR /src
 
-COPY Takerman..Tests/. ./Takerman.Publishing.Tests/
+COPY Takerman.Publishing.Tests/. ./Takerman.Publishing.Tests/
 
 COPY ["takerman.publishing.client/nuget.config", "./"]
 COPY ["takerman.publishing.client/nuget.config", "takerman.publishing.client/"]
