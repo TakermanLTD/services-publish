@@ -20,17 +20,17 @@ RUN --mount=type=secret,id=NUGET_PASSWORD export NUGET_PASSWORD=$(cat /run/secre
 
 WORKDIR /src
 
-COPY Takerman.Marketplace.Tests/. ./Takerman.Marketplace.Tests/
+COPY Takerman..Tests/. ./Takerman.Publishing.Tests/
 
-COPY ["takerman.marketplace.client/nuget.config", "./"]
-COPY ["takerman.marketplace.client/nuget.config", "takerman.marketplace.client/"]
+COPY ["takerman.publishing.client/nuget.config", "./"]
+COPY ["takerman.publishing.client/nuget.config", "takerman.publishing.client/"]
 
 # RUN dotnet nuget add source https://nuget.pkg.github.com/takermanltd/index.json -n github -u takerman --store-password-in-clear-text -p ${NUGET_PASSWORD} 
 # RUN dotnet nuget list source
 
-COPY ["Takerman.Marketplace.Server/Takerman.Marketplace.Server.csproj", "Takerman.Marketplace.Server/"]
-COPY ["takerman.marketplace.client/takerman.marketplace.client.esproj", "takerman.marketplace.client/"]
-COPY ["takerman.marketplace.client/package.json", "package.json"]
+COPY ["Takerman.Publishing.Server/Takerman.Publishing.Server.csproj", "Takerman.Publishing.Server/"]
+COPY ["takerman.publishing.client/takerman.publishing.client.esproj", "takerman.publishing.client/"]
+COPY ["takerman.publishing.client/package.json", "package.json"]
 COPY . .
 
 RUN echo //npm.pkg.github.com/:_authToken=$NUGET_PASSWORD >> ~/.npmrc
@@ -41,18 +41,18 @@ RUN echo "user.username=takerman" > .npmrc
 RUN npm install --production
 # RUN npm ci
 
-WORKDIR "/src/Takerman.Marketplace.Server"
-RUN dotnet clean "./Takerman.Marketplace.Server.csproj"
-RUN dotnet restore "./Takerman.Marketplace.Server.csproj"
-RUN dotnet build "./Takerman.Marketplace.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
-RUN dotnet test "./Takerman.Marketplace.Server.csproj"
+WORKDIR "/src/Takerman.Publishing.Server"
+RUN dotnet clean "./Takerman.Publishing.Server.csproj"
+RUN dotnet restore "./Takerman.Publishing.Server.csproj"
+RUN dotnet build "./Takerman.Publishing.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet test "./Takerman.Publishing.Server.csproj"
 RUN rm -f .npmrc
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Takerman.Marketplace.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Takerman.Publishing.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Takerman.Marketplace.Server.dll"]
+ENTRYPOINT ["dotnet", "Takerman.Publishing.Server.dll"]
