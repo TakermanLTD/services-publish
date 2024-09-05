@@ -25,8 +25,8 @@ COPY Takerman.Publishing.Tests/. ./Takerman.Publishing.Tests/
 COPY ["takerman.publishing.client/nuget.config", "./"]
 COPY ["takerman.publishing.client/nuget.config", "takerman.publishing.client/"]
 
-# RUN dotnet nuget add source https://nuget.pkg.github.com/takermanltd/index.json -n github -u takerman --store-password-in-clear-text -p ${NUGET_PASSWORD} 
-# RUN dotnet nuget list source
+RUN dotnet nuget add source https://nuget.pkg.github.com/takermanltd/index.json -n github -u takerman --store-password-in-clear-text -p ${NUGET_PASSWORD} 
+RUN dotnet nuget list source
 
 COPY ["Takerman.Publishing.Server/Takerman.Publishing.Server.csproj", "Takerman.Publishing.Server/"]
 COPY ["takerman.publishing.client/takerman.publishing.client.esproj", "takerman.publishing.client/"]
