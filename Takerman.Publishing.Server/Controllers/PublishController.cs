@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Takerman.Publishing;
 
 namespace Takerman.Publishing.Server.Controllers
 {
@@ -10,7 +9,7 @@ namespace Takerman.Publishing.Server.Controllers
         private readonly ILogger<PublishController> _logger = logger;
 
         [HttpPost("PublishPost")]
-        public async Task<IActionResult> PublishPost(Publication model)
+        public async Task<IActionResult> PublishPost()
         {
             return Ok();
         }

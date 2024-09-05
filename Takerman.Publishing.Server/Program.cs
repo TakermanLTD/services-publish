@@ -1,4 +1,7 @@
-using Takerman.Publishing.Services.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Takerman.Mail;
+using Takerman.Publishing.Data;
+using Takerman.Publishing.Data.Initialization;
 using Takerman.Publishing.Server.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,15 +11,17 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
-var config = new PlatformsConfig();
-var platformsSection = builder.Configuration.GetSection(nameof(PlatformsConfig));
-platformsSection.Bind(config);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DefaultContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    b => b.MigrationsAssembly("Takerman.Publishing.Data")));
+builder.Services.AddTransient<DbContext, DefaultContext>();
+builder.Services.AddTransient<IContextInitializer, ContextInitializer>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.Configure<PlatformsConfig>(platformsSection);
+builder.Services.Configure<RabbitMqConfig>(builder.Configuration.GetSection(nameof(RabbitMqConfig)));
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
@@ -28,6 +33,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+using var scope = app.Services.CreateAsyncScope();
+await scope.ServiceProvider.GetRequiredService<IContextInitializer>().InitializeAsync();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

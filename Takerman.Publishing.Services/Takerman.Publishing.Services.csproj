@@ -7,12 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HuggingFace" Version="0.2.4" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
     <PackageReference Include="Takerman.AI" Version="1.0.3" />
     <PackageReference Include="Takerman.Notifications" Version="1.0.2" />
-    <PackageReference Include="Takerman.Publishing" Version="1.1.0" />
+    <PackageReference Include="Takerman.Publishing" Version="1.1.2" />
   </ItemGroup>
 
 </Project>
