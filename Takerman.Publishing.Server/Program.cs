@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Takerman.Mail;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Initialization;
@@ -12,6 +13,13 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Warning()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog(Log.Logger);
+builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -39,6 +47,7 @@ if (app.Environment.IsDevelopment())
 using var scope = app.Services.CreateAsyncScope();
 await scope.ServiceProvider.GetRequiredService<IContextInitializer>().InitializeAsync();
 
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.Use(async (context, next) =>
