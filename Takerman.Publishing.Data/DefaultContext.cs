@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Takerman.Publishing.Data
 {
@@ -7,9 +7,9 @@ namespace Takerman.Publishing.Data
     {
         public DbSet<Project> Projects { get; set; }
 
-        public DbSet<ProjectPlatformsPosts> PlatformsMappings { get; set; }
+        public DbSet<ProjectPlatform> ProjectPlatforms { get; set; }
 
-        public DbSet<PlatformConfigData> PlatformsConfigData { get; set; }
+        public DbSet<PlatformData> PlatformsData { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

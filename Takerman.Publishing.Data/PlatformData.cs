@@ -2,7 +2,7 @@
 
 namespace Takerman.Publishing.Data
 {
-    public class PlatformConfigData : PlatformConfig
+    public class PlatformData : PlatformConfig
     {
         [Key]
         public int Id { get; set; }
