@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Services.DTOs;
 
 namespace Takerman.Publishing.Services
 {
-    public class ProjectsService(DefaultContext _context) : IProjectsService
+    public class ProjectsService(DefaultContext _context, ILogger<ProjectsService> _logger) : IProjectsService
     {
         public Task<List<string>> GetProjectNames()
         {
@@ -19,58 +20,70 @@ namespace Takerman.Publishing.Services
         public async Task<List<Platform>> GetPlatforms(int project, PostType postType)
         {
             var result = await _context.ProjectPlatforms
-                .Include(x => x.AppPlatformData)
                 .Where(x => x.ProjectId == project && x.PostType == postType)
                 .ToListAsync();
 
-            return result.Select(x => x.AppPlatformData.Platform).ToList();
+            return result.Select(x => x.Platform).ToList();
         }
 
         public Task<List<ProjectPlatform>> GetPlatforms()
         {
             return _context.ProjectPlatforms
                 .Include(x => x.AppProject)
-                .Include(x => x.AppPlatformData)
                 .ToListAsync();
         }
 
-        public async Task<ProjectPlatform> AddPlatformToProject(PlatformToProjectDto model)
+        public async Task<ProjectPlatform> AddProjectPlatform(PlatformToProjectDto model)
         {
-            var platformConfig = await _context.PlatformsData.AddAsync(new PlatformData()
+            var result = await _context.ProjectPlatforms.AddAsync(new ProjectPlatform()
             {
+                PostType = (PostType)model.PostType,
+                ProjectId = model.ProjectId,
                 ClientId = model.ClientId,
                 ClientSecret = model.ClientSecret,
                 ClientUrl = model.ClientUrl,
-                Limit = model.Limit,
                 Platform = (Platform)model.Platform
             });
 
             await _context.SaveChangesAsync();
 
-            var projectPlatform = await _context.ProjectPlatforms.AddAsync(new ProjectPlatform()
-            {
-                PostType = (PostType)model.PostType,
-                ProjectId = model.ProjectId,
-                AppPlatformData = platformConfig.Entity
-            });
-
-            await _context.SaveChangesAsync();
-
-            return projectPlatform.Entity;
+            return result.Entity;
         }
 
-        public async Task<bool> DeleteProjectToPlatform(int id)
+        public async Task<bool> DeleteProjectPlatform(int id)
         {
             try
             {
                 var projectPlatform = await _context.ProjectPlatforms.FirstOrDefaultAsync(x => x.Id == id);
-                _context.PlatformsData.Remove(_context.PlatformsData.FirstOrDefault(x => x.Id == projectPlatform.PlatformDataId));
                 _context.ProjectPlatforms.Remove(projectPlatform);
                 await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error when deleting projectPlatform");
+                return false;
+            }
+        }
+
+        public async Task<Project> AddProject(ProjectDto model)
+        {
+            var result = await _context.Projects.AddAsync(new Project() { Name = model.Name });
+            await _context.SaveChangesAsync();
+            return result.Entity;
+        }
+
+        public async Task<bool> DeleteProject(int id)
+        {
+            try
+            {
+                _context.Projects.Remove(await _context.Projects.FirstOrDefaultAsync(x => x.Id == id));
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error when deleting project");
                 return false;
             }
         }

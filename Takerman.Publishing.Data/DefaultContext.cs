@@ -9,8 +9,6 @@ namespace Takerman.Publishing.Data
 
         public DbSet<ProjectPlatform> ProjectPlatforms { get; set; }
 
-        public DbSet<PlatformData> PlatformsData { get; set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

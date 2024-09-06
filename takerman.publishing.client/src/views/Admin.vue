@@ -1,5 +1,6 @@
 <template>
     <h2 class="text-center page-heading">Admin</h2>
+    <h3 class="text-center page-heading">Project Platforms</h3>
     <table class="table table-striped table-responsive">
         <thead class="thead-default">
             <tr>
@@ -60,24 +61,53 @@
                     </select>
                 </td>
                 <td>
-                    <select :value="mapping.appPlatformData.platform">
+                    <select :value="mapping.platform">
                         <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
                     </select>
                 </td>
                 <td>
-                    <input type="text" v-model="mapping.appPlatformData.clientUrl">
+                    <input type="text" v-model="mapping.clientUrl">
                 </td>
                 <td>
-                    <input type="text" v-model="mapping.appPlatformData.clientId">
+                    <input type="text" v-model="mapping.clientId">
                 </td>
                 <td>
-                    <input type="text" v-model="mapping.appPlatformData.clientSecret">
+                    <input type="text" v-model="mapping.clientSecret">
                 </td>
                 <td>
-                    <input type="number" v-model="mapping.appPlatformData.limit">
+                    <input type="number" v-model="mapping.limit">
                 </td>
                 <div>
                     <button @click="this.delete(mapping.id)" class="btn btn-danger btn-sm">X</button>
+                </div>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="text-center page-heading">Projects</h3>
+    <table class="table table-striped table-responsive">
+        <thead class="thead-default">
+            <tr>
+                <th>Id</th>
+                <th>Project</th>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <th>
+                    <input type="text" v-model="this.newProject.name">
+                </th>
+                <th>
+                    <button @click="addProject(this.newProject)" class="btn btn-success btn-sm">+</button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr :id="'projects_' + project.id" v-for="(project, index) in projects">
+                <td scope="row">{{ project.id }}</td>
+                <td>
+                    <input type="text" v-model="project.name">
+                </td>
+                <div>
+                    <button @click="this.deleteProject(project.id)" class="btn btn-danger btn-sm">X</button>
                 </div>
             </tr>
         </tbody>
@@ -96,6 +126,9 @@ export default {
                 clientSecret: '',
                 limit: 0
             },
+            newProject: {
+                name: ''
+            },
             mappings: [],
             projects: [],
             postTypes: [],
@@ -110,7 +143,7 @@ export default {
     },
     methods: {
         async add(model) {
-            let result = await(await fetch('Admin/AddPlatformToProject', {
+            let result = await (await fetch('Admin/AddPlatformToProject', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -132,6 +165,25 @@ export default {
         async delete(id) {
             if (await fetch('Admin/DeleteProjectToPlatform?id=' + id, { method: 'DELETE' })) {
                 document.getElementById('mappings_' + id).remove();
+            }
+        },
+        async addProject(model) {
+            let result = await (await fetch('Admin/AddProject', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(model)
+            })).json();
+            this.projects.push(result);
+            this.newProject = {
+                name: ''
+            };
+        },
+        async deleteProject(id) {
+            if (await fetch('Admin/DeleteProject?id=' + id, { method: 'DELETE' })) {
+                document.getElementById('projects_' + id).remove();
             }
         }
     }

@@ -12,9 +12,13 @@ namespace Takerman.Publishing.Services
         Task<List<ProjectPlatform>> GetPlatforms();
 
         Task<List<Platform>> GetPlatforms(int project, PostType postType);
-        
-        Task<ProjectPlatform> AddPlatformToProject(PlatformToProjectDto model);
-        
-        Task<bool> DeleteProjectToPlatform(int id);
+
+        Task<ProjectPlatform> AddProjectPlatform(PlatformToProjectDto model);
+
+        Task<bool> DeleteProjectPlatform(int id);
+
+        Task<Project> AddProject(ProjectDto model);
+
+        Task<bool> DeleteProject(int id);
     }
 }

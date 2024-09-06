@@ -11,13 +11,16 @@ namespace Takerman.Publishing.Data
         [ForeignKey(nameof(Project))]
         public int ProjectId { get; set; }
 
-        [ForeignKey(nameof(PlatformData))]
-        public int PlatformDataId { get; set; }
+        public virtual Project AppProject { get; set; }
 
         public PostType PostType { get; set; }
 
-        public virtual PlatformData AppPlatformData { get; set; }
+        public Platform Platform { get; set; }
 
-        public virtual Project AppProject { get; set; }
+        public string ClientUrl { get; set; } = string.Empty;
+
+        public string ClientId { get; set; } = string.Empty;
+
+        public string ClientSecret { get; set; } = string.Empty;
     }
 }
