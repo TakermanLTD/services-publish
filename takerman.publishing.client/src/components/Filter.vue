@@ -1,27 +1,14 @@
 <template>
     <div class="row">
         <div class="col">
-            <div class="form-group">
-                <div v-for="(project, index) in projects" class="form-check">
-                    <label class="form-check-label">
-                        <input @click="updatePlatforms"
-                               v-model="selectedProject"
-                               type="radio"
-                               class="form-check-input"
-                               name="project"
-                               :value="project.id" />
-                        {{ project.name }}
-                    </label>
-                </div>
-            </div>
+            <select v-model="selectedProject" class="form-control" id="ddlProject" @change="updatePlatforms">
+                <option v-for="(project, index) in projects" :key="index" :value="project.id">{{ project.name }}</option>
+            </select>
         </div>
         <div class="col">
-            <div class="form-group">
-                <label for="ddlPostType">Post Type</label>
-                <select v-model="selectedPostType" class="form-control" name="ddlPostType" id="ddlPostType" @change="updatePlatforms">
-                    <option v-for="(postType, index) in postTypes" :key="index">{{ postType }}</option>
-                </select>
-            </div>
+            <select v-model="selectedPostType" class="form-control" id="ddlPostType" @change="updatePlatforms">
+                <option v-for="(postType, index) in postTypes" :key="index" :value="index">{{ postType }}</option>
+            </select>
         </div>
         <div class="col">
             <div v-for="(platform, index) in platforms" :key="index" class="form-check">

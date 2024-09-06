@@ -1,5 +1,8 @@
 <template>
     <div>
+        <hgroup>
+            <h3 class="text-center">PUBLICATION</h3>
+        </hgroup>
         <div class="form-group">
             <label for="postName">Name</label>
             <input
