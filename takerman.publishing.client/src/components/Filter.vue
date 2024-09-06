@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         async updatePlatforms() {
-            this.platforms = await (await fetch('Home/GetPlatforms?project=' + this.selectedProject + '&postType=' + this.selectedPostType)).json();
+            this.platforms = await (await fetch('Home/GetPlatformsFiltered?project=' + this.selectedProject + '&postType=' + this.selectedPostType)).json();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Management;
 using Takerman.Publishing.Data;
 
 namespace Takerman.Publishing.Services
@@ -23,6 +24,14 @@ namespace Takerman.Publishing.Services
                 .ToListAsync();
 
             return result.Select(x => x.PlatformConfigData.Platform).ToList();
+        }
+
+        public Task<List<ProjectPlatformsPosts>> GetPlatforms()
+        {
+            return _context.PlatformsMappings
+                .Include(x => x.PlatformConfigData)
+                .Include(x => x.Project)
+                .ToListAsync();
         }
     }
 }

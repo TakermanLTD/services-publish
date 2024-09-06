@@ -8,6 +8,8 @@ namespace Takerman.Publishing.Services
 
         Task<List<Project>> GetProjects();
 
+        Task<List<ProjectPlatformsPosts>> GetPlatforms();
+
         Task<List<Platform>> GetPlatforms(int project, PostType postType);
     }
 }

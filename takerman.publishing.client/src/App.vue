@@ -1,23 +1,17 @@
 <template>
-  <header>
-    <hgroup>
-      <h2 class="text-center">PUBLISHER</h2>
-    </hgroup>
-    <hr />
-  </header>
+  <Header />
   <div id="mainContainer" class="container">
     <router-view></router-view>
   </div>
-  <footer class="text-center">
-    <hr />
-    Copyright Takerman 2024
-  </footer>
+  <hr />
+  <Footer />
 </template>
 <script>
-import Home from "./views/Home.vue";
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
-  components: { Home }
+  components: { Header, Footer }
 }
 </script>
 

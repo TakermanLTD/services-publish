@@ -1,4 +1,5 @@
 <template>
+    <h2 class="text-center page-heading">Login</h2>
     <section class="container">
         <div class="form-group">
             <label for="tbxUsername">Username</label>

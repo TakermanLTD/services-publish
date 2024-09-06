@@ -1,4 +1,5 @@
 <template>
+	<h2 class="text-center page-heading">Home</h2>
 	<Filter />
 	<Publication />
 </template>
