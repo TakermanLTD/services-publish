@@ -14,8 +14,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="8.2.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,6 +26,16 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Integration\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Takerman.Publishing.Data\Takerman.Publishing.Data.csproj" />
+    <ProjectReference Include="..\Takerman.Publishing.Server\Takerman.Publishing.Server.csproj" />
+    <ProjectReference Include="..\Takerman.Publishing.Services\Takerman.Publishing.Services.csproj" />
   </ItemGroup>
 
 </Project>

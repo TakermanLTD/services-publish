@@ -26,8 +26,8 @@
 	<PublicationShort v-else-if="selectedPostType == 2" />
 	<PublicationBlogpost v-else-if="selectedPostType == 3" />
 	<PublicationTweet v-else-if="selectedPostType == 4" />
-	<PublicationSelling v-else-if="selectedPostType == 4" />
-	<PublicationPicture v-else-if="selectedPostType == 5" />
+	<PublicationSelling v-else-if="selectedPostType == 5" />
+	<PublicationPicture v-else-if="selectedPostType == 6" />
 </template>
 
 <script lang="js">
