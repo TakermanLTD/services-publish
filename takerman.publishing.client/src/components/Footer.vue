@@ -1,5 +1,5 @@
 <template>
-    <footer class="text-center row">
+    <footer class="text-center">
         Copyright Takerman 2024
     </footer>
 </template>
