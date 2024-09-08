@@ -28,6 +28,7 @@ builder.Services.AddDbContext<DefaultContext>(options =>
     b => b.MigrationsAssembly("Takerman.Publishing.Data")));
 builder.Services.AddTransient<DbContext, DefaultContext>();
 builder.Services.AddTransient<IProjectsService, ProjectsService>();
+builder.Services.AddTransient<IPublishService, PublishService>();
 builder.Services.AddTransient<IContextInitializer, ContextInitializer>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
