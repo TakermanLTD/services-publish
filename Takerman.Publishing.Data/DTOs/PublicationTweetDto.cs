@@ -2,7 +2,7 @@
 {
     public class PublicationTweetDto : IPublication
     {
-        public int Type { get; set; }
+        public PostType Type { get; } = PostType.Tweet;
 
         public IEnumerable<Platform> Platforms { get; set; }
 

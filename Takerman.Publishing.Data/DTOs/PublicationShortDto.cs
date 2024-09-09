@@ -2,7 +2,7 @@
 {
     public class PublicationShortDto : IPublication
     {
-        public int Type { get; set; }
+        public PostType Type { get; } = PostType.Short;
 
         public IEnumerable<Platform> Platforms { get; set; }
 

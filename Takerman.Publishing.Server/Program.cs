@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Reflection;
 using Takerman.Mail;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Initialization;
@@ -8,6 +9,7 @@ using Takerman.Publishing.Services;
 using Takerman.Publishing.Services.Abstraction;
 
 var builder = WebApplication.CreateBuilder(args);
+var dataAssembly = "Takerman.Publishing.Data";
 builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -26,13 +28,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DefaultContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-    b => b.MigrationsAssembly("Takerman.Publishing.Data")));
+    b => b.MigrationsAssembly(dataAssembly)));
 builder.Services.AddTransient<DbContext, DefaultContext>();
 builder.Services.AddTransient<IProjectsService, ProjectsService>();
 builder.Services.AddTransient<IPublishService, PublishService>();
 builder.Services.AddTransient<IContextInitializer, ContextInitializer>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddAutoMapper(Assembly.Load(dataAssembly));
 builder.Services.Configure<RabbitMqConfig>(builder.Configuration.GetSection(nameof(RabbitMqConfig)));
 builder.Services.AddHttpClient();
 

@@ -2,7 +2,7 @@
 {
     public class PublicationVideoDto : IPublication
     {
-        public int Type { get; set; }
+        public PostType Type { get; } = PostType.Video;
 
         public IEnumerable<Platform> Platforms { get; set; }
 

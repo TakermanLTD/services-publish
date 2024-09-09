@@ -2,7 +2,7 @@
 {
     public class PublicationSellingDto : IPublication
     {
-        public int Type { get; set; }
+        public PostType Type { get; } = PostType.Selling;
 
         public IEnumerable<Platform> Platforms { get; set; }
 
