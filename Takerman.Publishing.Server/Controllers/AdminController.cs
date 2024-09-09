@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Takerman.Publishing.Data;
-using Takerman.Publishing.Services;
-using Takerman.Publishing.Services.DTOs;
+using Takerman.Publishing.Data.DTOs;
+using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {

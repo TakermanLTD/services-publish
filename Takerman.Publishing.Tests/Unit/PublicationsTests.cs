@@ -1,5 +1,5 @@
-﻿using Takerman.Publishing.Services;
-using Takerman.Publishing.Services.DTOs;
+﻿using Takerman.Publishing.Data.DTOs;
+using Takerman.Publishing.Services.Abstraction;
 using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
@@ -22,7 +22,7 @@ namespace Takerman.Publishing.Tests.Unit
         {
             var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
             {
-                var actual = new PublishBlogpostDto();
+                var actual = new PublicationBlogpostDto();
 
                 return _publishService.Publish(actual);
             });
@@ -35,7 +35,7 @@ namespace Takerman.Publishing.Tests.Unit
         {
             var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
             {
-                var actual = new PublishPictureDto();
+                var actual = new PublicationPictureDto();
 
                 return _publishService.Publish(actual);
             });
@@ -48,7 +48,7 @@ namespace Takerman.Publishing.Tests.Unit
         {
             var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
             {
-                var actual = new PublishSellingDto();
+                var actual = new PublicationSellingDto();
 
                 return _publishService.Publish(actual);
             });
@@ -61,7 +61,7 @@ namespace Takerman.Publishing.Tests.Unit
         {
             var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
             {
-                var actual = new PublishShortDto();
+                var actual = new PublicationShortDto();
 
                 return _publishService.Publish(actual);
             });
@@ -74,7 +74,7 @@ namespace Takerman.Publishing.Tests.Unit
         {
             var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
             {
-                var actual = new PublishTweetDto();
+                var actual = new PublicationTweetDto();
 
                 return _publishService.Publish(actual);
             });
@@ -87,7 +87,7 @@ namespace Takerman.Publishing.Tests.Unit
         {
             var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
             {
-                var actual = new PublishVideoDto();
+                var actual = new PublicationVideoDto();
 
                 return _publishService.Publish(actual);
             });

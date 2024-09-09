@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Takerman.Publishing.Data
+namespace Takerman.Publishing.Data.Entities
 {
     public class ProjectPlatform
     {

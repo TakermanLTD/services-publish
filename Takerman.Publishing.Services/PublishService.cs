@@ -1,35 +1,38 @@
-﻿using Takerman.Publishing.Services.DTOs;
+﻿using Takerman.Publishing.Data;
+using Takerman.Publishing.Data.DTOs;
+using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Services
 {
-    public class PublishService : IPublishService
+    public class PublishService(DefaultContext _context) : IPublishService
     {
-        public Task Publish(PublishBlogpostDto model)
+        public Task Publish(PublicationBlogpostDto model)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        public Task Publish(PublicationPictureDto model)
         {
             throw new NotImplementedException();
         }
 
-        public Task Publish(PublishPictureDto model)
+        public Task Publish(PublicationSellingDto model)
         {
             throw new NotImplementedException();
         }
 
-        public Task Publish(PublishSellingDto model)
+        public Task Publish(PublicationShortDto model)
         {
             throw new NotImplementedException();
         }
 
-        public Task Publish(PublishShortDto model)
+        public Task Publish(PublicationTweetDto model)
         {
             throw new NotImplementedException();
         }
 
-        public Task Publish(PublishTweetDto model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Publish(PublishVideoDto model)
+        public Task Publish(PublicationVideoDto model)
         {
             throw new NotImplementedException();
         }

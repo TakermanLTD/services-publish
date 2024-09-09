@@ -5,6 +5,7 @@ using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Initialization;
 using Takerman.Publishing.Server.Middleware;
 using Takerman.Publishing.Services;
+using Takerman.Publishing.Services.Abstraction;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration

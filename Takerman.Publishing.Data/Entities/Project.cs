@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Takerman.Publishing.Data
+namespace Takerman.Publishing.Data.Entities
 {
     public class Project
     {

@@ -1,6 +1,6 @@
-﻿namespace Takerman.Publishing.Services.DTOs
+﻿namespace Takerman.Publishing.Data.DTOs
 {
-    public class PublishVideoDto
+    public class PublicationVideoDto : IPublication
     {
         public int Type { get; set; }
 

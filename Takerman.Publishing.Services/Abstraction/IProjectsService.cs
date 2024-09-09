@@ -1,7 +1,7 @@
-﻿using Takerman.Publishing.Data;
-using Takerman.Publishing.Services.DTOs;
+﻿using Takerman.Publishing.Data.DTOs;
+using Takerman.Publishing.Data.Entities;
 
-namespace Takerman.Publishing.Services
+namespace Takerman.Publishing.Services.Abstraction
 {
     public interface IProjectsService
     {

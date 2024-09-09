@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Takerman.Publishing.Services;
-using Takerman.Publishing.Services.DTOs;
+using Takerman.Publishing.Data.DTOs;
+using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {
@@ -11,7 +11,7 @@ namespace Takerman.Publishing.Server.Controllers
         private readonly ILogger<PublishController> _logger = logger;
 
         [HttpPost("PublishBlogpost")]
-        public async Task<IActionResult> PublishBlogpost(int projectId, PublishBlogpostDto model)
+        public async Task<IActionResult> PublishBlogpost(int projectId, PublicationBlogpostDto model)
         {
             await _publishService.Publish(model);
 
@@ -19,7 +19,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPost("PublishPicture")]
-        public async Task<IActionResult> PublishPicture(int projectId, PublishPictureDto model)
+        public async Task<IActionResult> PublishPicture(int projectId, PublicationPictureDto model)
         {
             await _publishService.Publish(model);
 
@@ -27,7 +27,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPost("PublishSelling")]
-        public async Task<IActionResult> PublishSelling(int projectId, PublishSellingDto model)
+        public async Task<IActionResult> PublishSelling(int projectId, PublicationSellingDto model)
         {
             await _publishService.Publish(model);
 
@@ -35,7 +35,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPost("PublishShort")]
-        public async Task<IActionResult> PublishShort(int projectId, PublishShortDto model)
+        public async Task<IActionResult> PublishShort(int projectId, PublicationShortDto model)
         {
             await _publishService.Publish(model);
 
@@ -43,7 +43,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPost("PublishTweet")]
-        public async Task<IActionResult> PublishTweet(int projectId, PublishTweetDto model)
+        public async Task<IActionResult> PublishTweet(int projectId, PublicationTweetDto model)
         {
             await _publishService.Publish(model);
 
@@ -51,7 +51,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPost("PublishVideo")]
-        public async Task<IActionResult> PublishVideo(int projectId, PublishVideoDto model)
+        public async Task<IActionResult> PublishVideo(int projectId, PublicationVideoDto model)
         {
             await _publishService.Publish(model);
 

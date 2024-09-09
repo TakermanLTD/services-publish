@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Takerman.Publishing.Services.DTOs
+namespace Takerman.Publishing.Data.DTOs
 {
     public class ProjectDto
     {

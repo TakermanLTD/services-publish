@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
-using Takerman.Publishing.Services.DTOs;
+using Takerman.Publishing.Data.DTOs;
+using Takerman.Publishing.Data.Entities;
+using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Services
 {

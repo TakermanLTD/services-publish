@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Takerman.Mail;
 using Takerman.Publishing.Services;
+using Takerman.Publishing.Services.Abstraction;
 using Xunit.Microsoft.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 

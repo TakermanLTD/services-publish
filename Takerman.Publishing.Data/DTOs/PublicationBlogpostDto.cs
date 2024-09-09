@@ -1,10 +1,12 @@
-﻿namespace Takerman.Publishing.Services.DTOs
+﻿namespace Takerman.Publishing.Data.DTOs
 {
-    public class PublishTweetDto
+    public class PublicationBlogpostDto : IPublication
     {
         public int Type { get; set; }
 
         public IEnumerable<Platform> Platforms { get; set; }
+
+        public string PostName { get; set; }
 
         public string PostDescription { get; set; }
     }

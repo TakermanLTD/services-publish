@@ -1,6 +1,6 @@
-﻿namespace Takerman.Publishing.Services.DTOs
+﻿namespace Takerman.Publishing.Data.DTOs
 {
-    public class PublishShortDto
+    public class PublicationPictureDto : IPublication
     {
         public int Type { get; set; }
 
@@ -8,6 +8,6 @@
 
         public string PostDescription { get; set; }
 
-        public byte[] PostShort { get; set; }
+        public IEnumerable<byte[]> PostPictures { get; set; }
     }
 }
