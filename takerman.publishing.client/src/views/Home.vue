@@ -14,7 +14,7 @@
 		<div class="col">
 			<div v-for="(platform, index) in platforms" :key="index" class="form-check">
 				<label class="form-check-label">
-					<input type="checkbox" class="form-check-input" name="platform" id="platform" :value="index" checked>
+					<input type="checkbox" class="form-check-input platform" name="platform" :value="index" checked>
 					{{ platform }}
 				</label>
 			</div>

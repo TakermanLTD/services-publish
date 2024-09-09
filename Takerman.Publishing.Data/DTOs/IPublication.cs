@@ -2,5 +2,8 @@
 {
     public interface IPublication
     {
+        int ProjectId { get; set; }
+
+        PostType Type { get; }
     }
 }

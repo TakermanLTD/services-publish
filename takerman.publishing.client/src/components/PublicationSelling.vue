@@ -41,9 +41,15 @@ export default {
     },
     methods: {
         async publish() {
+            let platforms = []; 
+            let platfromsDom = document.querySelectorAll('.platform:checked');
+            for(let i = 0; i < platfromsDom.length; i++) {
+                platforms.push(platfromsDom[i].value);
+            }
             const data = JSON.stringify({
-                Type: this.postType,
-                Platforms: this.postPlatforms,
+                ProjectId: Number(document.getElementById('ddlProject').value),
+                Type: Number(document.getElementById('ddlPostType').value),
+                Platforms: platforms,
                 Name: this.postName,
                 Description: this.postDescription,
                 Price: this.postPrice,

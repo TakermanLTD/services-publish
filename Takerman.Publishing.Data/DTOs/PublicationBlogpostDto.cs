@@ -2,6 +2,8 @@
 {
     public class PublicationBlogpostDto : IPublication
     {
+        public int ProjectId { get; set; }
+
         public PostType Type { get; } = PostType.Blogpost;
 
         public IEnumerable<Platform> Platforms { get; set; }

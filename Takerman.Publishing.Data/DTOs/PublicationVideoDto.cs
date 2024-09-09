@@ -2,6 +2,8 @@
 {
     public class PublicationVideoDto : IPublication
     {
+        public int ProjectId { get; set; }
+
         public PostType Type { get; } = PostType.Video;
 
         public IEnumerable<Platform> Platforms { get; set; }

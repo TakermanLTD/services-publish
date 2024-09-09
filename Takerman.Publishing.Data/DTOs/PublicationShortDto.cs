@@ -2,6 +2,8 @@
 {
     public class PublicationShortDto : IPublication
     {
+        public int ProjectId { get; set; }
+
         public PostType Type { get; } = PostType.Short;
 
         public IEnumerable<Platform> Platforms { get; set; }
