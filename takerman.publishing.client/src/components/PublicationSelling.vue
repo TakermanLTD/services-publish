@@ -50,11 +50,11 @@ export default {
                 ProjectId: Number(document.getElementById('ddlProject').value),
                 Type: Number(document.getElementById('ddlPostType').value),
                 Platforms: platforms,
-                Name: this.postName,
-                Description: this.postDescription,
-                Price: this.postPrice,
-                Pictures: this.postPictures,
-                Videos: this.postVideos
+                PostName: this.postName,
+                PostDescription: this.postDescription,
+                PostPrice: this.postPrice,
+                PostPictures: this.postPictures,
+                PostVideos: this.postVideos
             });
             const requestOptions = {
                 method: "POST",

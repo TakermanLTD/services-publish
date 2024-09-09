@@ -27,8 +27,8 @@ export default {
             const data = JSON.stringify({
                 ProjectId: Number(document.getElementById('ddlProject').value),
                 Type: Number(document.getElementById('ddlPostType').value),
-                Platforms: platforms,
-                Description: this.postDescription
+                PostPlatforms: platforms,
+                PostDescription: this.postDescription
             });
             const requestOptions = {
                 method: "POST",

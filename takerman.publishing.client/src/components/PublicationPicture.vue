@@ -33,8 +33,8 @@ export default {
                 ProjectId: Number(document.getElementById('ddlProject').value),
                 Type: Number(document.getElementById('ddlPostType').value),
                 Platforms: platforms,
-                Description: this.postDescription,
-                Pictures: this.postPictures
+                PostDescription: this.postDescription,
+                PostPictures: this.postPictures
             });
             const requestOptions = {
                 method: "POST",
