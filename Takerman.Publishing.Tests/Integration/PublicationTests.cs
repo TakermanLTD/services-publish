@@ -24,7 +24,7 @@ namespace Takerman.Publishing.Tests.Integration
         [Fact]
         public async Task Should_PublishSuccessfullyABlogpost_When_TheCorrectDataIsPassed()
         {
-            var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
+            var exception = await Record.ExceptionAsync(() =>
             {
                 var actual = _testData.GetBlogpost();
 
@@ -37,7 +37,7 @@ namespace Takerman.Publishing.Tests.Integration
         [Fact(Skip = "Disable until the providers are ready")]
         public async Task Should_PublishSuccessfullyAPicture_When_TheCorrectDataIsPassed()
         {
-            var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
+            var exception = await Record.ExceptionAsync(() =>
             {
                 var actual = new PublicationPictureDto();
 
@@ -50,7 +50,7 @@ namespace Takerman.Publishing.Tests.Integration
         [Fact(Skip = "Disable until the providers are ready")]
         public async Task Should_PublishSuccessfullyASelling_When_TheCorrectDataIsPassed()
         {
-            var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
+            var exception = await Record.ExceptionAsync(() =>
             {
                 var actual = new PublicationSellingDto();
 
@@ -63,7 +63,7 @@ namespace Takerman.Publishing.Tests.Integration
         [Fact(Skip = "Disable until the providers are ready")]
         public async Task Should_PublishSuccessfullyAShort_When_TheCorrectDataIsPassed()
         {
-            var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
+            var exception = await Record.ExceptionAsync(() =>
             {
                 var actual = new PublicationShortDto();
 
@@ -76,7 +76,7 @@ namespace Takerman.Publishing.Tests.Integration
         [Fact(Skip = "Disable until the providers are ready")]
         public async Task Should_PublishSuccessfullyATweet_When_TheCorrectDataIsPassed()
         {
-            var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
+            var exception = await Record.ExceptionAsync(() =>
             {
                 var actual = new PublicationTweetDto();
 
@@ -89,7 +89,7 @@ namespace Takerman.Publishing.Tests.Integration
         [Fact(Skip = "Disable until the providers are ready")]
         public async Task Should_PublishSuccessfullyAVideo_When_TheCorrectDataIsPassed()
         {
-            var exception = await Assert.ThrowsAnyAsync<Exception>(() =>
+            var exception = await Record.ExceptionAsync(() =>
             {
                 var actual = new PublicationVideoDto();
 

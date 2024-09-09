@@ -41,8 +41,8 @@ namespace Takerman.Publishing.Tests
         {
             var result = new List<TestAppSettings>()
             {
-                new(){ Filename = "test-appsettings.json", IsOptional = false },
-                new(){ Filename = "test-appsettings.Production.json", IsOptional = true }
+                new(){ Filename = "test-appsettings.json", IsOptional = false }
+                // new(){ Filename = "test-appsettings.Production.json", IsOptional = true }
             };
 
             return result;
