@@ -27,7 +27,7 @@ export default {
             let platforms = []; 
             let platfromsDom = document.querySelectorAll('.platform:checked');
             for(let i = 0; i < platfromsDom.length; i++) {
-                platforms.push(platfromsDom[i].value);
+                platforms.push(Number(platfromsDom[i].value));
             }
             const data = JSON.stringify({
                 ProjectId: Number(document.getElementById('ddlProject').value),
