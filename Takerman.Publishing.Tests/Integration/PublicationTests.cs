@@ -20,8 +20,8 @@ namespace Takerman.Publishing.Tests.Integration
             _testData = new PublicationsTestData();
         }
 
-        //[Fact(Skip = "Disable until the providers are ready")]
-        [Fact]
+        //[Fact]
+        [Fact(Skip = "Disable until the providers are ready")]
         public async Task Should_PublishSuccessfullyABlogpost_When_TheCorrectDataIsPassed()
         {
             var exception = await Record.ExceptionAsync(() =>
