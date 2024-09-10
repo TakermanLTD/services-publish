@@ -35,20 +35,11 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpGet("GetPlatformsFiltered")]
-        public async Task<IActionResult> GetPlatformsFiltered(int project, PostType postType)
+        public async Task<IActionResult> GetPlatformsFiltered(Project project, PostType postType)
         {
             var platforms = await _projectsService.GetPlatforms(project, postType);
-            var dict = new Dictionary<int, string>();
-            foreach (var platform in platforms)
-                dict.Add((int)platform, Enum.GetName(platform));
 
-            return Ok(dict);
-        }
-
-        [HttpGet("GetPlatforms")]
-        public async Task<IActionResult> GetPlatforms(Project project, Platform platform)
-        {
-            return Ok(await _projectsService.GetPlatforms());
+            return Ok(platforms);
         }
     }
 }

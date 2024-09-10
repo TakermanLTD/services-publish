@@ -2,24 +2,24 @@
 	<h2 class="text-center page-heading">PUBLISH</h2>
 	<div class="row">
 		<div class="col">
-			<select v-model="selectedProject" class="form-control" id="ddlProject" @change="updatePlatforms">
-				<option v-for="(project, index) in projects" :key="index" :value="project.id">{{ project.name }}</option>
+			<select v-model="selectedProject" class="form-control" id="ddlProject">
+				<option v-for="(project, index) in projects" :key="index" :value="index">{{ project }}</option>
 			</select>
 		</div>
 		<div class="col">
-			<select v-model="selectedPostType" class="form-control" id="ddlPostType" @change="updatePlatforms">
+			<select v-model="selectedPostType" class="form-control" id="ddlPostType">
 				<option v-for="(postType, index) in postTypes" :key="index" :value="index">{{ postType }}</option>
 			</select>
 		</div>
 	</div>
 	<br />
-	<PublicationVideo v-if="selectedPostType == 1" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
-	<PublicationShort v-else-if="selectedPostType == 2" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
-	<PublicationBlogpost v-else-if="selectedPostType == 3" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
-	<PublicationTweet v-else-if="selectedPostType == 4" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
-	<PublicationSelling v-else-if="selectedPostType == 5" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
-	<PublicationPicture v-else-if="selectedPostType == 6" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
-	<Platforms :projectId="selectedProject" :postType="selectedPostType" />
+	<PublicationVideo v-if="selectedPostType == 1" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationShort v-else-if="selectedPostType == 2" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationBlogpost v-else-if="selectedPostType == 3" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationTweet v-else-if="selectedPostType == 4" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationSelling v-else-if="selectedPostType == 5" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationPicture v-else-if="selectedPostType == 6" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<Platforms :project="Number(selectedProject)" :projects="projects" :postTypes="postTypes" :postType="Number(selectedPostType)" />
 </template>
 
 <script lang="js">
@@ -37,24 +37,17 @@ export default {
 			selectedPostType: 1,
 			selectedProject: 1,
 			projects: [],
-			postTypes: [],
-			platforms: []
+			postTypes: []
 		}
 	},
 	async mounted() {
-		this.projects = await (await fetch('Home/GetProjects')).json();
+		this.projects = await (await fetch('Home/GetEnum?enumName=Project')).json();
 		if (this.projects.length > 0) {
 			this.selectedProject = 1;
 		}
 		this.postTypes = await (await fetch('Home/GetEnum?enumName=PostType')).json();
 		if (this.postTypes.length > 0) {
 			this.selectedPostType = 1;
-		}
-		this.updatePlatforms();
-	},
-	methods: {
-		async updatePlatforms() {
-			this.platforms = await (await fetch('Home/GetPlatformsFiltered?project=' + this.selectedProject + '&postType=' + this.selectedPostType)).json();
 		}
 	},
 	components: {
@@ -63,7 +56,8 @@ export default {
 		PublicationBlogpost,
 		PublicationTweet,
 		PublicationSelling,
-		PublicationPicture
+		PublicationPicture,
+		Platforms
 	}
 }
 </script>

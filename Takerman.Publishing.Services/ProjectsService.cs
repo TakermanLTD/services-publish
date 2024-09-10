@@ -9,32 +9,29 @@ namespace Takerman.Publishing.Services
 {
     public class ProjectsService(DefaultContext _context, ILogger<ProjectsService> _logger) : IProjectsService
     {
-        public async Task<List<Platform>> GetPlatforms(int project, PostType postType)
+        public Task<List<ProjectPlatform>> GetPlatforms(Project project, PostType postType)
         {
-            var result = await _context.ProjectPlatforms
-                .Where(x => x.ProjectId == project && x.PostType == postType)
+            return _context.ProjectPlatforms
+                .Where(x => x.Project == project && x.PostType == postType)
                 .ToListAsync();
-
-            return result.Select(x => x.Platform).ToList();
         }
 
         public Task<List<ProjectPlatform>> GetPlatforms()
         {
             return _context.ProjectPlatforms
-                .Include(x => x.AppProject)
                 .ToListAsync();
         }
 
-        public async Task<ProjectPlatform> AddProjectPlatform(PlatformToProjectDto model)
+        public async Task<ProjectPlatform> AddProjectPlatform(ProjectPlatformDto model)
         {
             var result = await _context.ProjectPlatforms.AddAsync(new ProjectPlatform()
             {
-                PostType = (PostType)model.PostType,
-                ProjectId = model.Project,
+                PostType = model.PostType,
+                Project = model.Project,
                 ClientId = model.ClientId,
                 ClientSecret = model.ClientSecret,
                 ClientUrl = model.ClientUrl,
-                Platform = (Platform)model.Platform
+                Platform = model.Platform
             });
 
             await _context.SaveChangesAsync();

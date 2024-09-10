@@ -56,7 +56,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPost("AddPlatformToProject")]
-        public async Task<IActionResult> AddPlatformToProject(PlatformToProjectDto model)
+        public async Task<IActionResult> AddPlatformToProject(ProjectPlatformDto model)
         {
             return Ok(await _projectsService.AddProjectPlatform(model));
         }

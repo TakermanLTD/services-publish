@@ -5,11 +5,11 @@ namespace Takerman.Publishing.Services.Abstraction
 {
     public interface IProjectsService
     {
-        Task<List<Platform>> GetPlatforms(int project, PostType postType);
+        Task<List<ProjectPlatform>> GetPlatforms(Project project, PostType postType);
 
         Task<List<ProjectPlatform>> GetPlatforms();
 
-        Task<ProjectPlatform> AddProjectPlatform(PlatformToProjectDto model);
+        Task<ProjectPlatform> AddProjectPlatform(ProjectPlatformDto model);
 
         Task<bool> DeleteProjectPlatform(int id);
     }

@@ -8,10 +8,7 @@ namespace Takerman.Publishing.Data.Entities
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey(nameof(Project))]
-        public int ProjectId { get; set; }
-
-        public virtual Project AppProject { get; set; }
+        public Project Project { get; set; }
 
         public PostType PostType { get; set; }
 

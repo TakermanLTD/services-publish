@@ -3,7 +3,9 @@
         <label for="postDescription">Content</label>
         <textarea id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></textarea>
     </div>
-    <button @click="publish" class="btn btn-success text-center">Publish</button>
+    <div class="form-group">
+        <button @click="publish" class="btn btn-success text-center">Publish</button>
+    </div>
 </template>
 <script lang="js">
 export default {
@@ -20,7 +22,7 @@ export default {
                 platforms.push(Number(platfromsDom[i].value));
             }
             const data = JSON.stringify({
-                ProjectId: this.projectId,
+                Project: this.project,
                 Type: this.postType,
                 PostPlatforms: platforms,
                 PostDescription: this.postDescription
@@ -34,7 +36,7 @@ export default {
         }
     },
     props: {
-        projectId: Number,
+        project: Number,
         postType: Number
     }
 }

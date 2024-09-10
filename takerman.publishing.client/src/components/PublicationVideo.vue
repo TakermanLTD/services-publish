@@ -12,7 +12,9 @@
     <div class="custom-file mt-3 mb-3">
         <input type="file" class="custom-file-input" id="video" style="border: 1px solid black" />
     </div>
-    <button @click="publish" class="btn btn-success text-center">Publish</button>
+    <div class="form-group">
+        <button @click="publish" class="btn btn-success text-center">Publish</button>
+    </div>
 </template>
 <script lang="js">
 export default {
@@ -31,7 +33,7 @@ export default {
                 platforms.push(Number(platfromsDom[i].value));
             }
             const data = JSON.stringify({
-                ProjectId: this.projectId,
+                Project: this.project,
                 Type: this.postType,
                 Platforms: platforms,
                 PostName: this.postName,
@@ -47,7 +49,7 @@ export default {
         }
     },
     props: {
-        projectId: Number,
+        project: Number,
         postType: Number
     }
 }

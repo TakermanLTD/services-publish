@@ -4,8 +4,6 @@
         <thead class="thead-default">
             <tr>
                 <th>Id</th>
-                <th>Project</th>
-                <th>Post type</th>
                 <th>Platform</th>
                 <th>Client Url</th>
                 <th>Client Id</th>
@@ -14,16 +12,6 @@
             </tr>
             <tr>
                 <th scope="row"></th>
-                <th>
-                    <select v-model="this.new.projectId">
-                        <option v-for="(project, index) in projects" :key="index" :value="project.id">{{ project.name }}</option>
-                    </select>
-                </th>
-                <th>
-                    <select v-model="this.new.postType">
-                        <option v-for="(postType, index) in postTypes" :key="index" :value="index">{{ postType }}</option>
-                    </select>
-                </th>
                 <th>
                     <select v-model="this.new.platform">
                         <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
@@ -44,21 +32,14 @@
                 <th>
                     <button @click="add(this.new)" class="btn btn-success btn-sm">+</button>
                 </th>
+                <th>
+                    <button @click="save()" class="btn btn-success btn-sm">*</button>
+                </th>
             </tr>
         </thead>
         <tbody>
             <tr :id="'mappings_' + mapping.id" v-for="(mapping, index) in mappings">
                 <td scope="row">{{ mapping.id }}</td>
-                <td>
-                    <select :value="mapping.projectId">
-                        <option v-for="(project, index) in projects" :key="index" :value="project.id">{{ project.name }}</option>
-                    </select>
-                </td>
-                <td>
-                    <select :value="mapping.postType">
-                        <option v-for="(postType, index) in postTypes" :key="index" :value="index">{{ postType }}</option>
-                    </select>
-                </td>
                 <td>
                     <select :value="mapping.platform">
                         <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
@@ -79,9 +60,9 @@
                 <td>
                     <input type="checkbox" class="form-check-input platform" name="platform" :value="index" checked>
                 </td>
-                <div>
+                <td>
                     <button @click="this.delete(mapping.id)" class="btn btn-danger btn-sm">X</button>
-                </div>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -92,7 +73,7 @@ export default {
     data() {
         return {
             new: {
-                projectId: 0,
+                project: 0,
                 postType: 0,
                 platform: 0,
                 clientUrl: '',
@@ -101,14 +82,19 @@ export default {
                 limit: 0
             },
             mappings: [],
+            platforms: []
         }
     },
     async mounted() {
-        this.mappings = await (await fetch('Home/GetPlatforms?project=' + this.projectId + '&postType=' + this.postType)).json();
+        await this.updateMappings();
+        this.platforms = await (await fetch('Home/GetEnum?enumName=Platform')).json();
     },
     methods: {
+        async updateMappings() {
+            this.mappings = await (await fetch('Home/GetPlatformsFiltered?project=' + this.project + '&postType=' + this.postType)).json();
+        },
         async add(model) {
-            let result = await (await fetch('Admin/AddPlatformToProject', {
+            let result = await (await fetch('Home/AddPlatformToProject', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -118,7 +104,7 @@ export default {
             })).json();
             this.mappings.push(result);
             this.new = {
-                projectId: 0,
+                project: 0,
                 postType: 0,
                 platform: 0,
                 clientUrl: '',
@@ -128,14 +114,24 @@ export default {
             };
         },
         async delete(id) {
-            if (await fetch('Admin/DeleteProjectToPlatform?id=' + id, { method: 'DELETE' })) {
+            if (await fetch('Home/DeleteProjectToPlatform?id=' + id, { method: 'DELETE' })) {
                 document.getElementById('mappings_' + id).remove();
             }
         },
     },
+    watch: {
+        async project(newProject) {
+            await this.updateMappings();
+        },
+        async postType(newPostType) {
+            await this.updateMappings();
+        }
+    },
     props: {
-        projectId: Number,
-        postType: Number
+        project: Number,
+        projects: Object,
+        postType: Number,
+        postTypes: Object
     }
 }
 </script>

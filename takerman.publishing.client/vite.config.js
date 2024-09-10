@@ -56,10 +56,6 @@ export default defineConfig({
             '^/Home': {
                 target: 'https://localhost:7023/',
                 secure: false
-            },
-            '^/Admin': {
-                target: 'https://localhost:7023/',
-                secure: false
             }
         },
         port: 5175,

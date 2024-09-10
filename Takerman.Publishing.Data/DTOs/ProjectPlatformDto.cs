@@ -2,7 +2,7 @@
 
 namespace Takerman.Publishing.Data.DTOs
 {
-    public class PlatformToProjectDto
+    public class ProjectPlatformDto
     {
         [JsonProperty("project")]
         public Project Project { get; set; }
