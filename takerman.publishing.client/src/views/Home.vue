@@ -1,5 +1,5 @@
 <template>
-	<h2 class="text-center page-heading">Home</h2>
+	<h2 class="text-center page-heading">PUBLISH</h2>
 	<div class="row">
 		<div class="col">
 			<select v-model="selectedProject" class="form-control" id="ddlProject" @change="updatePlatforms">
@@ -11,26 +11,19 @@
 				<option v-for="(postType, index) in postTypes" :key="index" :value="index">{{ postType }}</option>
 			</select>
 		</div>
-		<div class="col">
-			<div v-for="(platform, index) in platforms" :key="index" class="form-check">
-				<label class="form-check-label">
-					<input type="checkbox" class="form-check-input platform" name="platform" :value="index" checked>
-					{{ platform }}
-				</label>
-			</div>
-		</div>
 	</div>
 	<br />
-	<hr />
-	<PublicationVideo v-if="selectedPostType == 1" />
-	<PublicationShort v-else-if="selectedPostType == 2" />
-	<PublicationBlogpost v-else-if="selectedPostType == 3" />
-	<PublicationTweet v-else-if="selectedPostType == 4" />
-	<PublicationSelling v-else-if="selectedPostType == 5" />
-	<PublicationPicture v-else-if="selectedPostType == 6" />
+	<PublicationVideo v-if="selectedPostType == 1" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationShort v-else-if="selectedPostType == 2" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationBlogpost v-else-if="selectedPostType == 3" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationTweet v-else-if="selectedPostType == 4" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationSelling v-else-if="selectedPostType == 5" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<PublicationPicture v-else-if="selectedPostType == 6" :projectId="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<Platforms :projectId="selectedProject" :postType="selectedPostType" />
 </template>
 
 <script lang="js">
+import Platforms from '@/components/Platforms.vue';
 import PublicationBlogpost from '@/components/PublicationBlogpost.vue';
 import PublicationPicture from '@/components/PublicationPicture.vue';
 import PublicationSelling from '@/components/PublicationSelling.vue';

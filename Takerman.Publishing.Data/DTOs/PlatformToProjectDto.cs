@@ -4,14 +4,14 @@ namespace Takerman.Publishing.Data.DTOs
 {
     public class PlatformToProjectDto
     {
-        [JsonProperty("projectId")]
-        public int ProjectId { get; set; }
+        [JsonProperty("project")]
+        public Project Project { get; set; }
 
         [JsonProperty("postType")]
-        public int PostType { get; set; }
+        public PostType PostType { get; set; }
 
         [JsonProperty("platform")]
-        public int Platform { get; set; }
+        public Platform Platform { get; set; }
 
         [JsonProperty("clientUrl")]
         public string ClientUrl { get; set; } = string.Empty;

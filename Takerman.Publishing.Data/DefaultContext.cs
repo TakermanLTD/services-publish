@@ -6,8 +6,6 @@ namespace Takerman.Publishing.Data
 {
     public class DefaultContext(DbContextOptions options) : DbContext(options)
     {
-        public DbSet<Project> Projects { get; set; }
-
         public DbSet<ProjectPlatform> ProjectPlatforms { get; set; }
 
         public DbSet<PublicationBlogpost> PublicationBlogposts { get; set; }

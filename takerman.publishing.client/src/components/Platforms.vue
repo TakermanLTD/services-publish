@@ -1,5 +1,4 @@
 <template>
-    <h2 class="text-center page-heading">Admin</h2>
     <h3 class="text-center page-heading">Project Platforms</h3>
     <table class="table table-striped table-responsive">
         <thead class="thead-default">
@@ -77,42 +76,17 @@
                 <td>
                     <input type="number" v-model="mapping.limit">
                 </td>
+                <td>
+                    <input type="checkbox" class="form-check-input platform" name="platform" :value="index" checked>
+                </td>
                 <div>
                     <button @click="this.delete(mapping.id)" class="btn btn-danger btn-sm">X</button>
                 </div>
             </tr>
         </tbody>
     </table>
-    <h3 class="text-center page-heading">Projects</h3>
-    <table class="table table-striped table-responsive">
-        <thead class="thead-default">
-            <tr>
-                <th>Id</th>
-                <th>Project</th>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <th>
-                    <input type="text" v-model="this.newProject.name">
-                </th>
-                <th>
-                    <button @click="addProject(this.newProject)" class="btn btn-success btn-sm">+</button>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr :id="'projects_' + project.id" v-for="(project, index) in projects">
-                <td scope="row">{{ project.id }}</td>
-                <td>
-                    <input type="text" v-model="project.name">
-                </td>
-                <div>
-                    <button @click="this.deleteProject(project.id)" class="btn btn-danger btn-sm">X</button>
-                </div>
-            </tr>
-        </tbody>
-    </table>
 </template>
+
 <script lang="js">
 export default {
     data() {
@@ -126,20 +100,11 @@ export default {
                 clientSecret: '',
                 limit: 0
             },
-            newProject: {
-                name: ''
-            },
             mappings: [],
-            projects: [],
-            postTypes: [],
-            platforms: []
         }
     },
     async mounted() {
-        this.mappings = await (await fetch('Home/GetPlatforms')).json();
-        this.projects = await (await fetch('Home/GetProjects')).json();
-        this.postTypes = await (await fetch('Home/GetEnum?enumName=PostType')).json();
-        this.platforms = await (await fetch('Home/GetEnum?enumName=Platform')).json();
+        this.mappings = await (await fetch('Home/GetPlatforms?project=' + this.projectId + '&postType=' + this.postType)).json();
     },
     methods: {
         async add(model) {
@@ -167,25 +132,10 @@ export default {
                 document.getElementById('mappings_' + id).remove();
             }
         },
-        async addProject(model) {
-            let result = await (await fetch('Admin/AddProject', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(model)
-            })).json();
-            this.projects.push(result);
-            this.newProject = {
-                name: ''
-            };
-        },
-        async deleteProject(id) {
-            if (await fetch('Admin/DeleteProject?id=' + id, { method: 'DELETE' })) {
-                document.getElementById('projects_' + id).remove();
-            }
-        }
+    },
+    props: {
+        projectId: Number,
+        postType: Number
     }
 }
 </script>

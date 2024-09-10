@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Takerman.Publishing.Data.Entities;
 using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
@@ -35,12 +34,6 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(dict);
         }
 
-        [HttpGet("GetProjects")]
-        public async Task<List<Project>> GetProjects()
-        {
-            return await _projectsService.GetProjects();
-        }
-
         [HttpGet("GetPlatformsFiltered")]
         public async Task<IActionResult> GetPlatformsFiltered(int project, PostType postType)
         {
@@ -53,7 +46,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpGet("GetPlatforms")]
-        public async Task<IActionResult> GetPlatforms()
+        public async Task<IActionResult> GetPlatforms(Project project, Platform platform)
         {
             return Ok(await _projectsService.GetPlatforms());
         }
