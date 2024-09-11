@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.DTOs;
@@ -7,7 +8,7 @@ using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Services
 {
-    public class ProjectsService(DefaultContext _context, ILogger<ProjectsService> _logger) : IProjectsService
+    public class ProjectsService(DefaultContext _context, ILogger<ProjectsService> _logger, IMapper _mapper) : IProjectsService
     {
         public Task<List<ProjectPlatform>> GetPlatforms(Project project, PostType postType)
         {
@@ -24,15 +25,8 @@ namespace Takerman.Publishing.Services
 
         public async Task<ProjectPlatform> AddProjectPlatform(ProjectPlatformDto model)
         {
-            var result = await _context.ProjectPlatforms.AddAsync(new ProjectPlatform()
-            {
-                PostType = model.PostType,
-                Project = model.Project,
-                ClientId = model.ClientId,
-                ClientSecret = model.ClientSecret,
-                ClientUrl = model.ClientUrl,
-                Platform = model.Platform
-            });
+            var entity = _mapper.Map<ProjectPlatform>(model);
+            var result = await _context.ProjectPlatforms.AddAsync(entity);
 
             await _context.SaveChangesAsync();
 
@@ -53,6 +47,14 @@ namespace Takerman.Publishing.Services
                 _logger.LogError(ex, "Error when deleting projectPlatform");
                 return false;
             }
+        }
+
+        public async Task<List<ProjectPlatform>> UpdateProjectPlatforms(IEnumerable<ProjectPlatform> model)
+        {
+            _context.ProjectPlatforms.UpdateRange(model);
+            await _context.SaveChangesAsync();
+
+            return model.ToList();
         }
     }
 }

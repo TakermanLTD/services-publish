@@ -11,6 +11,8 @@ namespace Takerman.Publishing.Services.Abstraction
 
         Task<ProjectPlatform> AddProjectPlatform(ProjectPlatformDto model);
 
+        Task<List<ProjectPlatform>> UpdateProjectPlatforms(IEnumerable<ProjectPlatform> model);
+
         Task<bool> DeleteProjectPlatform(int id);
     }
 }

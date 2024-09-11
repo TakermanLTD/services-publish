@@ -1,17 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HomeController(ILogger<HomeController> logger, IProjectsService projectsService) : ControllerBase
+    public class HomeController : ControllerBase
     {
-        private readonly ILogger<HomeController> _logger = logger;
-        private readonly IProjectsService _projectsService = projectsService;
-
         [HttpGet("GetEnum")]
-        public async Task<IActionResult> GetEnum(string enumName)
+        public IActionResult GetEnum(string enumName)
         {
             var dict = new Dictionary<int, string>();
 
@@ -32,14 +28,6 @@ namespace Takerman.Publishing.Server.Controllers
             }
 
             return Ok(dict);
-        }
-
-        [HttpGet("GetPlatformsFiltered")]
-        public async Task<IActionResult> GetPlatformsFiltered(Project project, PostType postType)
-        {
-            var platforms = await _projectsService.GetPlatforms(project, postType);
-
-            return Ok(platforms);
         }
     }
 }

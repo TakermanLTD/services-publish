@@ -6,7 +6,7 @@ namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PublishController(ILogger<PublishController> _logger, IPublishService _publishService, IProjectsService _projectsService) : ControllerBase
+    public class PublishController(IPublishService _publishService) : ControllerBase
     {
         [HttpPost("PublishBlogpost")]
         public async Task<IActionResult> PublishBlogpost(PublicationBlogpostDto model)
@@ -53,18 +53,6 @@ namespace Takerman.Publishing.Server.Controllers
         {
             await _publishService.Publish(model);
             return Ok();
-        }
-
-        [HttpPost("AddProjectPlatform")]
-        public async Task<IActionResult> AddProjectPlatform(ProjectPlatformDto model)
-        {
-            return Ok(await _projectsService.AddProjectPlatform(model));
-        }
-
-        [HttpDelete("DeleteProjectPlatform")]
-        public async Task<IActionResult> DeleteProjectPlatform(int id)
-        {
-            return Ok(await _projectsService.DeleteProjectPlatform(id));
         }
     }
 }

@@ -75,8 +75,8 @@ export default {
             clientUrl: '',
             clientId: '',
             clientSecret: '',
-            mappings: [],
-            platforms: []
+            platforms: [],
+            mappings: []
         }
     },
     async mounted() {
@@ -85,10 +85,21 @@ export default {
     },
     methods: {
         async updateMappings() {
-            this.mappings = await (await fetch('Home/GetPlatformsFiltered?project=' + this.project + '&postType=' + this.postType)).json();
+            this.mappings = await (await fetch('ProjectPlatforms/GetAll?project=' + this.project + '&postType=' + this.postType)).json();
+        },
+        async save() {
+            await fetch('ProjectPlatforms/UpdateAll', {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.mappings)
+            });
+            this.updateMappings();
         },
         async add() {
-            let result = await (await fetch('Publish/AddProjectPlatform', {
+            let result = await (await fetch('ProjectPlatforms/Add', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -106,7 +117,7 @@ export default {
             this.mappings.push(result);
         },
         async delete(id) {
-            if (await fetch('Publish/DeleteProjectPlatform?id=' + id, { method: 'DELETE' })) {
+            if (await fetch('ProjectPlatforms/Delete?id=' + id, { method: 'DELETE' })) {
                 document.getElementById('mappings_' + id).remove();
             }
         },

@@ -53,6 +53,10 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
+            '^/ProjectPlatforms': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
             '^/Home': {
                 target: 'https://localhost:7023/',
                 secure: false
