@@ -26,10 +26,10 @@
                     <input type="text" v-model="clientSecret">
                 </th>
                 <th>
-                    <button @click="add" class="btn btn-success btn-sm">+</button>
+                    <button @click="add" class="btn btn-success btn-sm"><i class="bi bi-plus-circle-fill"></i></button>
                 </th>
                 <th>
-                    <button @click="save()" class="btn btn-success btn-sm">*</button>
+                    <button @click="save()" class="btn btn-success btn-sm"><i class="bi bi-floppy"></i></button>
                 </th>
             </tr>
         </thead>
@@ -54,7 +54,7 @@
                     <input type="checkbox" class="form-check-input platform" name="platform" :value="index" checked>
                 </td>
                 <td>
-                    <button @click="this.delete(mapping.id)" class="btn btn-danger btn-sm">X</button>
+                    <button @click="this.delete(mapping.id)" class="btn btn-danger btn-sm"><i class="bi bi-x-circle-fill"></i></button>
                 </td>
             </tr>
         </tbody>
