@@ -21,8 +21,5 @@ namespace Takerman.Publishing.Data.DTOs
 
         [JsonProperty("clientSecret")]
         public string ClientSecret { get; set; } = string.Empty;
-
-        [JsonProperty("limit")]
-        public int Limit { get; set; }
     }
 }

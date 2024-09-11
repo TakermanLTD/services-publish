@@ -8,29 +8,25 @@
                 <th>Client Url</th>
                 <th>Client Id</th>
                 <th>Client Secret</th>
-                <th>Limit</th>
             </tr>
             <tr>
                 <th scope="row"></th>
                 <th>
-                    <select v-model="this.new.platform">
+                    <select v-model="platform">
                         <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
                     </select>
                 </th>
                 <th>
-                    <input type="text" v-model="this.new.clientUrl">
+                    <input type="text" v-model="clientUrl">
                 </th>
                 <th>
-                    <input type="text" v-model="this.new.clientId">
+                    <input type="text" v-model="clientId">
                 </th>
                 <th>
-                    <input type="text" v-model="this.new.clientSecret">
+                    <input type="text" v-model="clientSecret">
                 </th>
                 <th>
-                    <input type="number" v-model="this.new.limit">
-                </th>
-                <th>
-                    <button @click="add(this.new)" class="btn btn-success btn-sm">+</button>
+                    <button @click="add" class="btn btn-success btn-sm">+</button>
                 </th>
                 <th>
                     <button @click="save()" class="btn btn-success btn-sm">*</button>
@@ -41,7 +37,7 @@
             <tr :id="'mappings_' + mapping.id" v-for="(mapping, index) in mappings">
                 <td scope="row">{{ mapping.id }}</td>
                 <td>
-                    <select :value="mapping.platform">
+                    <select :value="Number(mapping.platform)">
                         <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
                     </select>
                 </td>
@@ -53,9 +49,6 @@
                 </td>
                 <td>
                     <input type="text" v-model="mapping.clientSecret">
-                </td>
-                <td>
-                    <input type="number" v-model="mapping.limit">
                 </td>
                 <td>
                     <input type="checkbox" class="form-check-input platform" name="platform" :value="index" checked>
@@ -72,15 +65,10 @@
 export default {
     data() {
         return {
-            new: {
-                project: 0,
-                postType: 0,
-                platform: 0,
-                clientUrl: '',
-                clientId: '',
-                clientSecret: '',
-                limit: 0
-            },
+            platform: 0,
+            clientUrl: '',
+            clientId: '',
+            clientSecret: '',
             mappings: [],
             platforms: []
         }
@@ -93,28 +81,26 @@ export default {
         async updateMappings() {
             this.mappings = await (await fetch('Home/GetPlatformsFiltered?project=' + this.project + '&postType=' + this.postType)).json();
         },
-        async add(model) {
-            let result = await (await fetch('Home/AddPlatformToProject', {
+        async add() {
+            let result = await (await fetch('Publish/AddProjectPlatform', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(model)
+                body: JSON.stringify({
+                    project: this.project,
+                    postType: this.postType,
+                    platform: Number(this.platform),
+                    clientUrl: this.clientUrl,
+                    clientId: this.clientId,
+                    clientSecret: this.clientSecret
+                })
             })).json();
             this.mappings.push(result);
-            this.new = {
-                project: 0,
-                postType: 0,
-                platform: 0,
-                clientUrl: '',
-                clientId: '',
-                clientSecret: '',
-                limit: 0
-            };
         },
         async delete(id) {
-            if (await fetch('Home/DeleteProjectToPlatform?id=' + id, { method: 'DELETE' })) {
+            if (await fetch('Publish/DeleteProjectPlatform?id=' + id, { method: 'DELETE' })) {
                 document.getElementById('mappings_' + id).remove();
             }
         },

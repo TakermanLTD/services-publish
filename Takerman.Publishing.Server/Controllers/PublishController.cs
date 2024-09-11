@@ -55,14 +55,14 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok();
         }
 
-        [HttpPost("AddPlatformToProject")]
-        public async Task<IActionResult> AddPlatformToProject(ProjectPlatformDto model)
+        [HttpPost("AddProjectPlatform")]
+        public async Task<IActionResult> AddProjectPlatform(ProjectPlatformDto model)
         {
             return Ok(await _projectsService.AddProjectPlatform(model));
         }
 
-        [HttpDelete("DeleteProjectToPlatform")]
-        public async Task<IActionResult> DeleteProjectToPlatform(int id)
+        [HttpDelete("DeleteProjectPlatform")]
+        public async Task<IActionResult> DeleteProjectPlatform(int id)
         {
             return Ok(await _projectsService.DeleteProjectPlatform(id));
         }
