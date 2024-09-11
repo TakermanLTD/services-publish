@@ -26,6 +26,9 @@
                     <input type="text" v-model="clientSecret">
                 </th>
                 <th>
+                    Apps
+                </th>
+                <th>
                     <button @click="add" class="btn btn-success btn-sm"><i class="bi bi-plus-circle-fill"></i></button>
                 </th>
                 <th>
@@ -49,6 +52,9 @@
                 </td>
                 <td>
                     <input type="text" v-model="mapping.clientSecret">
+                </td>
+                <td>
+                    <a :href="mapping.appsUrl" target="_blank">Apps</a>
                 </td>
                 <td>
                     <input type="checkbox" class="form-check-input platform" name="platform" :value="index" checked>

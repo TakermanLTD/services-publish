@@ -21,5 +21,8 @@ namespace Takerman.Publishing.Data.DTOs
 
         [JsonProperty("clientSecret")]
         public string ClientSecret { get; set; } = string.Empty;
+
+        [JsonProperty("appsUrl")]
+        public string AppsUrl { get; set; } = string.Empty;
     }
 }
