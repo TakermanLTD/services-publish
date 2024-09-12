@@ -65,10 +65,6 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/Blog': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
             '^/Short': {
                 target: 'https://localhost:7023/',
                 secure: false
