@@ -10,27 +10,29 @@ namespace Takerman.Publishing.Services
 {
     public class ProjectsService(DefaultContext _context, ILogger<ProjectsService> _logger, IMapper _mapper) : IProjectsService
     {
-        public Task<List<ProjectPlatform>> GetPlatforms(Project project, PostType postType)
+        public Task<List<ProjectPlatformDto>> GetPlatforms(Project project, PostType postType)
         {
             return _context.ProjectPlatforms
                 .Where(x => x.Project == project && x.PostType == postType)
+                .Select(x => _mapper.Map<ProjectPlatformDto>(x))
                 .ToListAsync();
         }
 
-        public Task<List<ProjectPlatform>> GetPlatforms()
+        public Task<List<ProjectPlatformDto>> GetPlatforms()
         {
             return _context.ProjectPlatforms
+                .Select(x => _mapper.Map<ProjectPlatformDto>(x))
                 .ToListAsync();
         }
 
-        public async Task<ProjectPlatform> AddProjectPlatform(ProjectPlatformDto model)
+        public async Task<ProjectPlatformDto> AddProjectPlatform(ProjectPlatformDto model)
         {
             var entity = _mapper.Map<ProjectPlatform>(model);
             var result = await _context.ProjectPlatforms.AddAsync(entity);
 
             await _context.SaveChangesAsync();
 
-            return result.Entity;
+            return _mapper.Map<ProjectPlatformDto>(result.Entity);
         }
 
         public async Task<bool> DeleteProjectPlatform(int id)
@@ -49,12 +51,12 @@ namespace Takerman.Publishing.Services
             }
         }
 
-        public async Task<List<ProjectPlatform>> UpdateProjectPlatforms(IEnumerable<ProjectPlatform> model)
+        public async Task<List<ProjectPlatformDto>> UpdateProjectPlatforms(IEnumerable<ProjectPlatform> model)
         {
             _context.ProjectPlatforms.UpdateRange(model);
             await _context.SaveChangesAsync();
 
-            return model.ToList();
+            return model.Select(x => _mapper.Map<ProjectPlatformDto>(x)).ToList();
         }
     }
 }

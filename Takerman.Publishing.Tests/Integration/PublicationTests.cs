@@ -1,4 +1,6 @@
-﻿using Takerman.Publishing.Data.DTOs;
+﻿using AutoMapper;
+using Takerman.Publishing.Data.DTOs;
+using Takerman.Publishing.Services;
 using Takerman.Publishing.Services.Abstraction;
 using Takerman.Publishing.Tests.TestData;
 using Xunit.Abstractions;
@@ -9,14 +11,26 @@ namespace Takerman.Publishing.Tests.Integration
     public class PublicationsTests : TestBed<TestFixture>
     {
         private readonly IProjectsService _projectsService;
-        private readonly IPublishService _publishService;
+        private readonly IBlogService _blogService;
+        private readonly IPictureService _pictureService;
+        private readonly ISellingService _sellingService;
+        private readonly IShortService _shortService;
+        private readonly ITweetService _tweetService;
+        private readonly IVideoService _videoService;
+        private readonly IMapper _mapper;
         private readonly PublicationsTestData _testData;
 
-        public PublicationsTests(ITestOutputHelper testOutputHelper, TestFixture fixture)
+        public PublicationsTests(ITestOutputHelper testOutputHelper, TestFixture fixture, IMapper mapper)
         : base(testOutputHelper, fixture)
         {
             _projectsService = _fixture.GetService<IProjectsService>(_testOutputHelper);
-            _publishService = _fixture.GetService<IPublishService>(_testOutputHelper);
+            _blogService = _fixture.GetService<IBlogService>(_testOutputHelper);
+            _pictureService = _fixture.GetService<IPictureService>(_testOutputHelper);
+            _sellingService = _fixture.GetService<ISellingService>(_testOutputHelper);
+            _shortService = _fixture.GetService<IShortService>(_testOutputHelper);
+            _tweetService = _fixture.GetService<ITweetService>(_testOutputHelper);
+            _videoService = _fixture.GetService<IVideoService>(_testOutputHelper);
+            _mapper = _fixture.GetService<IMapper>(_testOutputHelper);
             _testData = new PublicationsTestData();
         }
 
@@ -28,7 +42,7 @@ namespace Takerman.Publishing.Tests.Integration
             {
                 var actual = _testData.GetBlogpost();
 
-                return _publishService.Publish(actual);
+                return _blogService.Publish(actual);
             });
 
             Assert.Null(exception);
@@ -41,7 +55,7 @@ namespace Takerman.Publishing.Tests.Integration
             {
                 var actual = new PublicationPictureDto();
 
-                return _publishService.Publish(actual);
+                return _pictureService.Publish(actual);
             });
 
             Assert.Null(exception);
@@ -54,7 +68,7 @@ namespace Takerman.Publishing.Tests.Integration
             {
                 var actual = new PublicationSellingDto();
 
-                return _publishService.Publish(actual);
+                return _sellingService.Publish(actual);
             });
 
             Assert.Null(exception);
@@ -67,7 +81,7 @@ namespace Takerman.Publishing.Tests.Integration
             {
                 var actual = new PublicationShortDto();
 
-                return _publishService.Publish(actual);
+                return _shortService.Publish(actual);
             });
 
             Assert.Null(exception);
@@ -80,7 +94,7 @@ namespace Takerman.Publishing.Tests.Integration
             {
                 var actual = new PublicationTweetDto();
 
-                return _publishService.Publish(actual);
+                return _tweetService.Publish(actual);
             });
 
             Assert.Null(exception);
@@ -93,7 +107,7 @@ namespace Takerman.Publishing.Tests.Integration
             {
                 var actual = new PublicationVideoDto();
 
-                return _publishService.Publish(actual);
+                return _videoService.Publish(actual);
             });
 
             Assert.Null(exception);

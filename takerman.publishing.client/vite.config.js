@@ -49,11 +49,35 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/Publish': {
+            '^/Blog': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Picture': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
             '^/ProjectPlatforms': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Selling': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Blog': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Short': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Tweet': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Video': {
                 target: 'https://localhost:7023/',
                 secure: false
             },

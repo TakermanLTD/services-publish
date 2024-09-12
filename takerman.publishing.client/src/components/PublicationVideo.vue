@@ -15,6 +15,28 @@
     <div class="form-group">
         <button @click="publish" class="btn btn-success text-center">Publish</button>
     </div>
+    <div class="publications">
+        <h3 class="text-center">Publications</h3>
+        <table class="table table-responsive">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Video</th>
+                <th></th>
+            </tr>
+            <tr v-for="(publication, index) in this.publications" :key="index">
+                <td>{{ publication.id }}</td>
+                <td>{{ publication.postName }}</td>
+                <td>{{ publication.postDescription }}</td>
+                <td>{{ publication.postVideo }}</td>
+                <td>
+                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </template>
 <script lang="js">
 export default {
@@ -22,10 +44,17 @@ export default {
         return {
             postName: '',
             postDescription: '',
-            postVideo: []
+            postVideo: [],
+            publications: []
         }
     },
     methods: {
+        async refresh() {
+            this.publications = await (await fetch('Video/GetAll?project=' + this.project)).json();
+        },
+        async mounted() {
+            await this.refresh();
+        },
         async publish() {
             let platforms = [];
             let platfromsDom = document.querySelectorAll('.platform:checked');
@@ -45,7 +74,25 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: data
             };
-            const result = await fetch('Publish/PublishVideo', requestOptions);
+            const result = await fetch('Video/Publish', requestOptions);
+            await this.refresh();
+        },
+        async delete(id) {
+            await fetch('Video/Delete?id=' + id, { method: "DELETE" });
+            await this.refresh();
+        },
+        async fill(id) {
+            let publication = await fetch('Video/Get?id=' + id);
+            this.postName = publication.postName;
+            this.postDescription = publication.postDescription;
+        }
+    },
+    watch: {
+        async project(newProject) {
+            await this.refresh();
+        },
+        async postType(newPostType) {
+            await this.refresh();
         }
     },
     props: {

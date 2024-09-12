@@ -31,7 +31,12 @@ builder.Services.AddDbContext<DefaultContext>(options =>
     b => b.MigrationsAssembly(dataAssembly)));
 builder.Services.AddTransient<DbContext, DefaultContext>();
 builder.Services.AddTransient<IProjectsService, ProjectsService>();
-builder.Services.AddTransient<IPublishService, PublishService>();
+builder.Services.AddTransient<IBlogService, BlogService>();
+builder.Services.AddTransient<IPictureService, PictureService>();
+builder.Services.AddTransient<ISellingService, SellingService>();
+builder.Services.AddTransient<IShortService, ShortService>();
+builder.Services.AddTransient<ITweetService, TweetService>();
+builder.Services.AddTransient<IVideoService, VideoService>();
 builder.Services.AddTransient<IContextInitializer, ContextInitializer>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
