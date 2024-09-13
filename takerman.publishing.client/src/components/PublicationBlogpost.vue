@@ -15,18 +15,18 @@
     </div>
     <div class="publications">
         <h3 class="text-center">Publications</h3>
-        <table class="table table-responsive">
+        <table class="table table-striped table-responsive text-center">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Content</th>
-                <th></th>
+                <th width="100px"></th>
             </tr>
             <tr v-for="(publication, index) in this.publications" :key="index">
                 <td>{{ publication.id }}</td>
                 <td>{{ publication.postName }}</td>
-                <td>{{ publication.postDescription }}</td>
-                <td>
+                <td>{{ publication.postDescription.substring(0, 80) }}</td>
+                <td class="text-right" width="100px">
                     <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
                     <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
                 </td>

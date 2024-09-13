@@ -20,6 +20,8 @@ namespace Takerman.Publishing.Data
 
         public DbSet<PublicationVideo> PublicationVideos { get; set; }
 
+        public DbSet<PlatformLink> PlatformLinks { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

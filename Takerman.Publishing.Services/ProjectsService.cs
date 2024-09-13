@@ -10,12 +10,17 @@ namespace Takerman.Publishing.Services
 {
     public class ProjectsService(DefaultContext _context, ILogger<ProjectsService> _logger, IMapper _mapper) : IProjectsService
     {
-        public Task<List<ProjectPlatformDto>> GetPlatforms(Project project, PostType postType)
+        public async Task<List<ProjectPlatformDto>> GetPlatforms(Project project, PostType postType)
         {
-            return _context.ProjectPlatforms
+            var result = await _context.ProjectPlatforms
                 .Where(x => x.Project == project && x.PostType == postType)
                 .Select(x => _mapper.Map<ProjectPlatformDto>(x))
                 .ToListAsync();
+
+            //foreach (var projectPlatform in result)
+            //    projectPlatform.Links = await _context.PlatformLinks.Where(x=>x.Platform == projectPlatform.Platform).ToListAsync();
+
+            return result;
         }
 
         public Task<List<ProjectPlatformDto>> GetPlatforms()

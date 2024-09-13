@@ -1,6 +1,6 @@
 <template>
     <h3 class="text-center page-heading">Project Platforms</h3>
-    <table class="table table-striped table-responsive">
+    <table class="table table-striped table-responsive text-center">
         <thead class="thead-default">
             <tr>
                 <th>Id</th>
@@ -81,7 +81,7 @@ export default {
     },
     async mounted() {
         await this.updateMappings();
-        this.platforms = await (await fetch('Home/GetEnum?enumName=Platform')).json();
+        this.platforms = await (await fetch('/Home/GetEnum?enumName=Platform')).json();
     },
     methods: {
         async updateMappings() {

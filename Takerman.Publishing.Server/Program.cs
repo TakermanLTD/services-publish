@@ -37,6 +37,7 @@ builder.Services.AddTransient<ISellingService, SellingService>();
 builder.Services.AddTransient<IShortService, ShortService>();
 builder.Services.AddTransient<ITweetService, TweetService>();
 builder.Services.AddTransient<IVideoService, VideoService>();
+builder.Services.AddTransient<IPlatformLinksService, PlatformLinksService>();
 builder.Services.AddTransient<IContextInitializer, ContextInitializer>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

@@ -1,9 +1,13 @@
 ﻿using Newtonsoft.Json;
+using Takerman.Publishing.Data.Entities;
 
 namespace Takerman.Publishing.Data.DTOs
 {
     public class ProjectPlatformDto
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
         [JsonProperty("project")]
         public Project Project { get; set; }
 

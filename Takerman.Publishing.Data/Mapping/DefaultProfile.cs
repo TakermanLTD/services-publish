@@ -8,6 +8,7 @@ namespace Takerman.Publishing.Data.Mapping
     {
         public DefaultProfile()
         {
+            CreateMap<PlatformLink, PlatformLinkDto>();
             CreateMap<ProjectPlatform, ProjectPlatformDto>();
             CreateMap<PublicationBlogpost, PublicationBlogpostDto>();
             CreateMap<PublicationPicture, PublicationPictureDto>();
@@ -16,6 +17,7 @@ namespace Takerman.Publishing.Data.Mapping
             CreateMap<PublicationTweet, PublicationTweetDto>();
             CreateMap<PublicationVideo, PublicationVideoDto>();
 
+            CreateMap<PlatformLinkDto, PlatformLink>();
             CreateMap<ProjectPlatformDto, ProjectPlatform>();
             CreateMap<PublicationBlogpostDto, PublicationBlogpost>();
             CreateMap<PublicationPictureDto, PublicationPicture>();

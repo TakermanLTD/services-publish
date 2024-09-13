@@ -19,7 +19,7 @@
 	<PublicationTweet v-else-if="selectedPostType == 4" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 	<PublicationSelling v-else-if="selectedPostType == 5" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 	<PublicationPicture v-else-if="selectedPostType == 6" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
-	<Platforms :project="Number(selectedProject)" :projects="projects" :postTypes="postTypes" :postType="Number(selectedPostType)" />
+	<Platforms :project="Number(selectedProject)" :postType="Number(selectedPostType)" :projects="projects" :postTypes="postTypes" />
 </template>
 
 <script lang="js">
