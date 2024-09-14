@@ -36,7 +36,7 @@
                 <div class="accordion-body">
                     <div class="form-group">
                         <label for="postDescription">Content</label>
-                        <textarea id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></textarea>
+                        <editor api-key="u43iacolfm6l254nstw823zqhc7402lhndz1s3fd9tac7u51" id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></editor>
                     </div>
                     <div class="form-group">
                         <button @click="publish" class="btn btn-success text-center">Publish</button>
@@ -47,12 +47,16 @@
     </div>
 </template>
 <script lang="js">
+import Editor from '@tinymce/tinymce-vue';
 export default {
     data() {
         return {
             postDescription: '',
             publications: []
         }
+    },
+    components: {
+        editor: Editor
     },
     methods: {
         async refresh() {

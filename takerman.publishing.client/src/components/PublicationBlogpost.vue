@@ -43,7 +43,7 @@
                     <br />
                     <div class="form-group">
                         <label for="postDescription">Content</label>
-                        <textarea id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></textarea>
+                        <editor api-key="u43iacolfm6l254nstw823zqhc7402lhndz1s3fd9tac7u51" id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></editor>
                     </div>
                     <div class="form-group">
                         <button @click="publish" class="btn btn-success text-center">Publish</button>
@@ -54,7 +54,7 @@
     </div>
 </template>
 <script lang="js">
-
+import Editor from '@tinymce/tinymce-vue';
 export default {
     data() {
         return {
@@ -63,12 +63,20 @@ export default {
             publications: []
         }
     },
+    components: {
+        editor: Editor
+    },
     methods: {
         async refresh() {
             this.publications = await (await fetch('Blog/GetAll?project=' + this.project)).json();
         },
         async mounted() {
             await this.refresh();
+            tinymce.init({
+                selector: 'textarea',  // change this value according to your HTML
+                skin: 'oxide-dark',
+                content_css: 'dark'
+            });
         },
         async publish() {
             let platforms = [];
