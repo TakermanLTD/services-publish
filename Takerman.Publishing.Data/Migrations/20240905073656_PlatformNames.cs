@@ -8,6 +8,43 @@ namespace Takerman.Publishing.Data.Migrations
     public partial class PlatformNames : Migration
     {
         /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_PostTypes_Projects_ProjectId",
+                table: "PostTypes");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
+
+            migrationBuilder.DropIndex(
+                name: "IX_PostTypes_ProjectId",
+                table: "PostTypes");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectId",
+                table: "PostTypes");
+
+            migrationBuilder.DropColumn(
+                name: "Platform",
+                table: "PlatformConfigs");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "PostTypes",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "PlatformConfigs",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+        }
+
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
@@ -57,43 +94,6 @@ namespace Takerman.Publishing.Data.Migrations
                 principalTable: "Projects",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_PostTypes_Projects_ProjectId",
-                table: "PostTypes");
-
-            migrationBuilder.DropTable(
-                name: "Projects");
-
-            migrationBuilder.DropIndex(
-                name: "IX_PostTypes_ProjectId",
-                table: "PostTypes");
-
-            migrationBuilder.DropColumn(
-                name: "ProjectId",
-                table: "PostTypes");
-
-            migrationBuilder.DropColumn(
-                name: "Platform",
-                table: "PlatformConfigs");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "PostTypes",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "PlatformConfigs",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Takerman.Publishing.Data.DTOs;
-using Takerman.Publishing.Services;
 using Takerman.Publishing.Services.Abstraction;
 using Takerman.Publishing.Tests.TestData;
 using Xunit.Abstractions;
@@ -10,15 +9,15 @@ namespace Takerman.Publishing.Tests.Integration
 {
     public class PublicationsTests : TestBed<TestFixture>
     {
-        private readonly IProjectsService _projectsService;
         private readonly IBlogService _blogService;
+        private readonly IMapper _mapper;
         private readonly IPictureService _pictureService;
+        private readonly IProjectsService _projectsService;
         private readonly ISellingService _sellingService;
         private readonly IShortService _shortService;
+        private readonly PublicationsTestData _testData;
         private readonly ITweetService _tweetService;
         private readonly IVideoService _videoService;
-        private readonly IMapper _mapper;
-        private readonly PublicationsTestData _testData;
 
         public PublicationsTests(ITestOutputHelper testOutputHelper, TestFixture fixture, IMapper mapper)
         : base(testOutputHelper, fixture)

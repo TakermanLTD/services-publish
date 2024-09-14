@@ -9,10 +9,10 @@ namespace Takerman.Publishing.Server.Controllers
     [Route("[controller]")]
     public class BlogController(IBlogService _blogService) : ControllerBase
     {
-        [HttpPost("Publish")]
-        public async Task<IActionResult> Publish(PublicationBlogpostDto model)
+        [HttpGet("Create")]
+        public async Task<IActionResult> Create(PublicationBlogpostDto model)
         {
-            return Ok(await _blogService.Publish(model));
+            return Ok(await _blogService.Create(model));
         }
 
         [HttpDelete("Delete")]
@@ -33,10 +33,10 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(await _blogService.GetAll(project));
         }
 
-        [HttpGet("Create")]
-        public async Task<IActionResult> Create(PublicationBlogpostDto model)
+        [HttpPost("Publish")]
+        public async Task<IActionResult> Publish(PublicationBlogpostDto model)
         {
-            return Ok(await _blogService.Create(model));
+            return Ok(await _blogService.Publish(model));
         }
 
         [HttpGet("Update")]

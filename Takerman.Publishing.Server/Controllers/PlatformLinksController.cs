@@ -8,6 +8,12 @@ namespace Takerman.Publishing.Server.Controllers
     [Route("[controller]")]
     public class PlatformLinksController(IPlatformLinksService _platformLinksService) : ControllerBase
     {
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(PlatformLinkDto model)
+        {
+            return Ok(await _platformLinksService.Create(model));
+        }
+
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -24,12 +30,6 @@ namespace Takerman.Publishing.Server.Controllers
         public async Task<IActionResult> GetAll(Platform platform)
         {
             return Ok(await _platformLinksService.GetAll(platform));
-        }
-
-        [HttpPost("Create")]
-        public async Task<IActionResult> Create(PlatformLinkDto model)
-        {
-            return Ok(await _platformLinksService.Create(model));
         }
 
         [HttpPut("Update")]

@@ -33,7 +33,7 @@ namespace Takerman.Publishing.Services
         {
             var result = await _context.PublicationBlogposts
                 .Where(x => x.ProjectId == (int)project)
-                .OrderBy(x=>x.Id)
+                .OrderBy(x => x.Id)
                 .Select(x => _mapper.Map<PublicationBlogpostDto>(x))
                 .ToListAsync();
 

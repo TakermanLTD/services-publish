@@ -8,6 +8,34 @@ namespace Takerman.Publishing.Data.Migrations
     public partial class PublicationsProjectId : Migration
     {
         /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "ProjectId",
+                table: "PublicationVideos");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectId",
+                table: "PublicationTweets");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectId",
+                table: "PublicationShorts");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectId",
+                table: "PublicationSellings");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectId",
+                table: "PublicationPictures");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectId",
+                table: "PublicationBlogposts");
+        }
+
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
@@ -51,34 +79,6 @@ namespace Takerman.Publishing.Data.Migrations
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "ProjectId",
-                table: "PublicationVideos");
-
-            migrationBuilder.DropColumn(
-                name: "ProjectId",
-                table: "PublicationTweets");
-
-            migrationBuilder.DropColumn(
-                name: "ProjectId",
-                table: "PublicationShorts");
-
-            migrationBuilder.DropColumn(
-                name: "ProjectId",
-                table: "PublicationSellings");
-
-            migrationBuilder.DropColumn(
-                name: "ProjectId",
-                table: "PublicationPictures");
-
-            migrationBuilder.DropColumn(
-                name: "ProjectId",
-                table: "PublicationBlogposts");
         }
     }
 }

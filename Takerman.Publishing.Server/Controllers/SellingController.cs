@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.DTOs;
 using Takerman.Publishing.Data.Entities;
-using Takerman.Publishing.Services;
 using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
@@ -10,10 +9,10 @@ namespace Takerman.Publishing.Server.Controllers
     [Route("[controller]")]
     public class SellingController(ISellingService _sellingService) : ControllerBase
     {
-        [HttpPost("Publish")]
-        public async Task<IActionResult> Publish(PublicationSellingDto model)
+        [HttpGet("Create")]
+        public async Task<IActionResult> Create(PublicationSellingDto model)
         {
-            return Ok(await _sellingService.Publish(model));
+            return Ok(await _sellingService.Create(model));
         }
 
         [HttpDelete("Delete")]
@@ -34,10 +33,10 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(await _sellingService.GetAll(project));
         }
 
-        [HttpGet("Create")]
-        public async Task<IActionResult> Create(PublicationSellingDto model)
+        [HttpPost("Publish")]
+        public async Task<IActionResult> Publish(PublicationSellingDto model)
         {
-            return Ok(await _sellingService.Create(model));
+            return Ok(await _sellingService.Publish(model));
         }
 
         [HttpGet("Update")]

@@ -40,6 +40,21 @@ namespace Takerman.Publishing.Services
             return result;
         }
 
+        public async Task<Dictionary<Platform, IEnumerable<PlatformLinkDto>>> GetPlatformsWithLinks()
+        {
+            var result = new Dictionary<Platform, IEnumerable<PlatformLinkDto>>();
+
+            var platforms = "Platform".GetEnumMembers();
+            foreach (var platform in platforms)
+            {
+                var platformEnum = (Platform)platform.Key;
+                var links = await GetAll(platformEnum);
+                result.Add(platformEnum, links);
+            }
+
+            return result;
+        }
+
         public async Task<PlatformLinkDto> Update(PlatformLink platformLinks)
         {
             var result = _context.PlatformLinks.Update(platformLinks);

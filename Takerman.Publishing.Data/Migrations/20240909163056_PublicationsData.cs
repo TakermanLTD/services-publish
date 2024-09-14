@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -8,6 +7,28 @@ namespace Takerman.Publishing.Data.Migrations
     /// <inheritdoc />
     public partial class PublicationsData : Migration
     {
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "PublicationBlogposts");
+
+            migrationBuilder.DropTable(
+                name: "PublicationPictures");
+
+            migrationBuilder.DropTable(
+                name: "PublicationSellings");
+
+            migrationBuilder.DropTable(
+                name: "PublicationShorts");
+
+            migrationBuilder.DropTable(
+                name: "PublicationTweets");
+
+            migrationBuilder.DropTable(
+                name: "PublicationVideos");
+        }
+
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -121,28 +142,6 @@ namespace Takerman.Publishing.Data.Migrations
                 {
                     table.PrimaryKey("PK_PublicationVideos", x => x.Id);
                 });
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "PublicationBlogposts");
-
-            migrationBuilder.DropTable(
-                name: "PublicationPictures");
-
-            migrationBuilder.DropTable(
-                name: "PublicationSellings");
-
-            migrationBuilder.DropTable(
-                name: "PublicationShorts");
-
-            migrationBuilder.DropTable(
-                name: "PublicationTweets");
-
-            migrationBuilder.DropTable(
-                name: "PublicationVideos");
         }
     }
 }

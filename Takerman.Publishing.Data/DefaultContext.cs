@@ -6,6 +6,7 @@ namespace Takerman.Publishing.Data
 {
     public class DefaultContext(DbContextOptions options) : DbContext(options)
     {
+        public DbSet<PlatformLink> PlatformLinks { get; set; }
         public DbSet<ProjectPlatform> ProjectPlatforms { get; set; }
 
         public DbSet<PublicationBlogpost> PublicationBlogposts { get; set; }
@@ -19,8 +20,6 @@ namespace Takerman.Publishing.Data
         public DbSet<PublicationTweet> PublicationTweets { get; set; }
 
         public DbSet<PublicationVideo> PublicationVideos { get; set; }
-
-        public DbSet<PlatformLink> PlatformLinks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

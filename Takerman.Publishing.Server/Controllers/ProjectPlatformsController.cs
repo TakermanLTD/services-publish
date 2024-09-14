@@ -11,14 +11,6 @@ namespace Takerman.Publishing.Server.Controllers
     {
         private readonly IProjectsService _projectsService = projectsService;
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(Project project, PostType postType)
-        {
-            var platforms = await _projectsService.GetPlatforms(project, postType);
-
-            return Ok(platforms);
-        }
-
         [HttpPost("Add")]
         public async Task<IActionResult> Add(ProjectPlatformDto model)
         {
@@ -29,6 +21,14 @@ namespace Takerman.Publishing.Server.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await _projectsService.DeleteProjectPlatform(id));
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll(Project project, PostType postType)
+        {
+            var platforms = await _projectsService.GetPlatforms(project, postType);
+
+            return Ok(platforms);
         }
 
         [HttpPut("UpdateAll")]

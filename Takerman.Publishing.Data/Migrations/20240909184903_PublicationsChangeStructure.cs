@@ -8,34 +8,6 @@ namespace Takerman.Publishing.Data.Migrations
     public partial class PublicationsChangeStructure : Migration
     {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Type",
-                table: "PublicationVideos");
-
-            migrationBuilder.DropColumn(
-                name: "Type",
-                table: "PublicationTweets");
-
-            migrationBuilder.DropColumn(
-                name: "Type",
-                table: "PublicationShorts");
-
-            migrationBuilder.DropColumn(
-                name: "Type",
-                table: "PublicationSellings");
-
-            migrationBuilder.DropColumn(
-                name: "Type",
-                table: "PublicationPictures");
-
-            migrationBuilder.DropColumn(
-                name: "Type",
-                table: "PublicationBlogposts");
-        }
-
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
@@ -79,6 +51,34 @@ namespace Takerman.Publishing.Data.Migrations
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
+        }
+
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "Type",
+                table: "PublicationVideos");
+
+            migrationBuilder.DropColumn(
+                name: "Type",
+                table: "PublicationTweets");
+
+            migrationBuilder.DropColumn(
+                name: "Type",
+                table: "PublicationShorts");
+
+            migrationBuilder.DropColumn(
+                name: "Type",
+                table: "PublicationSellings");
+
+            migrationBuilder.DropColumn(
+                name: "Type",
+                table: "PublicationPictures");
+
+            migrationBuilder.DropColumn(
+                name: "Type",
+                table: "PublicationBlogposts");
         }
     }
 }

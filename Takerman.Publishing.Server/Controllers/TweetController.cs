@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.DTOs;
 using Takerman.Publishing.Data.Entities;
-using Takerman.Publishing.Services;
 using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
@@ -10,10 +9,10 @@ namespace Takerman.Publishing.Server.Controllers
     [Route("[controller]")]
     public class TweetController(ITweetService _tweetService) : ControllerBase
     {
-        [HttpPost("Publish")]
-        public async Task<IActionResult> Publish(PublicationTweetDto model)
+        [HttpGet("Create")]
+        public async Task<IActionResult> Create(PublicationTweetDto model)
         {
-            return Ok(await _tweetService.Publish(model));
+            return Ok(await _tweetService.Create(model));
         }
 
         [HttpDelete("Delete")]
@@ -34,10 +33,10 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(await _tweetService.GetAll(project));
         }
 
-        [HttpGet("Create")]
-        public async Task<IActionResult> Create(PublicationTweetDto model)
+        [HttpPost("Publish")]
+        public async Task<IActionResult> Publish(PublicationTweetDto model)
         {
-            return Ok(await _tweetService.Create(model));
+            return Ok(await _tweetService.Publish(model));
         }
 
         [HttpGet("Update")]

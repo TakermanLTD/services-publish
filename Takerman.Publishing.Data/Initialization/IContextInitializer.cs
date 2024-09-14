@@ -1,5 +1,4 @@
-﻿
-namespace Takerman.Publishing.Data.Initialization
+﻿namespace Takerman.Publishing.Data.Initialization
 {
     public interface IContextInitializer
     {

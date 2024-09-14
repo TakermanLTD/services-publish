@@ -4,9 +4,9 @@
     {
         public virtual int Id { get; set; }
 
-        public Platform Platform { get; set; }
-
         public string Name { get; set; } = string.Empty;
+
+        public Platform Platform { get; set; }
 
         public string Url { get; set; } = string.Empty;
     }

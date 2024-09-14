@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Takerman.Publishing.Common\Takerman.Publishing.Common.csproj" />
     <ProjectReference Include="..\Takerman.Publishing.Data\Takerman.Publishing.Data.csproj" />
   </ItemGroup>
 

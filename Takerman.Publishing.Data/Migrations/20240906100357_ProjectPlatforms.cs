@@ -8,47 +8,6 @@ namespace Takerman.Publishing.Data.Migrations
     public partial class ProjectPlatforms : Migration
     {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProjectPlatforms_PlatformsData_PlatformDataId",
-                table: "ProjectPlatforms");
-
-            migrationBuilder.DropTable(
-                name: "PlatformsData");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ProjectPlatforms_PlatformDataId",
-                table: "ProjectPlatforms");
-
-            migrationBuilder.RenameColumn(
-                name: "PlatformDataId",
-                table: "ProjectPlatforms",
-                newName: "Platform");
-
-            migrationBuilder.AddColumn<string>(
-                name: "ClientId",
-                table: "ProjectPlatforms",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "ClientSecret",
-                table: "ProjectPlatforms",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "ClientUrl",
-                table: "ProjectPlatforms",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-        }
-
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
@@ -97,6 +56,47 @@ namespace Takerman.Publishing.Data.Migrations
                 principalTable: "PlatformsData",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
+        }
+
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_ProjectPlatforms_PlatformsData_PlatformDataId",
+                table: "ProjectPlatforms");
+
+            migrationBuilder.DropTable(
+                name: "PlatformsData");
+
+            migrationBuilder.DropIndex(
+                name: "IX_ProjectPlatforms_PlatformDataId",
+                table: "ProjectPlatforms");
+
+            migrationBuilder.RenameColumn(
+                name: "PlatformDataId",
+                table: "ProjectPlatforms",
+                newName: "Platform");
+
+            migrationBuilder.AddColumn<string>(
+                name: "ClientId",
+                table: "ProjectPlatforms",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "ClientSecret",
+                table: "ProjectPlatforms",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "ClientUrl",
+                table: "ProjectPlatforms",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
         }
     }
 }

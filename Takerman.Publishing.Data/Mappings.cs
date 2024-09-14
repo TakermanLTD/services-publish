@@ -2,11 +2,11 @@
 using Takerman.Publishing.Data.DTOs;
 using Takerman.Publishing.Data.Entities;
 
-namespace Takerman.Publishing.Data.Mapping
+namespace Takerman.Publishing.Common
 {
-    public class DefaultProfile : Profile
+    public class Mappings : Profile
     {
-        public DefaultProfile()
+        public Mappings()
         {
             CreateMap<PlatformLink, PlatformLinkDto>();
             CreateMap<ProjectPlatform, ProjectPlatformDto>();

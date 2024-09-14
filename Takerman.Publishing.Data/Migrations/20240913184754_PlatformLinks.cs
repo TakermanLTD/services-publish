@@ -8,6 +8,13 @@ namespace Takerman.Publishing.Data.Migrations
     public partial class PlatformLinks : Migration
     {
         /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "PlatformLinks");
+        }
+
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -24,13 +31,6 @@ namespace Takerman.Publishing.Data.Migrations
                 {
                     table.PrimaryKey("PK_PlatformLinks", x => x.Id);
                 });
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "PlatformLinks");
         }
     }
 }

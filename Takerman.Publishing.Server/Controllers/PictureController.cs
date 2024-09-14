@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.DTOs;
 using Takerman.Publishing.Data.Entities;
-using Takerman.Publishing.Services;
 using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
@@ -10,10 +9,10 @@ namespace Takerman.Publishing.Server.Controllers
     [Route("[controller]")]
     public class PictureController(IPictureService _pictureService) : ControllerBase
     {
-        [HttpPost("Publish")]
-        public async Task<IActionResult> Publish(PublicationPictureDto model)
+        [HttpGet("Create")]
+        public async Task<IActionResult> Create(PublicationPictureDto model)
         {
-            return Ok(await _pictureService.Publish(model));
+            return Ok(await _pictureService.Create(model));
         }
 
         [HttpDelete("Delete")]
@@ -34,10 +33,10 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(await _pictureService.GetAll(project));
         }
 
-        [HttpGet("Create")]
-        public async Task<IActionResult> Create(PublicationPictureDto model)
+        [HttpPost("Publish")]
+        public async Task<IActionResult> Publish(PublicationPictureDto model)
         {
-            return Ok(await _pictureService.Create(model));
+            return Ok(await _pictureService.Publish(model));
         }
 
         [HttpGet("Update")]

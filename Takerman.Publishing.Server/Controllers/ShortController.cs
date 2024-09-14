@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.DTOs;
 using Takerman.Publishing.Data.Entities;
-using Takerman.Publishing.Services;
 using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
@@ -10,10 +9,10 @@ namespace Takerman.Publishing.Server.Controllers
     [Route("[controller]")]
     public class ShortController(IShortService _shortService) : ControllerBase
     {
-        [HttpPost("Publish")]
-        public async Task<IActionResult> Publish(PublicationShortDto model)
+        [HttpGet("Create")]
+        public async Task<IActionResult> Create(PublicationShortDto model)
         {
-            return Ok(await _shortService.Publish(model));
+            return Ok(await _shortService.Create(model));
         }
 
         [HttpDelete("Delete")]
@@ -34,10 +33,10 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(await _shortService.GetAll(project));
         }
 
-        [HttpGet("Create")]
-        public async Task<IActionResult> Create(PublicationShortDto model)
+        [HttpPost("Publish")]
+        public async Task<IActionResult> Publish(PublicationShortDto model)
         {
-            return Ok(await _shortService.Create(model));
+            return Ok(await _shortService.Publish(model));
         }
 
         [HttpGet("Update")]

@@ -8,6 +8,16 @@ namespace Takerman.Publishing.Data.Migrations
     public partial class Initialization : Migration
     {
         /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "PostTypes");
+
+            migrationBuilder.DropTable(
+                name: "PlatformConfigs");
+        }
+
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -52,16 +62,6 @@ namespace Takerman.Publishing.Data.Migrations
                 name: "IX_PostTypes_PlatformConfigDataId",
                 table: "PostTypes",
                 column: "PlatformConfigDataId");
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "PostTypes");
-
-            migrationBuilder.DropTable(
-                name: "PlatformConfigs");
         }
     }
 }

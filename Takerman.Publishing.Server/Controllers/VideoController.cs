@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.DTOs;
 using Takerman.Publishing.Data.Entities;
-using Takerman.Publishing.Services;
 using Takerman.Publishing.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
@@ -10,10 +9,10 @@ namespace Takerman.Publishing.Server.Controllers
     [Route("[controller]")]
     public class VideoController(IVideoService _videoService) : ControllerBase
     {
-        [HttpPost("Publish")]
-        public async Task<IActionResult> Publish(PublicationVideoDto model)
+        [HttpGet("Create")]
+        public async Task<IActionResult> Create(PublicationVideoDto model)
         {
-            return Ok(await _videoService.Publish(model));
+            return Ok(await _videoService.Create(model));
         }
 
         [HttpDelete("Delete")]
@@ -34,10 +33,10 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(await _videoService.GetAll(project));
         }
 
-        [HttpGet("Create")]
-        public async Task<IActionResult> Create(PublicationVideoDto model)
+        [HttpPost("Publish")]
+        public async Task<IActionResult> Publish(PublicationVideoDto model)
         {
-            return Ok(await _videoService.Create(model));
+            return Ok(await _videoService.Publish(model));
         }
 
         [HttpGet("Update")]

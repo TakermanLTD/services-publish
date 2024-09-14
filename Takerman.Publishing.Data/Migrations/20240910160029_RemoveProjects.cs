@@ -8,26 +8,6 @@ namespace Takerman.Publishing.Data.Migrations
     public partial class RemoveProjects : Migration
     {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProjectPlatforms_Projects_ProjectId",
-                table: "ProjectPlatforms");
-
-            migrationBuilder.DropTable(
-                name: "Projects");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ProjectPlatforms_ProjectId",
-                table: "ProjectPlatforms");
-
-            migrationBuilder.RenameColumn(
-                name: "ProjectId",
-                table: "ProjectPlatforms",
-                newName: "Project");
-        }
-
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
@@ -60,6 +40,26 @@ namespace Takerman.Publishing.Data.Migrations
                 principalTable: "Projects",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
+        }
+
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_ProjectPlatforms_Projects_ProjectId",
+                table: "ProjectPlatforms");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
+
+            migrationBuilder.DropIndex(
+                name: "IX_ProjectPlatforms_ProjectId",
+                table: "ProjectPlatforms");
+
+            migrationBuilder.RenameColumn(
+                name: "ProjectId",
+                table: "ProjectPlatforms",
+                newName: "Project");
         }
     }
 }
