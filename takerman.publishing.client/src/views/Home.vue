@@ -2,12 +2,12 @@
 	<h2 class="text-center page-heading">PUBLISH</h2>
 	<div class="row">
 		<div class="col">
-			<select v-model="selectedProject" class="form-control" id="ddlProject">
+			<select v-model="selectedProject" class="form-select" id="ddlProject">
 				<option v-for="(project, index) in projects" :key="index" :value="index">{{ project }}</option>
 			</select>
 		</div>
 		<div class="col">
-			<select v-model="selectedPostType" class="form-control" id="ddlPostType">
+			<select v-model="selectedPostType" class="form-select" id="ddlPostType">
 				<option v-for="(postType, index) in postTypes" :key="index" :value="index">{{ postType }}</option>
 			</select>
 		</div>

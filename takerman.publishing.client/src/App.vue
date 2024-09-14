@@ -3,7 +3,7 @@
     <div class="row">
       <Header />
     </div>
-    <div class="row">
+    <div style="width: 90%; margin-left: auto; margin-right: auto;" class="row">
       <router-view></router-view>
     </div>
     <div class="row">

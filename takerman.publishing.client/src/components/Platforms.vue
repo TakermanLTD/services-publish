@@ -12,18 +12,18 @@
             <tr>
                 <th scope="row"></th>
                 <th>
-                    <select v-model="platform">
+                    <select class="form-select" v-model="platform">
                         <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
                     </select>
                 </th>
                 <th>
-                    <input type="text" v-model="clientUrl">
+                    <input class="form-control" ype="text" v-model="clientUrl">
                 </th>
                 <th>
-                    <input type="text" v-model="clientId">
+                    <input class="form-control" type="text" v-model="clientId">
                 </th>
                 <th>
-                    <input type="text" v-model="clientSecret">
+                    <input class="form-control" type="text" v-model="clientSecret">
                 </th>
                 <th>
                     Apps
@@ -40,18 +40,18 @@
             <tr :id="'mappings_' + mapping.id" v-for="(mapping, index) in mappings">
                 <td scope="row">{{ mapping.id }}</td>
                 <td>
-                    <select :value="Number(mapping.platform)">
+                    <select class="form-select" :value="Number(mapping.platform)">
                         <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
                     </select>
                 </td>
                 <td>
-                    <input type="text" v-model="mapping.clientUrl">
+                    <input class="form-control" type="text" v-model="mapping.clientUrl">
                 </td>
                 <td>
-                    <input type="text" v-model="mapping.clientId">
+                    <input class="form-control" type="text" v-model="mapping.clientId">
                 </td>
                 <td>
-                    <input type="text" v-model="mapping.clientSecret">
+                    <input class="form-control" type="text" v-model="mapping.clientSecret">
                 </td>
                 <td>
                     <div v-if="mapping.platformLinks && mapping.platformLinks.length > 0" v-for="(link, index) in mapping.platformLinks" :key="index">
