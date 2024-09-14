@@ -1,25 +1,25 @@
 <template>
 	<h2 class="text-center page-heading">PUBLISH</h2>
-	<div class="row">
-		<div class="col">
-			<select v-model="selectedProject" class="form-select" id="ddlProject">
-				<option v-for="(project, index) in projects" :key="index" :value="index">{{ project }}</option>
-			</select>
-		</div>
-		<div class="col">
-			<select v-model="selectedPostType" class="form-select" id="ddlPostType">
-				<option v-for="(postType, index) in postTypes" :key="index" :value="index">{{ postType }}</option>
-			</select>
-		</div>
+	<div class="col">
+		<label class="form-label text-center" for="ddlProject">Project</label>
+		<select v-model="selectedProject" class="form-select" id="ddlProject">
+			<option v-for="(project, index) in projects" :key="index" :value="index">{{ project }}</option>
+		</select>
+	</div>
+	<div class="col">
+		<label class="form-label text-center" for="ddlPostType">Post Type</label>
+		<select v-model="selectedPostType" class="form-select" id="ddlPostType">
+			<option v-for="(postType, index) in postTypes" :key="index" :value="index">{{ postType }}</option>
+		</select>
 	</div>
 	<br />
+	<Platforms :project="Number(selectedProject)" :postType="Number(selectedPostType)" :projects="projects" :postTypes="postTypes" />
 	<PublicationVideo v-if="selectedPostType == 1" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 	<PublicationShort v-else-if="selectedPostType == 2" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 	<PublicationBlogpost v-else-if="selectedPostType == 3" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 	<PublicationTweet v-else-if="selectedPostType == 4" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 	<PublicationSelling v-else-if="selectedPostType == 5" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 	<PublicationPicture v-else-if="selectedPostType == 6" :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
-	<Platforms :project="Number(selectedProject)" :postType="Number(selectedPostType)" :projects="projects" :postTypes="postTypes" />
 </template>
 
 <script lang="js">

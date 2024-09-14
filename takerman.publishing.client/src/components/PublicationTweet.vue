@@ -1,30 +1,49 @@
 <template>
-    <div class="publication">
-        <div class="form-group">
-            <label for="postDescription">Content</label>
-            <textarea id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></textarea>
+    <div class="accordion" id="accordionTweet">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="accordeonTweet">
+                <button class="accordion-button text-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTweet" aria-expanded="false" aria-controls="collapseTweet">
+                    Publications
+                </button>
+            </h2>
+            <div id="collapseTweet" class="accordion-collapse collapse" aria-labelledby="accordeonTweet" data-bs-parent="#accordionTweet">
+                <div class="accordion-body">
+                    <table class="table table-responsive">
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                        <tr v-for="(publication, index) in this.publications" :key="index">
+                            <td>{{ publication.id }}</td>
+                            <td>{{ publication.postDescription }}</td>
+                            <td>
+                                <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                                <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <button @click="publish" class="btn btn-success text-center">Publish</button>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="accordeonTweet">
+                <button class="accordion-button text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTweet" aria-expanded="true" aria-controls="collapseTweet">
+                    Post
+                </button>
+            </h2>
+            <div id="collapseTweet" class="accordion-collapse collapse show" aria-labelledby="accordeonTweet" data-bs-parent="#accordionTweet">
+                <div class="accordion-body">
+                    <div class="form-group">
+                        <label for="postDescription">Content</label>
+                        <textarea id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button @click="publish" class="btn btn-success text-center">Publish</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="publications">
-        <h3 class="text-center">Publications</h3>
-        <table class="table table-responsive">
-            <tr>
-                <th>ID</th>
-                <th>Description</th>
-                <th></th>
-            </tr>
-            <tr v-for="(publication, index) in this.publications" :key="index">
-                <td>{{ publication.id }}</td>
-                <td>{{ publication.postDescription }}</td>
-                <td>
-                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
-                </td>
-            </tr>
-        </table>
     </div>
 </template>
 <script lang="js">

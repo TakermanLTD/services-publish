@@ -1,36 +1,55 @@
 <template>
-    <div class="publication">
-        <div class="form-group">
-            <label for="postDescription">Description</label>
-            <textarea id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></textarea>
+    <div class="accordion" id="accordionShort">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="accordeonShort">
+                <button class="accordion-button text-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseShort" aria-expanded="false" aria-controls="collapseShort">
+                    Publications
+                </button>
+            </h2>
+            <div id="collapseShort" class="accordion-collapse collapse" aria-labelledby="accordeonShort" data-bs-parent="#accordionShort">
+                <div class="accordion-body">
+                    <table class="table table-responsive">
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Short</th>
+                            <th></th>
+                        </tr>
+                        <tr v-for="(publication, index) in this.publications" :key="index">
+                            <td>{{ publication.id }}</td>
+                            <td>{{ publication.postDescription }}</td>
+                            <td>{{ publication.postShort }}</td>
+                            <td>
+                                <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                                <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-        <br />
-        <div class="custom-file mt-3 mb-3">
-            <input type="file" class="custom-file-input form-control" id="short" style="border: 1px solid black" />
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="accordeonShort">
+                <button class="accordion-button text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseShort" aria-expanded="true" aria-controls="collapseShort">
+                    Post
+                </button>
+            </h2>
+            <div id="collapseShort" class="accordion-collapse collapse show" aria-labelledby="accordeonShort" data-bs-parent="#accordionShort">
+                <div class="accordion-body">
+                    <div class="form-group">
+                        <label for="postDescription">Description</label>
+                        <textarea id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></textarea>
+                    </div>
+                    <br />
+                    <div class="custom-file mt-3 mb-3">
+                        <input type="file" class="custom-file-input form-control" id="short" style="border: 1px solid black" />
+                    </div>
+                    <div class="form-group">
+                        <button @click="publish" class="btn btn-success text-center">Publish</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <button @click="publish" class="btn btn-success text-center">Publish</button>
-        </div>
-    </div>
-    <div class="publications">
-        <h3 class="text-center">Publications</h3>
-        <table class="table table-responsive">
-            <tr>
-                <th>ID</th>
-                <th>Description</th>
-                <th>Short</th>
-                <th></th>
-            </tr>
-            <tr v-for="(publication, index) in this.publications" :key="index">
-                <td>{{ publication.id }}</td>
-                <td>{{ publication.postDescription }}</td>
-                <td>{{ publication.postShort }}</td>
-                <td>
-                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
-                </td>
-            </tr>
-        </table>
     </div>
 </template>
 <script lang="js">
