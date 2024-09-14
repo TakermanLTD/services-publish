@@ -1,10 +1,15 @@
 <template>
-  <Header />
-  <div id="mainContainer" class="container">
-    <router-view></router-view>
+  <div id="mainContainer" class="container-fluid">
+    <div class="row">
+      <Header />
+    </div>
+    <div class="row">
+      <router-view></router-view>
+    </div>
+    <div class="row">
+      <Footer />
+    </div>
   </div>
-  <hr />
-  <Footer />
 </template>
 <script>
 import Header from "./components/Header.vue";

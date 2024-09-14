@@ -43,9 +43,12 @@ namespace Takerman.Publishing.Services
                 .Select(x => _mapper.Map<ProjectPlatformDto>(x))
                 .ToListAsync();
 
-            //foreach (var projectPlatform in result)
-            //    projectPlatform.Links = await _context.PlatformLinks.Where(x=>x.Platform == projectPlatform.Platform).ToListAsync();
-
+            foreach (var projectPlatform in result)
+            {
+                var links = await _context.PlatformLinks.Where(x => x.Platform == projectPlatform.Platform).ToListAsync();
+                foreach (var link in links)
+                    projectPlatform.PlatformLinks.Add(_mapper.Map<PlatformLinkDto>(link));
+            }
             return result;
         }
 

@@ -25,6 +25,9 @@ namespace Takerman.Publishing.Common
             CreateMap<PublicationShortDto, PublicationShort>();
             CreateMap<PublicationTweetDto, PublicationTweet>();
             CreateMap<PublicationVideoDto, PublicationVideo>();
+
+            AllowNullCollections = true;
+            AddGlobalIgnore("Item");
         }
     }
 }

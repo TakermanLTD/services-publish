@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
+using Takerman.Publishing.Data.Entities;
 
 namespace Takerman.Publishing.Data.DTOs
 {
     public class ProjectPlatformDto
     {
-        [JsonProperty("appsUrl")]
-        public string AppsUrl { get; set; } = string.Empty;
-
         [JsonProperty("clientId")]
         public string ClientId { get; set; } = string.Empty;
 
@@ -21,6 +19,9 @@ namespace Takerman.Publishing.Data.DTOs
 
         [JsonProperty("platform")]
         public Platform Platform { get; set; }
+
+        [JsonProperty("platformLinks")]
+        public List<PlatformLinkDto> PlatformLinks { get; set; } = [];
 
         [JsonProperty("postType")]
         public PostType PostType { get; set; }
