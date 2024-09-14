@@ -59,6 +59,11 @@ export default {
             platformLinks: []
         }
     },
+    watch: {
+        async selectedPlatform(newProject) {
+            await this.updateData();
+        }
+    },
     methods: {
         async updateData() {
             this.platformLinks = await (await fetch('/PlatformLinks/GetAll?platform=' + this.selectedPlatform)).json();

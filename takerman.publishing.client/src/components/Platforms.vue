@@ -54,7 +54,9 @@
                     <input type="text" v-model="mapping.clientSecret">
                 </td>
                 <td>
-                    <a v-if="mapping.platformLinks && mapping.platformLinks.length > 0" v-for="(link, index) in mapping.platformLinks" :key="index" :href="link.url" target="_blank">{{ link.name }}</a>
+                    <div v-if="mapping.platformLinks && mapping.platformLinks.length > 0" v-for="(link, index) in mapping.platformLinks" :key="index">
+                        <a :href="link.url" target="_blank">{{ link.name }}</a>
+                    </div>
                 </td>
                 <td>
                     <input type="checkbox" class="form-check-input platform" name="platform" :value="index" checked>
