@@ -49,7 +49,7 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/Blog': {
+            '*': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
