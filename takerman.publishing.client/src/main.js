@@ -37,9 +37,7 @@ app.use(router)
         clientId: "K5sBFLilfvKNY2aOBYNSYoJnpgJqmvLd",
         authorizationParams: {
             redirect_uri: window.location.origin,
-        },
-        useRefreshTokens: true,
-        cacheLocation: 'localstorage'
+        }
     }))
     .component("font-awesome-icon", FontAwesomeIcon)
     .mount('#app');
