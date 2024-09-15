@@ -30,6 +30,7 @@ const router = createRouter({
     linkActiveClass: 'active',
     routes: [
         { path: '/', component: Home },
+        { path: '/login', component: Home },
         { path: '/dashboard', component: Dashboard, beforeEnter: createAuthGuard(app) },
         { path: '/admin/platform-links', component: AdminPlatformLinks, beforeEnter: createAuthGuard(app) },
         { path: "/profile", component: Profile, beforeEnter: createAuthGuard(app) },
