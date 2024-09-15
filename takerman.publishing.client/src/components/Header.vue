@@ -30,12 +30,12 @@
                     <li>
                         <div class="dropdown-header">{{ this.user.name }}</div>
                         <router-link to="/profile" class="dropdown-item">
-                            <font-awesome-icon class="mr-3" icon="user" />Profile
+                            Profile
                         </router-link>
                     </li>
                     <li>
-                        <a id="qsLogoutBtn" href="#" class="dropdown-item" @click.prevent="this.logout()">
-                            <font-awesome-icon class="mr-3" icon="power-off" />Log out
+                        <a href="#" class="dropdown-item" @click="logout()">
+                            Log out
                         </a>
                     </li>
                 </ul>
@@ -48,22 +48,22 @@ import { useAuth0 } from '@auth0/auth0-vue';
 
 export default {
     data() {
-        let auth0 = useAuth0();
         return {
-            isAuthenticated: auth0 ? auth0.isAuthenticated : false,
-            isLoading: auth0 ? auth0.isLoading : false,
-            user: auth0 ? auth0.user : null,
-            isOpen: false
+            auth0: null,
+            isAuthenticated: this.auth0.isAuthenticated,
+            isLoading: this.auth0.isLoading,
+            user: this.auth0.user
         }
+    },
+    beforeCreate() {
+        this.auth0 = useAuth0();
     },
     methods: {
         login() {
-            let auth0 = useAuth0();
-            auth0.loginWithRedirect();
+            this.auth0.loginWithRedirect();
         },
         logout() {
-            let auth0 = useAuth0();
-            auth0.logout({
+            this.auth0.logout({
                 logoutParams: {
                     returnTo: window.location.origin
                 }
