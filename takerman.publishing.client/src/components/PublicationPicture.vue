@@ -9,21 +9,23 @@
             <div id="collapsePicture" class="accordion-collapse collapse" aria-labelledby="accordeonPicture" data-bs-parent="#accordionPicture">
                 <div class="accordion-body">
                     <table class="table table-responsive">
-                        <tr>
-                            <th>ID</th>
-                            <th>Description</th>
-                            <th>Pictures</th>
-                            <th></th>
-                        </tr>
-                        <tr v-for="(publication, index) in this.publications" :key="index">
-                            <td>{{ publication.id }}</td>
-                            <td>{{ publication.postDescription }}</td>
-                            <td>{{ publication.postPictures }}</td>
-                            <td>
-                                <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-                                <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
-                            </td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th>Pictures</th>
+                                <th></th>
+                            </tr>
+                            <tr v-for="(publication, index) in this.publications" :key="index">
+                                <td>{{ publication.id }}</td>
+                                <td>{{ publication.postDescription }}</td>
+                                <td>{{ publication.postPictures }}</td>
+                                <td>
+                                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -37,16 +39,16 @@
             <div id="collapsePicture" class="accordion-collapse collapse show" aria-labelledby="accordeonPicture" data-bs-parent="#accordionPicture">
                 <div class="accordion-body">
                     <div class="form-group">
-            <label for="postDescription">Description</label>
-            <editor api-key="u43iacolfm6l254nstw823zqhc7402lhndz1s3fd9tac7u51" id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></editor>
-        </div>
-        <br />
-        <div class="custom-file mt-3 mb-3">
-            <input type="file" class="custom-file-input form-control" id="pictures" style="border: 1px solid black" />
-        </div>
-        <div class="form-group">
-            <button @click="publish" class="btn btn-success text-center">Publish</button>
-        </div>
+                        <label for="postDescription">Description</label>
+                        <editor api-key="u43iacolfm6l254nstw823zqhc7402lhndz1s3fd9tac7u51" id="postDescription" class="form-control" placeholder="Description" aria-describedby="postDescription" v-model="postDescription"></editor>
+                    </div>
+                    <br />
+                    <div class="custom-file mt-3 mb-3">
+                        <input type="file" class="custom-file-input form-control" id="pictures" style="border: 1px solid black" />
+                    </div>
+                    <div class="form-group">
+                        <button @click="publish" class="btn btn-success text-center">Publish</button>
+                    </div>
                 </div>
             </div>
         </div>

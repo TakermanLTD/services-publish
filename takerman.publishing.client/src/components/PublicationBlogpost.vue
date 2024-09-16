@@ -9,21 +9,23 @@
             <div id="collapseBlogpost" class="accordion-collapse collapse" aria-labelledby="accordeonBlogpost" data-bs-parent="#accordionBlogpost">
                 <div class="accordion-body">
                     <table class="table table-responsive text-center">
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Content</th>
-                            <th width="100px"></th>
-                        </tr>
-                        <tr v-for="(publication, index) in this.publications" :key="index">
-                            <td>{{ publication.id }}</td>
-                            <td>{{ publication.postName }}</td>
-                            <td>{{ publication.postDescription.substring(0, 80) }}</td>
-                            <td class="text-right" width="100px">
-                                <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-                                <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
-                            </td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Content</th>
+                                <th width="100px"></th>
+                            </tr>
+                            <tr v-for="(publication, index) in this.publications" :key="index">
+                                <td>{{ publication.id }}</td>
+                                <td>{{ publication.postName }}</td>
+                                <td>{{ publication.postDescription.substring(0, 80) }}</td>
+                                <td class="text-right" width="100px">
+                                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

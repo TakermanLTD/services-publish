@@ -9,27 +9,29 @@
             <div id="collapseSelling" class="accordion-collapse collapse" aria-labelledby="accordeonSelling" data-bs-parent="#accordionSelling">
                 <div class="accordion-body">
                     <table class="table table-responsive">
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Pictures</th>
-                            <th>Videos</th>
-                            <th></th>
-                        </tr>
-                        <tr v-for="(publication, index) in this.publications" :key="index">
-                            <td>{{ publication.id }}</td>
-                            <td>{{ publication.postName }}</td>
-                            <td>{{ publication.postDescription }}</td>
-                            <td>{{ publication.postPrice }}</td>
-                            <td>{{ publication.postPictures }}</td>
-                            <td>{{ publication.postVideos }}</td>
-                            <td>
-                                <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-                                <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
-                            </td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Pictures</th>
+                                <th>Videos</th>
+                                <th></th>
+                            </tr>
+                            <tr v-for="(publication, index) in this.publications" :key="index">
+                                <td>{{ publication.id }}</td>
+                                <td>{{ publication.postName }}</td>
+                                <td>{{ publication.postDescription }}</td>
+                                <td>{{ publication.postPrice }}</td>
+                                <td>{{ publication.postPictures }}</td>
+                                <td>{{ publication.postVideos }}</td>
+                                <td>
+                                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

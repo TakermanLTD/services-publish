@@ -9,19 +9,21 @@
             <div id="collapseTweet" class="accordion-collapse collapse" aria-labelledby="accordeonTweet" data-bs-parent="#accordionTweet">
                 <div class="accordion-body">
                     <table class="table table-responsive">
-                        <tr>
-                            <th>ID</th>
-                            <th>Description</th>
-                            <th></th>
-                        </tr>
-                        <tr v-for="(publication, index) in this.publications" :key="index">
-                            <td>{{ publication.id }}</td>
-                            <td>{{ publication.postDescription }}</td>
-                            <td>
-                                <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-                                <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
-                            </td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th></th>
+                            </tr>
+                            <tr v-for="(publication, index) in this.publications" :key="index">
+                                <td>{{ publication.id }}</td>
+                                <td>{{ publication.postDescription }}</td>
+                                <td>
+                                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
