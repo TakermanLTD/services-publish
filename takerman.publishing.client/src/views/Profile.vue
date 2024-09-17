@@ -17,13 +17,10 @@
 </template>
 
 <script lang="js">
-import { useAuth0 } from '@auth0/auth0-vue';
-
 export default {
   data() {
-    const auth0 = useAuth0();
     return {
-      user: auth0.user
+      user: this.$auth0.user
     }
   }
 }

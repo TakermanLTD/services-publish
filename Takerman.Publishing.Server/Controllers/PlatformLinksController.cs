@@ -1,15 +1,17 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.Entities;
-using Takerman.Publishing.Services.Abstraction;
+using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PlatformLinksController(IPlatformLinksService _platformLinksService) : ControllerBase
     {
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(PlatformLinkDto model)
+        public async Task<IActionResult> Create(PlatformLink model)
         {
             return Ok(await _platformLinksService.Create(model));
         }
@@ -27,9 +29,9 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(Platform platform)
+        public async Task<IActionResult> GetAll(int platformId)
         {
-            return Ok(await _platformLinksService.GetAll(platform));
+            return Ok(await _platformLinksService.GetAll(platformId));
         }
 
         [HttpPut("Update")]

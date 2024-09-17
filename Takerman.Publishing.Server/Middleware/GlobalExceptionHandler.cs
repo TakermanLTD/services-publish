@@ -15,7 +15,7 @@ namespace Takerman.Publishing.Server.Middleware
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "Server error",
-                Detail = "An exception occurred. Please send us an email with details to contact@sreshti.net"
+                Detail = "An exception occurred. Please send us an email with details to contact@takerman.net"
             };
 
             httpContext.Response.StatusCode = problemDetails.Status.Value;

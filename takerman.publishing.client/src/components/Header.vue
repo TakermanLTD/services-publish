@@ -44,26 +44,20 @@
     </nav>
 </template>
 <script lang="js">
-import { useAuth0 } from '@auth0/auth0-vue';
-
 export default {
     data() {
         return {
-            auth0: null,
-            isAuthenticated: this.auth0.isAuthenticated,
-            isLoading: this.auth0.isLoading,
-            user: this.auth0.user
+            isAuthenticated: this.$auth0.isAuthenticated,
+            isLoading: this.$auth0.isLoading,
+            user: this.$auth0.user
         }
-    },
-    beforeCreate() {
-        this.auth0 = useAuth0();
     },
     methods: {
         login() {
-            this.auth0.loginWithRedirect();
+            this.$auth0.loginWithRedirect();
         },
         logout() {
-            this.auth0.logout({
+            this.$auth0.logout({
                 logoutParams: {
                     returnTo: window.location.origin
                 }

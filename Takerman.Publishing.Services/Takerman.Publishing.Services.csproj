@@ -9,15 +9,15 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="AutoMapper.Collection.EntityFramework" Version="10.0.0" />
+    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.68.0.3539" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+    <PackageReference Include="SpotifyAPI.Web" Version="7.1.1" />
     <PackageReference Include="Takerman.AI" Version="1.0.3" />
     <PackageReference Include="Takerman.Notifications" Version="1.0.2" />
-    <PackageReference Include="Takerman.Publishing" Version="1.2.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Takerman.Publishing.Common\Takerman.Publishing.Common.csproj" />
     <ProjectReference Include="..\Takerman.Publishing.Data\Takerman.Publishing.Data.csproj" />
   </ItemGroup>
 

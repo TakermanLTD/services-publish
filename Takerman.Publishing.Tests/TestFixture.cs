@@ -6,8 +6,8 @@ using Takerman.Mail;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Initialization;
 using Takerman.Publishing.Server.Middleware;
-using Takerman.Publishing.Services;
-using Takerman.Publishing.Services.Abstraction;
+using Takerman.Publishing.Services.Services;
+using Takerman.Publishing.Services.Services.Abstraction;
 using Xunit.Microsoft.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
@@ -28,13 +28,13 @@ namespace Takerman.Publishing.Tests
                     b => b.MigrationsAssembly("Takerman.Publishing.Data")))
                 .AddTransient<DbContext, DefaultContext>()
                 .AddAutoMapper(Assembly.Load(_dataAssembly))
-                .AddTransient<IProjectsService, ProjectsService>()
-                .AddTransient<IBlogService, BlogService>()
-                .AddTransient<IPictureService, PictureService>()
-                .AddTransient<ISellingService, SellingService>()
-                .AddTransient<IShortService, ShortService>()
-                .AddTransient<ITweetService, TweetService>()
-                .AddTransient<IVideoService, VideoService>()
+                .AddTransient<IPlatformLinksService, PlatformLinksService>()
+                .AddTransient<IPlatformService, PlatformService>()
+                .AddTransient<IPostService, PostService>()
+                .AddTransient<IPostTypeService, PostTypeService>()
+                .AddTransient<IProjectPlatformRecordService, ProjectPlatformRecordService>()
+                .AddTransient<IProjectPlatformsService, ProjectPlatformsService>()
+                .AddTransient<IProjectService, ProjectService>()
                 .AddTransient<IContextInitializer, ContextInitializer>()
                 .AddExceptionHandler<BadRequestExceptionHandler>()
                 .AddExceptionHandler<GlobalExceptionHandler>()

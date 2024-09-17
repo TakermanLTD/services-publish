@@ -1,12 +1,16 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Reflection;
+using System.Security.Claims;
 using Takerman.Mail;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Initialization;
 using Takerman.Publishing.Server.Middleware;
-using Takerman.Publishing.Services;
-using Takerman.Publishing.Services.Abstraction;
+using Takerman.Publishing.Services.Services;
+using Takerman.Publishing.Services.Services.Abstraction;
 
 var builder = WebApplication.CreateBuilder(args);
 var dataAssembly = "Takerman.Publishing.Data";
@@ -21,6 +25,19 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder
+            .WithOrigins("https://localhost:5175")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+        });
+});
+
 builder.Host.UseSerilog(Log.Logger);
 builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
@@ -30,20 +47,38 @@ builder.Services.AddDbContext<DefaultContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly(dataAssembly)));
 builder.Services.AddTransient<DbContext, DefaultContext>();
-builder.Services.AddTransient<IProjectsService, ProjectsService>();
-builder.Services.AddTransient<IBlogService, BlogService>();
-builder.Services.AddTransient<IPictureService, PictureService>();
-builder.Services.AddTransient<ISellingService, SellingService>();
-builder.Services.AddTransient<IShortService, ShortService>();
-builder.Services.AddTransient<ITweetService, TweetService>();
-builder.Services.AddTransient<IVideoService, VideoService>();
 builder.Services.AddTransient<IPlatformLinksService, PlatformLinksService>();
+builder.Services.AddTransient<IPlatformService, PlatformService>();
+builder.Services.AddTransient<IPostService, PostService>();
+builder.Services.AddTransient<IPostTypeService, PostTypeService>();
+builder.Services.AddTransient<IProjectPlatformRecordService, ProjectPlatformRecordService>();
+builder.Services.AddTransient<IProjectPlatformsService, ProjectPlatformsService>();
+builder.Services.AddTransient<IProjectService, ProjectService>();
 builder.Services.AddTransient<IContextInitializer, ContextInitializer>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddAutoMapper(Assembly.Load(dataAssembly));
 builder.Services.Configure<RabbitMqConfig>(builder.Configuration.GetSection(nameof(RabbitMqConfig)));
 builder.Services.AddHttpClient();
+var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.Authority = domain;
+    options.Audience = builder.Configuration["Auth0:Audience"];
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = ClaimTypes.NameIdentifier
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
+});
+
+builder.Services.AddControllers();
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
 var app = builder.Build();
 app.UseDefaultFiles();
@@ -53,6 +88,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHsts();
+}
+else
+{
+    app.UseDeveloperExceptionPage();
 }
 
 using var scope = app.Services.CreateAsyncScope();
@@ -61,6 +101,8 @@ await scope.ServiceProvider.GetRequiredService<IContextInitializer>().Initialize
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseAuthentication();
+app.UseCors("AllowSpecificOrigin");
 app.Use(async (context, next) =>
 {
     // context.Response.Headers.Add("Content-Security-Policy", "default-src 'self';");

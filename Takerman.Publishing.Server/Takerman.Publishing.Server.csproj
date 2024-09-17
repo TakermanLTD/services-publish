@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.0.8</Version>
     </PackageReference>
@@ -27,14 +29,12 @@
 	  <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
 	  <PackageReference Include="Serilog.Sinks.Slack" Version="2.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
-    <PackageReference Include="Takerman.Publishing" Version="1.2.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\takerman.publishing.client\takerman.publishing.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\Takerman.Publishing.Common\Takerman.Publishing.Common.csproj" />
     <ProjectReference Include="..\Takerman.Publishing.Data\Takerman.Publishing.Data.csproj" />
     <ProjectReference Include="..\Takerman.Publishing.Services\Takerman.Publishing.Services.csproj" />
   </ItemGroup>

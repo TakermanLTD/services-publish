@@ -1,32 +1,33 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Takerman.Publishing.Data.DTOs;
 using Takerman.Publishing.Data.Entities;
-using Takerman.Publishing.Services.Abstraction;
+using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class ProjectPlatformsController(IProjectsService projectsService) : ControllerBase
+    public class ProjectPlatformsController(IProjectPlatformsService projectsService) : ControllerBase
     {
-        private readonly IProjectsService _projectsService = projectsService;
+        private readonly IProjectPlatformsService _projectsService = projectsService;
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add(ProjectPlatformDto model)
+        public async Task<IActionResult> Add(ProjectPlatform model)
         {
-            return Ok(await _projectsService.AddProjectPlatform(model));
+            return Ok(await _projectsService.Create(model));
         }
 
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _projectsService.DeleteProjectPlatform(id));
+            return Ok(await _projectsService.Delete(id));
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(Project project, PostType postType)
+        public async Task<IActionResult> GetAll(int projectId, int postTypeId)
         {
-            var platforms = await _projectsService.GetPlatforms(project, postType);
+            var platforms = await _projectsService.GetAll(projectId, postTypeId);
 
             return Ok(platforms);
         }
@@ -34,7 +35,7 @@ namespace Takerman.Publishing.Server.Controllers
         [HttpPut("UpdateAll")]
         public async Task<IActionResult> UpdateAll(IEnumerable<ProjectPlatform> model)
         {
-            return Ok(await _projectsService.UpdateProjectPlatforms(model));
+            return Ok(await _projectsService.Update(model));
         }
     }
 }
