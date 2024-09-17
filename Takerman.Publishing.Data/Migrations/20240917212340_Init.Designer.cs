@@ -12,7 +12,7 @@ using Takerman.Publishing.Data;
 namespace Takerman.Publishing.Data.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20240917211738_Init")]
+    [Migration("20240917212340_Init")]
     partial class Init
     {
         /// <inheritdoc />
