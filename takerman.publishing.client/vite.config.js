@@ -45,11 +45,23 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '*': {
+            '^/ProjectPlatforms': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/Picture': {
+            '^/PlatformLinks': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Platforms': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Post': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/PostTypes': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
@@ -57,23 +69,7 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/Selling': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/Short': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/Tweet': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/Video': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/PlatformLinks': {
+            '^/ProjectPlatformRecords': {
                 target: 'https://localhost:7023/',
                 secure: false
             },

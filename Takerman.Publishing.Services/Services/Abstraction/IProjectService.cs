@@ -6,7 +6,7 @@ namespace Takerman.Publishing.Services.Services.Abstraction
     {
         Task<Project> Get(int id);
 
-        Task<IEnumerable<Project>> GetAll();
+        Task<List<Project>> GetAll();
 
         Task<Project> Delete(int id);
 

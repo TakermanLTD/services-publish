@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Entities;
 using Takerman.Publishing.Services.Services.Abstraction;
@@ -29,9 +29,9 @@ namespace Takerman.Publishing.Services.Services
             return _context.Platforms.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Platform>> GetAll()
+        public Task<List<Platform>> GetAll()
         {
-            return await _context.Platforms.ToListAsync();
+            return _context.Platforms.Select(x => x).ToListAsync();
         }
 
         public async Task<Platform> Update(Platform platform)

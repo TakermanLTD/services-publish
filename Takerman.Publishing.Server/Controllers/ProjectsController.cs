@@ -5,7 +5,6 @@ using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ProjectsController(IProjectService _projectsService) : ControllerBase
@@ -31,7 +30,7 @@ namespace Takerman.Publishing.Server.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _projectsService.GetAll());
+            return Ok((await _projectsService.GetAll()).ToList());
         }
 
         [HttpPut("Update")]

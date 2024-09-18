@@ -18,7 +18,19 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarAdmin">
                     <li>
+                        <router-link to="/admin/platforms" class="dropdown-item">Platforms</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/admin/post-types" class="dropdown-item">Post Types</router-link>
+                    </li>
+                    <li>
                         <router-link to="/admin/platform-links" class="dropdown-item">Platform Links</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/admin/project-platforms" class="dropdown-item">Project Platforms</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/admin/project-platform-records" class="dropdown-item">Project Platform Records</router-link>
                     </li>
                 </ul>
             </li>

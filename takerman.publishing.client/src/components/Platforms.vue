@@ -94,8 +94,8 @@ export default {
         }
     },
     async mounted() {
-        await this.updateMappings();
-        this.platforms = await (await fetch('/Home/GetEnum?enumName=Platform')).json();
+        // await this.updateMappings();
+        this.platforms = await (await fetch('/Platforms/GetAll')).json();
     },
     methods: {
         async updateMappings() {

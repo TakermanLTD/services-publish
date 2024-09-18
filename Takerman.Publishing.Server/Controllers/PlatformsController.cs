@@ -5,7 +5,6 @@ using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PlatformsController(IPlatformLinksService _platformLinksService) : ControllerBase

@@ -14,6 +14,6 @@ namespace Takerman.Publishing.Services.Services.Abstraction
 
         Task<ProjectPlatform> Delete(int id);
 
-        Task<bool> Update(IEnumerable<ProjectPlatform> model);
+        Task<bool> Update(List<ProjectPlatform> model);
     }
 }

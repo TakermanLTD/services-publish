@@ -44,7 +44,7 @@ namespace Takerman.Publishing.Services.Services
             return result.Entity;
         }
 
-        public async Task<bool> Update(IEnumerable<ProjectPlatform> model)
+        public async Task<bool> Update(List<ProjectPlatform> model)
         {
             _context.ProjectPlatforms.UpdateRange(model);
             await _context.SaveChangesAsync();

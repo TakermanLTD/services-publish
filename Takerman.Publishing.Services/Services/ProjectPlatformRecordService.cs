@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Entities;
 using Takerman.Publishing.Services.Services.Abstraction;
@@ -29,12 +29,12 @@ namespace Takerman.Publishing.Services.Services
             return _context.ProjectPlatformRecords.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<ProjectPlatformRecord>> GetAll()
+        public async Task<List<ProjectPlatformRecord>> GetAll()
         {
             return await _context.ProjectPlatformRecords.ToListAsync();
         }
 
-        public async Task<IEnumerable<ProjectPlatformRecord>> GetAll(int projectPlatformId)
+        public async Task<List<ProjectPlatformRecord>> GetAll(int projectPlatformId)
         {
             return await _context.ProjectPlatformRecords.Where(x => x.ProjectPlatformId == projectPlatformId).ToListAsync();
         }

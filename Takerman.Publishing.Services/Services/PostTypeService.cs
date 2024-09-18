@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Entities;
 using Takerman.Publishing.Services.Services.Abstraction;
@@ -29,9 +29,9 @@ namespace Takerman.Publishing.Services.Services
             return _context.PostTypes.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<PostType>> GetAll()
+        public Task<List<PostType>> GetAll()
         {
-            return await _context.PostTypes.ToListAsync();
+            return _context.PostTypes.ToListAsync();
         }
 
         public async Task<PostType> Update(PostType PostType)

@@ -5,7 +5,6 @@ using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ProjectPlatformsController(IProjectPlatformsService projectsService) : ControllerBase
@@ -33,7 +32,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPut("UpdateAll")]
-        public async Task<IActionResult> UpdateAll(IEnumerable<ProjectPlatform> model)
+        public async Task<IActionResult> UpdateAll(List<ProjectPlatform> model)
         {
             return Ok(await _projectsService.Update(model));
         }
