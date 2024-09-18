@@ -45,10 +45,6 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/ProjectPlatforms': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
             '^/PlatformLinks': {
                 target: 'https://localhost:7023/',
                 secure: false
