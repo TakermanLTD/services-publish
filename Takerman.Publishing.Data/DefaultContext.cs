@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using System.Reflection.Emit;
-using System.Reflection.Metadata;
 using Takerman.Publishing.Data.Entities;
 
 namespace Takerman.Publishing.Data
@@ -70,29 +68,35 @@ namespace Takerman.Publishing.Data
                 new Project() { Name = "tanyoPersonal", Id = 5 }
             );
 
-            builder.Entity<PlatformLink>()
-                .Navigation(e => e.Platform)
+            builder.Entity<Platform>()
+                .HasMany(x => x.PlatformLinks);
+
+            builder.Entity<Platform>()
+                .Navigation(x => x.PlatformLinks)
                 .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<PlatformLink>()
+                .HasOne(x => x.Platform).WithMany().HasForeignKey(x => x.PlatformId);
 
             builder.Entity<Post>()
-                .Navigation(e => e.ProjectPlatform)
-                .UsePropertyAccessMode(PropertyAccessMode.Property);
+                .HasOne(x => x.ProjectPlatform).WithMany().HasForeignKey(x => x.ProjectPlatfromId);
 
             builder.Entity<ProjectPlatform>()
-                .Navigation(e => e.Platform)
-                .UsePropertyAccessMode(PropertyAccessMode.Property);
+                .HasOne(x => x.Platform).WithMany().HasForeignKey(x => x.PlatformId);
 
             builder.Entity<ProjectPlatform>()
-                .Navigation(e => e.PostType)
-                .UsePropertyAccessMode(PropertyAccessMode.Property);
+                .HasOne(x => x.PostType).WithMany().HasForeignKey(x => x.PostTypeId);
 
             builder.Entity<ProjectPlatform>()
-                .Navigation(e => e.Project)
+                .HasOne(x => x.Project).WithMany().HasForeignKey(x => x.ProjectId);
+
+            builder.Entity<ProjectPlatform>()
+                .Navigation(x => x.ProjectPlatformSecrets)
                 .UsePropertyAccessMode(PropertyAccessMode.Property);
 
             builder.Entity<ProjectPlatformSecrets>()
-                .Navigation(e => e.ProjectPlatform)
-                .UsePropertyAccessMode(PropertyAccessMode.Property);
+                .HasOne(x => x.ProjectPlatform).WithMany().HasForeignKey(x => x.ProjectPlatformId);
+
         }
     }
 }

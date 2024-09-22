@@ -24,5 +24,7 @@ namespace Takerman.Publishing.Data.Entities
         public int ProjectId { get; set; }
 
         public virtual Project Project { get; set; }
+
+        public ICollection<ProjectPlatformSecrets> ProjectPlatformSecrets { get; set; } = [];
     }
 }
