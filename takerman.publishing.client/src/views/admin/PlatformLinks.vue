@@ -9,7 +9,7 @@
                         <th></th>
                         <th colspan="3">
                             <label class="form-label text-center" for="ddlPlatform">Platform</label>
-                            <select v-model="selectedPlatform" class="form-select" id="ddlPlatform">
+                            <select @change="this.refresh()" v-model="selectedPlatform" class="form-select" id="ddlPlatform">
                                 <option v-for="(platform, index) in platforms" :key="index" :value="platform.id">{{ platform.name }}</option>
                             </select>
                         </th>
