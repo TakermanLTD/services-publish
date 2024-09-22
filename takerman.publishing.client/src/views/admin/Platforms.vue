@@ -58,8 +58,9 @@ export default {
             let newPlatform = await (await fetch('/Platforms/Create', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ Name: 'test' })
+                body: JSON.stringify({ name: this.platformName })
             })).json();
+            this.platformName = '';
             await this.refresh();
         },
         async delete(id) {

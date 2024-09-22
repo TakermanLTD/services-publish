@@ -10,8 +10,17 @@ namespace Takerman.Publishing.Services.Services
     {
         public async Task<PlatformLink> Create(PlatformLink model)
         {
-            var result = await _context.PlatformLinks.AddAsync(model);
+            var newLink = new PlatformLink()
+            {
+                Name = model.Name,
+                PlatformId = model.PlatformId,
+                Url = model.Url
+            };
+
+            var result = await _context.PlatformLinks.AddAsync(newLink);
+
             await _context.SaveChangesAsync();
+
             return result.Entity;
         }
 

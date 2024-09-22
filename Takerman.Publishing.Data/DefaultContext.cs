@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Reflection.Emit;
+using System.Reflection.Metadata;
 using Takerman.Publishing.Data.Entities;
 
 namespace Takerman.Publishing.Data
@@ -66,7 +68,31 @@ namespace Takerman.Publishing.Data
                 new Project() { Name = "takerman", Id = 3 },
                 new Project() { Name = "tanyoProfessional", Id = 4 },
                 new Project() { Name = "tanyoPersonal", Id = 5 }
-                );
+            );
+
+            builder.Entity<PlatformLink>()
+                .Navigation(e => e.Platform)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<Post>()
+                .Navigation(e => e.ProjectPlatform)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<ProjectPlatform>()
+                .Navigation(e => e.Platform)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<ProjectPlatform>()
+                .Navigation(e => e.PostType)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<ProjectPlatform>()
+                .Navigation(e => e.Project)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<ProjectPlatformSecrets>()
+                .Navigation(e => e.ProjectPlatform)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
         }
     }
 }
