@@ -15,9 +15,11 @@
 	<br />
 	<Platforms :project="Number(selectedProject)" :postType="Number(selectedPostType)" :projects="this.projects" :postTypes="this.postTypes" />
 	<Post :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
+	<History :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 </template>
 
 <script lang="js">
+import History from '@/components/History.vue';
 import Platforms from '@/components/Platforms.vue';
 import Post from '@/components/Post.vue';
 
@@ -42,7 +44,8 @@ export default {
 	},
 	components: {
 		Post,
-		Platforms
+		Platforms,
+		History
 	}
 }
 </script>

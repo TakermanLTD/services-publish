@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Takerman.Publishing.Data.Entities
 {
-    public class ProjectPlatformRecord
+    public class ProjectPlatformSecrets
     {
         [Key]
         public int Id { get; set; }

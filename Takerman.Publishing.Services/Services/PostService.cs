@@ -18,6 +18,9 @@ namespace Takerman.Publishing.Services.Services
         public async Task<Post> Delete(int id)
         {
             var result = _context.Posts.Remove(await Get(id));
+            
+            await _context.SaveChangesAsync();
+
             return result.Entity;
         }
 

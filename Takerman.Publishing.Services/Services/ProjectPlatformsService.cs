@@ -40,7 +40,9 @@ namespace Takerman.Publishing.Services.Services
         public async Task<ProjectPlatform> Delete(int id)
         {
             var result = _context.ProjectPlatforms.Remove(await Get(id));
+
             await _context.SaveChangesAsync();
+
             return result.Entity;
         }
 

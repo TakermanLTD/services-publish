@@ -1,42 +1,12 @@
 <template>
-    <div class="accordion" id="accordionBlogpost">
+    <div class="accordion" id="accordionPost">
         <div class="accordion-item">
-            <h2 class="accordion-header" id="accordeonBlogpost">
-                <button class="accordion-button text-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBlogpost" aria-expanded="false" aria-controls="collapseBlogpost">
-                    Publications
-                </button>
-            </h2>
-            <div id="collapseBlogpost" class="accordion-collapse collapse" aria-labelledby="accordeonBlogpost" data-bs-parent="#accordionBlogpost">
-                <div class="accordion-body">
-                    <table class="table table-responsive text-center">
-                        <tbody>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Content</th>
-                                <th width="100px"></th>
-                            </tr>
-                            <tr v-for="(publication, index) in this.publications" :key="index">
-                                <td>{{ publication.id }}</td>
-                                <td>{{ publication.postName }}</td>
-                                <td>{{ publication.postDescription.substring(0, 80) }}</td>
-                                <td class="text-right" width="100px">
-                                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-                                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="accordeonBlogpost">
-                <button class="accordion-button text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBlogpost" aria-expanded="true" aria-controls="collapseBlogpost">
+            <h2 class="accordion-header" id="accordeonPost">
+                <button class="accordion-button text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePost" aria-expanded="true" aria-controls="collapsePost">
                     Post
                 </button>
             </h2>
-            <div id="collapseBlogpost" class="accordion-collapse collapse show" aria-labelledby="accordeonBlogpost" data-bs-parent="#accordionBlogpost">
+            <div id="collapsePost" class="accordion-collapse collapse show" aria-labelledby="accordeonPost" data-bs-parent="#accordionPost">
                 <div class="accordion-body">
                     <div class="form-group">
                         <label for="postName">Name</label>
@@ -61,19 +31,14 @@ export default {
     data() {
         return {
             postName: '',
-            postDescription: '',
-            publications: []
+            postDescription: ''
         }
     },
     components: {
         editor: Editor
     },
     methods: {
-        async refresh() {
-            this.publications = await (await fetch('Blog/GetAll?project=' + this.project)).json();
-        },
         async mounted() {
-            await this.refresh();
             tinymce.init({
                 selector: 'textarea',  // change this value according to your HTML
                 skin: 'oxide-dark',
@@ -98,17 +63,12 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: data
             };
-            const result = await fetch('Blog/Publish', requestOptions);
+            const result = await fetch(this.postType + '/Publish', requestOptions);
             await this.refresh();
         },
         async delete(id) {
-            await fetch('Blog/Delete?id=' + id, { method: "DELETE" });
+            await fetch(this.postType + '/Delete?id=' + id, { method: "DELETE" });
             await this.refresh();
-        },
-        async fill(id) {
-            let publication = await fetch('Blog/Get?id=' + id);
-            this.postName = publication.postName;
-            this.postDescription = publication.postDescription;
         }
     },
     watch: {

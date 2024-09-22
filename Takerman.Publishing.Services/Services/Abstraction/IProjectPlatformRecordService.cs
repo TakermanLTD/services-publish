@@ -4,16 +4,16 @@ namespace Takerman.Publishing.Services.Services.Abstraction
 {
     public interface IProjectPlatformRecordService
     {
-        Task<ProjectPlatformRecord> Get(int id);
+        Task<ProjectPlatformSecrets> Get(int id);
 
-        Task<List<ProjectPlatformRecord>> GetAll(int projectPlatformId);
+        Task<List<ProjectPlatformSecrets>> GetAll(int projectPlatformId);
 
-        Task<List<ProjectPlatformRecord>> GetAll();
+        Task<List<ProjectPlatformSecrets>> GetAll();
 
-        Task<ProjectPlatformRecord> Delete(int id);
+        Task<ProjectPlatformSecrets> Delete(int id);
 
-        Task<ProjectPlatformRecord> Create(ProjectPlatformRecord platform);
+        Task<ProjectPlatformSecrets> Create(ProjectPlatformSecrets platform);
 
-        Task<ProjectPlatformRecord> Update(ProjectPlatformRecord platform);
+        Task<ProjectPlatformSecrets> Update(ProjectPlatformSecrets platform);
     }
 }

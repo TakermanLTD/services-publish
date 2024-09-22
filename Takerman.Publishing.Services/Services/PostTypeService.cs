@@ -21,6 +21,8 @@ namespace Takerman.Publishing.Services.Services
         {
             var result = _context.PostTypes.Remove(await Get(id));
 
+            await _context.SaveChangesAsync();
+
             return result.Entity;
         }
 

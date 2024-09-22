@@ -18,8 +18,11 @@ namespace Takerman.Publishing.Services.Services
         public async Task<bool> Delete(int id)
         {
             var entity = await _context.PlatformLinks.FirstOrDefaultAsync(x => x.Id == id);
+
             _context.PlatformLinks.Remove(entity);
+
             await _context.SaveChangesAsync();
+
             return true;
         }
 

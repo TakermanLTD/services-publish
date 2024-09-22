@@ -12,7 +12,7 @@ namespace Takerman.Publishing.Server.Controllers
         private readonly IProjectPlatformRecordService _recordsService = recordsService;
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add(ProjectPlatformRecord model)
+        public async Task<IActionResult> Add(ProjectPlatformSecrets model)
         {
             return Ok(await _recordsService.Create(model));
         }
@@ -32,7 +32,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(ProjectPlatformRecord model)
+        public async Task<IActionResult> Update(ProjectPlatformSecrets model)
         {
             return Ok(await _recordsService.Update(model));
         }

@@ -8,40 +8,42 @@ namespace Takerman.Publishing.Services.Services
 {
     public class ProjectPlatformRecordService(DefaultContext _context) : IProjectPlatformRecordService
     {
-        public async Task<ProjectPlatformRecord> Create(ProjectPlatformRecord ProjectPlatformRecord)
+        public async Task<ProjectPlatformSecrets> Create(ProjectPlatformSecrets ProjectPlatformRecord)
         {
-            var result = await _context.ProjectPlatformRecords.AddAsync(ProjectPlatformRecord);
+            var result = await _context.ProjectPlatformSecrets.AddAsync(ProjectPlatformRecord);
 
             await _context.SaveChangesAsync();
 
             return result.Entity;
         }
 
-        public async Task<ProjectPlatformRecord> Delete(int id)
+        public async Task<ProjectPlatformSecrets> Delete(int id)
         {
-            var result = _context.ProjectPlatformRecords.Remove(await Get(id));
+            var result = _context.ProjectPlatformSecrets.Remove(await Get(id));
+
+            await _context.SaveChangesAsync();
 
             return result.Entity;
         }
 
-        public Task<ProjectPlatformRecord> Get(int id)
+        public Task<ProjectPlatformSecrets> Get(int id)
         {
-            return _context.ProjectPlatformRecords.FirstOrDefaultAsync(x => x.Id == id);
+            return _context.ProjectPlatformSecrets.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<List<ProjectPlatformRecord>> GetAll()
+        public async Task<List<ProjectPlatformSecrets>> GetAll()
         {
-            return await _context.ProjectPlatformRecords.ToListAsync();
+            return await _context.ProjectPlatformSecrets.ToListAsync();
         }
 
-        public async Task<List<ProjectPlatformRecord>> GetAll(int projectPlatformId)
+        public async Task<List<ProjectPlatformSecrets>> GetAll(int projectPlatformId)
         {
-            return await _context.ProjectPlatformRecords.Where(x => x.ProjectPlatformId == projectPlatformId).ToListAsync();
+            return await _context.ProjectPlatformSecrets.Where(x => x.ProjectPlatformId == projectPlatformId).ToListAsync();
         }
 
-        public async Task<ProjectPlatformRecord> Update(ProjectPlatformRecord ProjectPlatformRecord)
+        public async Task<ProjectPlatformSecrets> Update(ProjectPlatformSecrets ProjectPlatformRecord)
         {
-            var result = _context.ProjectPlatformRecords.Update(ProjectPlatformRecord);
+            var result = _context.ProjectPlatformSecrets.Update(ProjectPlatformRecord);
 
             await _context.SaveChangesAsync();
 

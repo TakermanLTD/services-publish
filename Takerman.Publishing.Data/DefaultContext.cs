@@ -18,7 +18,7 @@ namespace Takerman.Publishing.Data
 
         public DbSet<ProjectPlatform> ProjectPlatforms { get; set; }
 
-        public DbSet<ProjectPlatformRecord> ProjectPlatformRecords { get; set; }
+        public DbSet<ProjectPlatformSecrets> ProjectPlatformSecrets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
