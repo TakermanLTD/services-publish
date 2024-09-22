@@ -28,15 +28,15 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        public async Task<List<Project>> GetAll()
         {
-            return Ok((await _projectsService.GetAll()).ToList());
+            return await _projectsService.GetAll();
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(Project model)
+        public async Task<Project> Update(Project model)
         {
-            return Ok(await _projectsService.Update(model));
+            return await _projectsService.Update(model);
         }
     }
 }

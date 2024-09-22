@@ -3,17 +3,17 @@
 	<div class="col">
 		<label class="form-label text-center" for="ddlProject">Project</label>
 		<select v-model="selectedProject" class="form-select" id="ddlProject">
-			<option v-for="(project, index) in projects" :key="index" :value="project.id">{{ project.name }}</option>
+			<option v-for="(project, index) in this.projects" :key="index" :value="project.id">{{ project.name }}</option>
 		</select>
 	</div>
 	<div class="col">
 		<label class="form-label text-center" for="ddlPostType">Post Type</label>
 		<select v-model="selectedPostType" class="form-select" id="ddlPostType">
-			<option v-for="(postType, index) in postTypes" :key="index" :value="postType.id">{{ postType.name }}</option>
+			<option v-for="(postType, index) in this.postTypes" :key="index" :value="postType.id">{{ postType.name }}</option>
 		</select>
 	</div>
 	<br />
-	<Platforms :project="Number(selectedProject)" :postType="Number(selectedPostType)" :projects="projects" :postTypes="postTypes" />
+	<Platforms :project="Number(selectedProject)" :postType="Number(selectedPostType)" :projects="this.projects" :postTypes="this.postTypes" />
 	<Post :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 </template>
 
@@ -31,11 +31,11 @@ export default {
 		}
 	},
 	async mounted() {
-		this.projects = await fetch('/Projects/GetAll');
+		this.projects = await (await fetch('Projects/GetAll')).json();
 		if (this.projects.length > 0) {
 			this.selectedProject = 1;
 		}
-		this.postTypes = await fetch('/PostTypes/GetAll');
+		this.postTypes = await (await fetch('PostTypes/GetAll')).json();
 		if (this.postTypes.length > 0) {
 			this.selectedPostType = 1;
 		}

@@ -45,6 +45,10 @@ export default defineConfig({
     },
     server: {
         proxy: {
+            '^/Home': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
             '^/PlatformLinks': {
                 target: 'https://localhost:7023/',
                 secure: false
@@ -61,15 +65,15 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/ProjectPlatforms': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
             '^/ProjectPlatformRecords': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/Home': {
+            '^/ProjectPlatforms': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
+            '^/Projects': {
                 target: 'https://localhost:7023/',
                 secure: false
             }

@@ -20,8 +20,8 @@
                             <tr>
                                 <th scope="row"></th>
                                 <th>
-                                    <select class="form-select" v-model="platform">
-                                        <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
+                                    <select class="form-select" v-model="this.platform">
+                                        <option v-for="(platform, index) in this.platforms" :key="index" :value="platform.id">{{ platform.name }}</option>
                                     </select>
                                 </th>
                                 <th>
@@ -96,6 +96,9 @@ export default {
     async mounted() {
         // await this.updateMappings();
         this.platforms = await (await fetch('/Platforms/GetAll')).json();
+        if (this.platforms && this.platforms.length > 0) {
+            this.platform = this.platforms[0].id;
+        }
     },
     methods: {
         async updateMappings() {

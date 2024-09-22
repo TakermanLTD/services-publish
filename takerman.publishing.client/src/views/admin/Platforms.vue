@@ -2,7 +2,7 @@
     <div class="row">
         <label>Selected platform
             <select class="form-select" v-model="selectedPlatform">
-                <option v-for="(platform, index) in platforms" :key="index" :value="index">{{ platform }}</option>
+                <option v-for="(platform, index) in this.platforms" :key="index" :value="platform.id">{{ platform.name }}</option>
             </select>
         </label>
     </div>

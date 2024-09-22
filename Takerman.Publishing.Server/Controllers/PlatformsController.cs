@@ -7,36 +7,36 @@ namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PlatformsController(IPlatformLinksService _platformLinksService) : ControllerBase
+    public class PlatformsController(IPlatformService _platformService) : ControllerBase
     {
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(PlatformLink model)
+        public async Task<IActionResult> Create(Platform model)
         {
-            return Ok(await _platformLinksService.Create(model));
+            return Ok(await _platformService.Create(model));
         }
 
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _platformLinksService.Delete(id));
+            return Ok(await _platformService.Delete(id));
         }
 
         [HttpGet("Get")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _platformLinksService.Get(id));
+            return Ok(await _platformService.Get(id));
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int platformId)
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(await _platformLinksService.GetAll(platformId));
+            return Ok(await _platformService.GetAll());
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(PlatformLink model)
+        public async Task<IActionResult> Update(Platform model)
         {
-            return Ok(await _platformLinksService.Update(model));
+            return Ok(await _platformService.Update(model));
         }
     }
 }

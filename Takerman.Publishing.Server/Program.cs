@@ -44,11 +44,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DefaultContext>((options) =>
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(dataAssembly));
-        options.EnableSensitiveDataLogging();
-        options.EnableDetailedErrors();
-    });
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(dataAssembly));
+    options.EnableSensitiveDataLogging();
+    options.EnableDetailedErrors();
+});
 builder.Services.AddTransient<DbContext, DefaultContext>();
 builder.Services.AddTransient<IPlatformLinksService, PlatformLinksService>();
 builder.Services.AddTransient<IPlatformService, PlatformService>();
