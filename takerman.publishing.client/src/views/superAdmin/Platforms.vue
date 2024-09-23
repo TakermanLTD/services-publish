@@ -1,7 +1,5 @@
 <template>
     <div class="row">
-    </div>
-    <div class="row">
         <div class="table-responsive">
             <table class="table table">
                 <thead>
