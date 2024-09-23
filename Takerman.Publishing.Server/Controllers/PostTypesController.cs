@@ -7,7 +7,7 @@ namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostTypesController(IPostTypeService _postTypeService) : ControllerBase
+    public class PostTypesController(IPostTypesService _postTypeService) : ControllerBase
     {
         [HttpPost("Create")]
         public async Task<IActionResult> Create(PostType model)

@@ -63,20 +63,16 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: data
             };
-            const result = await fetch(this.postType + '/Publish', requestOptions);
-            await this.refresh();
+            const result = await fetch('/Post/Publish', requestOptions);
         },
         async delete(id) {
-            await fetch(this.postType + '/Delete?id=' + id, { method: "DELETE" });
-            await this.refresh();
+            await fetch('/Post/Delete?id=' + id, { method: "DELETE" });
         }
     },
     watch: {
         async project(newProject) {
-            await this.refresh();
         },
         async postType(newPostType) {
-            await this.refresh();
         }
     },
     props: {

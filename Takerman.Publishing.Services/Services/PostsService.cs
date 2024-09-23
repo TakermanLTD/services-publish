@@ -6,7 +6,7 @@ using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Services.Services
 {
-    public class PostService(DefaultContext _context, IMapper _mapper) : IPostService
+    public class PostsService(DefaultContext _context, IMapper _mapper) : IPostsService
     {
         public async Task<Post> Create(Post model)
         {
@@ -27,16 +27,6 @@ namespace Takerman.Publishing.Services.Services
         public Task<Post> Get(int id)
         {
             return _context.Posts.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<List<Post>> GetAll(int projectPlatformId)
-        {
-            var result = await _context.Posts
-                .Where(x => x.ProjectPlatfromId == projectPlatformId)
-                .OrderBy(x => x.Id)
-                .ToListAsync();
-
-            return result;
         }
 
         public async Task<List<Post>> Publish(Post publication)

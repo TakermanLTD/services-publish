@@ -6,7 +6,7 @@ using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Services.Services
 {
-    public class PostTypeService(DefaultContext _context) : IPostTypeService
+    public class PostTypesService(DefaultContext _context) : IPostTypesService
     {
         public async Task<PostType> Create(PostType PostType)
         {

@@ -6,7 +6,7 @@ using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Services.Services
 {
-    public class PlatformService(DefaultContext _context) : IPlatformService
+    public class PlatformsService(DefaultContext _context) : IPlatformsService
     {
         public async Task<Platform> Create(Platform platform)
         {

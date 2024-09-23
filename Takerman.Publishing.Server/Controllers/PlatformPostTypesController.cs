@@ -7,36 +7,36 @@ namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PlatformSecretsController(IPlatformSecretsService _platformSecretsService) : ControllerBase
+    public class PlatformPostTypesController(IPlatformPostTypesService _platformPostTypesService) : ControllerBase
     {
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(PlatformSecret model)
+        public async Task<IActionResult> Create(PlatformPostType model)
         {
-            return Ok(await _platformSecretsService.Create(model));
+            return Ok(await _platformPostTypesService.Create(model.PlatformId, model.PostTypeId));
         }
 
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _platformSecretsService.Delete(id));
+            return Ok(await _platformPostTypesService.Delete(id));
         }
 
         [HttpGet("Get")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _platformSecretsService.Get(id));
+            return Ok(await _platformPostTypesService.Get(id));
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(int platformId)
         {
-            return Ok(await _platformSecretsService.GetAll(platformId));
+            return Ok(await _platformPostTypesService.GetAll(platformId));
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(PlatformSecret model)
+        public async Task<IActionResult> Update(PlatformPostType model)
         {
-            return Ok(await _platformSecretsService.Update(model));
+            return Ok(await _platformPostTypesService.Update(model));
         }
     }
 }

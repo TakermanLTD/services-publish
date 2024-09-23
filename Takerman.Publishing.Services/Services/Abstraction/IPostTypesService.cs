@@ -2,7 +2,7 @@
 
 namespace Takerman.Publishing.Services.Services.Abstraction
 {
-    public interface IPostTypeService
+    public interface IPostTypesService
     {
         Task<PostType> Get(int id);
 

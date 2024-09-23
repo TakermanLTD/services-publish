@@ -11,7 +11,7 @@ namespace Takerman.Publishing.Data.Entities
 
         public string Name { get; set; } = string.Empty;
 
-        [ForeignKey("PlatformSecreat_PlatformId")]
+        [ForeignKey("PlatformSecret_PlatformId")]
         public int PlatformId { get; set; }
 
         [DeleteBehavior(DeleteBehavior.NoAction)]

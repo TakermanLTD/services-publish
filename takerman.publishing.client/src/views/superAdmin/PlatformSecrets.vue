@@ -33,11 +33,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(platformSecret, index) in this.platformSecrets" :key="index">
-                        <td scope="row">{{ platformSecret.id }}</td>
-                        <td>{{ platformSecret.name }}</td>
+                    <tr v-for="(secret, index) in this.secretsData" :key="index">
+                        <td scope="row">{{ secret.id }}</td>
+                        <td>{{ secret.name }}</td>
                         <td>
-                            <button @click="this.delete(platformSecret.id)" type="button" class="btn btn-danger">
+                            <button @click="this.delete(secret.id)" type="button" class="btn btn-danger">
                                 <i class="fa-solid fa-minus"></i>
                             </button>
                         </td>
@@ -52,7 +52,7 @@ export default {
     data() {
         return {
             platforms: [],
-            platformSecrets: [],
+            secretsData: [],
             selectedPlatform: 0,
             newPlatformLinkName: ''
         }
@@ -66,10 +66,10 @@ export default {
     },
     methods: {
         async refresh() {
-            this.platformSecrets = await (await fetch('/PlatformSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
+            this.secretsData = await (await fetch('/PlatformSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
         },
         async add() {
-            let newPlatformSecrets = await (await fetch('/PlatformSecrets/Create', {
+            let newSecretsData = await (await fetch('/PlatformSecrets/Create', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

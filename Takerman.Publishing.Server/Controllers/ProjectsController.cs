@@ -7,7 +7,7 @@ namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProjectsController(IProjectService _projectsService) : ControllerBase
+    public class ProjectsController(IProjectsService _projectsService) : ControllerBase
     {
         [HttpPost("Create")]
         public async Task<IActionResult> Create(Project model)

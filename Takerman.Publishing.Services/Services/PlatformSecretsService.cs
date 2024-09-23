@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Entities;
 using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Services.Services
 {
-    public class PlatformSecretsService(DefaultContext _context) : IPlatformSecetsService
+    public class PlatformSecretsService(ILogger<PlatformSecretsService> _logger, DefaultContext _context) : IPlatformSecretsService
     {
         public async Task<PlatformSecret> Create(PlatformSecret model)
         {

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Takerman.Publishing.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initialization : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,26 @@ namespace Takerman.Publishing.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Platforms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    DatePublished = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Pictures = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Videos = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,8 +80,8 @@ namespace Takerman.Publishing.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlatformId = table.Column<int>(type: "int", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlatformId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,90 +90,82 @@ namespace Takerman.Publishing.Data.Migrations
                         name: "FK_PlatformLinks_Platforms_PlatformId",
                         column: x => x.PlatformId,
                         principalTable: "Platforms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectPlatforms",
+                name: "PlatformSecrets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    PlatformId = table.Column<int>(type: "int", nullable: false),
-                    PostTypeId = table.Column<int>(type: "int", nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlatformId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectPlatforms", x => x.Id);
+                    table.PrimaryKey("PK_PlatformSecrets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectPlatforms_Platforms_PlatformId",
+                        name: "FK_PlatformSecrets_Platforms_PlatformId",
                         column: x => x.PlatformId,
                         principalTable: "Platforms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProjectPlatforms_PostTypes_PostTypeId",
-                        column: x => x.PostTypeId,
-                        principalTable: "PostTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProjectPlatforms_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "PlatformPostTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlatformId = table.Column<int>(type: "int", nullable: false),
+                    PostTypeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlatformPostTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlatformPostTypes_Platforms_PlatformId",
+                        column: x => x.PlatformId,
+                        principalTable: "Platforms",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PlatformPostTypes_PostTypes_PostTypeId",
+                        column: x => x.PostTypeId,
+                        principalTable: "PostTypes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectSecrets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    ProjectPlatfromId = table.Column<int>(type: "int", nullable: false),
-                    DatePublished = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Pictures = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Videos = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Posts_ProjectPlatforms_ProjectPlatfromId",
-                        column: x => x.ProjectPlatfromId,
-                        principalTable: "ProjectPlatforms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProjectPlatformRecords",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProjectPlatformId = table.Column<int>(type: "int", nullable: false)
+                    PlatformId = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    PlatformSecretId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectPlatformRecords", x => x.Id);
+                    table.PrimaryKey("PK_ProjectSecrets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectPlatformRecords_ProjectPlatforms_ProjectPlatformId",
-                        column: x => x.ProjectPlatformId,
-                        principalTable: "ProjectPlatforms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_ProjectSecrets_PlatformSecrets_PlatformSecretId",
+                        column: x => x.PlatformSecretId,
+                        principalTable: "PlatformSecrets",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProjectSecrets_Platforms_PlatformId",
+                        column: x => x.PlatformId,
+                        principalTable: "Platforms",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProjectSecrets_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -217,28 +229,33 @@ namespace Takerman.Publishing.Data.Migrations
                 column: "PlatformId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_ProjectPlatfromId",
-                table: "Posts",
-                column: "ProjectPlatfromId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectPlatformRecords_ProjectPlatformId",
-                table: "ProjectPlatformRecords",
-                column: "ProjectPlatformId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectPlatforms_PlatformId",
-                table: "ProjectPlatforms",
+                name: "IX_PlatformPostTypes_PlatformId",
+                table: "PlatformPostTypes",
                 column: "PlatformId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectPlatforms_PostTypeId",
-                table: "ProjectPlatforms",
+                name: "IX_PlatformPostTypes_PostTypeId",
+                table: "PlatformPostTypes",
                 column: "PostTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectPlatforms_ProjectId",
-                table: "ProjectPlatforms",
+                name: "IX_PlatformSecrets_PlatformId",
+                table: "PlatformSecrets",
+                column: "PlatformId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectSecrets_PlatformId",
+                table: "ProjectSecrets",
+                column: "PlatformId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectSecrets_PlatformSecretId",
+                table: "ProjectSecrets",
+                column: "PlatformSecretId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectSecrets_ProjectId",
+                table: "ProjectSecrets",
                 column: "ProjectId");
         }
 
@@ -249,22 +266,25 @@ namespace Takerman.Publishing.Data.Migrations
                 name: "PlatformLinks");
 
             migrationBuilder.DropTable(
+                name: "PlatformPostTypes");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "ProjectPlatformRecords");
-
-            migrationBuilder.DropTable(
-                name: "ProjectPlatforms");
-
-            migrationBuilder.DropTable(
-                name: "Platforms");
+                name: "ProjectSecrets");
 
             migrationBuilder.DropTable(
                 name: "PostTypes");
 
             migrationBuilder.DropTable(
+                name: "PlatformSecrets");
+
+            migrationBuilder.DropTable(
                 name: "Projects");
+
+            migrationBuilder.DropTable(
+                name: "Platforms");
         }
     }
 }

@@ -4,19 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Takerman.Publishing.Data.Entities
 {
-    public class PlatformLink
+    public class PlatformPostType
     {
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;
-
-        public string Url { get; set; } = string.Empty;
+        [ForeignKey("PlatformPostType_PlatformId")]
+        public int PlatformId { get; set; }
 
         [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Platform Platform { get; set; }
 
-        [ForeignKey("PlatformLink_PlatformId")]
-        public int PlatformId { get; set; }
+        [ForeignKey("PlatformPostType_PostTypeId")]
+        public int PostTypeId { get; set; }
+
+        [DeleteBehavior(DeleteBehavior.NoAction)]
+        public virtual PostType PostType { get; set; }
     }
 }

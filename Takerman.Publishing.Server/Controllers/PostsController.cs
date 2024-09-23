@@ -7,7 +7,7 @@ namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostController(IPostService _postService) : ControllerBase
+    public class PostsController(IPostsService _postService) : ControllerBase
     {
         [HttpGet("Create")]
         public async Task<IActionResult> Create(Post model)
@@ -25,12 +25,6 @@ namespace Takerman.Publishing.Server.Controllers
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _postService.Get(id));
-        }
-
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int projectId)
-        {
-            return Ok(await _postService.GetAll(projectId));
         }
 
         [HttpPost("Publish")]

@@ -16,10 +16,10 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarAdmin">
                     <li>
-                        <router-link to="/admin/project-platforms" class="dropdown-item">Project Platforms</router-link>
+                        <router-link to="/admin/projects" class="dropdown-item">Projects</router-link>
                     </li>
                     <li>
-                        <router-link to="/admin/projects" class="dropdown-item">Projects</router-link>
+                        <router-link to="/admin/project-secrets" class="dropdown-item">Project Secrets</router-link>
                     </li>
                 </ul>
             </li>

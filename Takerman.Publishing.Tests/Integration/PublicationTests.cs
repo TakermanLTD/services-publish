@@ -9,23 +9,21 @@ namespace Takerman.Publishing.Tests.Integration
     public class PublicationsTests : TestBed<TestFixture>
     {
         private readonly IPlatformLinksService _platformLinksService;
-        private readonly IPlatformService _platformService;
-        private readonly IPostService _postService;
-        private readonly IPostTypeService _postTypeService;
-        private readonly IPlatformSecetsService _secretsService;
-        private readonly IProjectPlatformsService _projectPlatformsService;
-        private readonly IProjectService _projectService;
+        private readonly IPlatformsService _platformService;
+        private readonly IPostsService _postService;
+        private readonly IPostTypesService _postTypeService;
+        private readonly IProjectSecretsService _secretsService;
+        private readonly IProjectsService _projectService;
 
         public PublicationsTests(ITestOutputHelper testOutputHelper, TestFixture fixture)
         : base(testOutputHelper, fixture)
         {
             _platformLinksService = _fixture.GetService<IPlatformLinksService>(_testOutputHelper);
-            _platformService = _fixture.GetService<IPlatformService>(_testOutputHelper);
-            _postService = _fixture.GetService<IPostService>(_testOutputHelper);
-            _postTypeService = _fixture.GetService<IPostTypeService>(_testOutputHelper);
-            _secretsService = _fixture.GetService<IPlatformSecetsService>(_testOutputHelper);
-            _projectPlatformsService = _fixture.GetService<IProjectPlatformsService>(_testOutputHelper);
-            _projectService = _fixture.GetService<IProjectService>(_testOutputHelper);
+            _platformService = _fixture.GetService<IPlatformsService>(_testOutputHelper);
+            _postService = _fixture.GetService<IPostsService>(_testOutputHelper);
+            _postTypeService = _fixture.GetService<IPostTypesService>(_testOutputHelper);
+            _secretsService = _fixture.GetService<IProjectSecretsService>(_testOutputHelper);
+            _projectService = _fixture.GetService<IProjectsService>(_testOutputHelper);
         }
 
         //[Fact]

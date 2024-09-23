@@ -2,7 +2,7 @@
 
 namespace Takerman.Publishing.Services.Services.Abstraction
 {
-    public interface IProjectService
+    public interface IProjectsService
     {
         Task<Project> Get(int id);
 

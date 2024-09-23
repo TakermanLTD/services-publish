@@ -9,7 +9,7 @@
             <div id="collapsePublications" class="accordion-collapse collapse show" aria-labelledby="accordeonPublications" data-bs-parent="#accordionPublications">
                 <div class="accordion-body">
                     <div class="list-group">
-                        <label v-for="(platform, index) in this.platforms" :key="index" :id="'projectPlatform' + platform.id" class="list-group-item">
+                        <label v-for="(platform, index) in this.platforms" :key="index" :id="'secret' + platform.id" class="list-group-item">
                             <input class="form-check-input me-1" type="checkbox" :value="platform.id" />
                             {{ platform.name }}
                         </label>
@@ -28,21 +28,11 @@ export default {
         }
     },
     async mounted() {
-        this.platforms = await (await fetch('/ProjectPlatforms/GetAll?projectId=' + this.project + '&postType=' + this.postType)).json();
-    },
-    watch: {
-        async project(newProject) {
-            await this.updateMappings();
-        },
-        async postType(newPostType) {
-            await this.updateMappings();
-        }
+        this.platforms = await (await fetch('/ProjectSecrets/GetAll?projectId=' + this.project)).json();
     },
     props: {
         project: Number,
-        projects: Object,
-        postType: Number,
-        postTypes: Object
+        projects: Object
     }
 }
 </script>

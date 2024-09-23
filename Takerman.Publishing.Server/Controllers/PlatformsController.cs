@@ -7,7 +7,7 @@ namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PlatformsController(IPlatformService _platformService) : ControllerBase
+    public class PlatformsController(IPlatformsService _platformService) : ControllerBase
     {
         [HttpPost("Create")]
         public async Task<IActionResult> Create(Platform model)

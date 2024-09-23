@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Takerman.Publishing.Data.Entities
 {
@@ -10,12 +8,6 @@ namespace Takerman.Publishing.Data.Entities
         public virtual int Id { get; set; }
 
         public int UserId { get; set; }
-
-        [ForeignKey("Post_ProjectPlatformId")]
-        public int ProjectPlatfromId { get; set; }
-
-        [DeleteBehavior(DeleteBehavior.NoAction)]
-        public virtual ProjectPlatform ProjectPlatform { get; set; }
 
         public DateTime DatePublished { get; set; } = DateTime.Now;
 

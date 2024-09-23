@@ -8,11 +8,6 @@
                     </select>
                 </th>
                 <th>
-                    <select v-model="selectedPostType" class="form-select" id="ddlPostType">
-                        <option v-for="(postType, index) in this.postTypes" :key="index" :value="postType.id">{{ postType.name }}</option>
-                    </select>
-                </th>
-                <th>
                     <select @change="refresh" v-model="selectedPlatform" class="form-select" id="ddlPlatforms">
                         <option v-for="(platform, index) in this.platforms" :key="index" :value="platform.id">{{ platform.name }}</option>
                     </select>
@@ -28,14 +23,14 @@
             </tr>
             <tr class="table-primary">
                 <th>Name</th>
-                <th colspan="3">Value</th>
+                <th colspan="2">Value</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(platformSecret, index) in this.platformSecrets" :key="index">
-                <td>{{ platformSecret.name }}</td>
-                <td colspan="3">
-                    <input type="text" class="form-control" v-model="platformSecret.value">
+            <tr v-for="(secret, index) in this.secretsData" :key="index">
+                <td>{{ secret.name }}</td>
+                <td colspan="2">
+                    <input type="text" class="form-control" v-model="secret.value">
                 </td>
             </tr>
         </tbody>
@@ -45,20 +40,14 @@
 export default {
     data() {
         return {
-            selectedPostType: 1,
             selectedProject: 1,
             selectedPlatform: 1,
             projects: [],
-            postTypes: [],
             platforms: [],
-            platformSecrets: []
+            secretsData: []
         }
     },
     async mounted() {
-        this.postTypes = await (await fetch('/PostTypes/GetAll')).json();
-        if (this.postTypes && this.postTypes.length > 0) {
-            this.selectedPostType = this.postTypes[0].id;
-        }
         this.projects = await (await fetch('/Projects/GetAll')).json();
         if (this.projects && this.projects.length > 0) {
             this.selectedProject = this.projects[0].id;
@@ -71,15 +60,15 @@ export default {
     },
     methods: {
         async refresh() {
-            this.platformSecrets = await (await fetch('/PlatformSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
+            this.secretsData = await (await fetch('/ProjectSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
         },
         async save() {
             let secrets = [];
-            for (let i = 0; i < this.platformSecrets.length; i++) {
-                const platformSecret = this.platformSecrets[i];
-                secrets.push({ key: platformSecret.id, value: platformSecret.value });
+            for (let i = 0; i < this.secretsData.length; i++) {
+                const secret = this.secretsData[i];
+                secrets.push({ key: secret.id, value: secret.value });
             }
-            let projectPlatformSecrets = await (await fetch('/ProjectPlatforms/Update', {
+            let secetsData = await (await fetch('/ProjectSecrets/Update', {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -93,7 +82,7 @@ export default {
             await this.refresh();
         },
         async delete() {
-            let projectPlatformSecrets = await (await fetch('/ProjectPlatforms/Delete', {
+            let secrets = await (await fetch('/ProjectSecrets/Delete', {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

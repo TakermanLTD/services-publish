@@ -171,9 +171,6 @@ namespace Takerman.Publishing.Data.Migrations
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PlatformId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -182,9 +179,30 @@ namespace Takerman.Publishing.Data.Migrations
 
                     b.HasIndex("PlatformId");
 
-                    b.HasIndex("PlatformId1");
-
                     b.ToTable("PlatformLinks");
+                });
+
+            modelBuilder.Entity("Takerman.Publishing.Data.Entities.PlatformPostType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PlatformId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlatformId");
+
+                    b.HasIndex("PostTypeId");
+
+                    b.ToTable("PlatformPostTypes");
                 });
 
             modelBuilder.Entity("Takerman.Publishing.Data.Entities.PlatformSecret", b =>
@@ -202,14 +220,9 @@ namespace Takerman.Publishing.Data.Migrations
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PlatformId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PlatformId");
-
-                    b.HasIndex("PlatformId1");
 
                     b.ToTable("PlatformSecrets");
                 });
@@ -243,9 +256,6 @@ namespace Takerman.Publishing.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProjectPlatfromId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -254,8 +264,6 @@ namespace Takerman.Publishing.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectPlatfromId");
 
                     b.ToTable("Posts");
                 });
@@ -361,7 +369,7 @@ namespace Takerman.Publishing.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Takerman.Publishing.Data.Entities.ProjectPlatform", b =>
+            modelBuilder.Entity("Takerman.Publishing.Data.Entities.ProjectSecret", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -372,7 +380,7 @@ namespace Takerman.Publishing.Data.Migrations
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PostTypeId")
+                    b.Property<int>("PlatformSecretId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProjectId")
@@ -381,47 +389,19 @@ namespace Takerman.Publishing.Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlatformId");
-
-                    b.HasIndex("PostTypeId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("ProjectPlatforms");
-                });
-
-            modelBuilder.Entity("Takerman.Publishing.Data.Entities.ProjectPlatformSecret", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PlatformSecretId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectPlatformId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProjectPlatformId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PlatformId");
+
                     b.HasIndex("PlatformSecretId");
 
-                    b.HasIndex("ProjectPlatformId");
+                    b.HasIndex("ProjectId");
 
-                    b.HasIndex("ProjectPlatformId1");
-
-                    b.ToTable("ProjectPlatformSecrets");
+                    b.ToTable("ProjectSecrets");
                 });
 
             modelBuilder.Entity("Takerman.Publishing.Data.Entities.PlatformLink", b =>
@@ -432,40 +412,10 @@ namespace Takerman.Publishing.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Takerman.Publishing.Data.Entities.Platform", null)
-                        .WithMany("PlatformLinks")
-                        .HasForeignKey("PlatformId1");
-
                     b.Navigation("Platform");
                 });
 
-            modelBuilder.Entity("Takerman.Publishing.Data.Entities.PlatformSecret", b =>
-                {
-                    b.HasOne("Takerman.Publishing.Data.Entities.Platform", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Takerman.Publishing.Data.Entities.Platform", null)
-                        .WithMany("PlatformSecrets")
-                        .HasForeignKey("PlatformId1");
-
-                    b.Navigation("Platform");
-                });
-
-            modelBuilder.Entity("Takerman.Publishing.Data.Entities.Post", b =>
-                {
-                    b.HasOne("Takerman.Publishing.Data.Entities.ProjectPlatform", "ProjectPlatform")
-                        .WithMany()
-                        .HasForeignKey("ProjectPlatfromId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("ProjectPlatform");
-                });
-
-            modelBuilder.Entity("Takerman.Publishing.Data.Entities.ProjectPlatform", b =>
+            modelBuilder.Entity("Takerman.Publishing.Data.Entities.PlatformPostType", b =>
                 {
                     b.HasOne("Takerman.Publishing.Data.Entities.Platform", "Platform")
                         .WithMany()
@@ -479,6 +429,36 @@ namespace Takerman.Publishing.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.Navigation("Platform");
+
+                    b.Navigation("PostType");
+                });
+
+            modelBuilder.Entity("Takerman.Publishing.Data.Entities.PlatformSecret", b =>
+                {
+                    b.HasOne("Takerman.Publishing.Data.Entities.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Platform");
+                });
+
+            modelBuilder.Entity("Takerman.Publishing.Data.Entities.ProjectSecret", b =>
+                {
+                    b.HasOne("Takerman.Publishing.Data.Entities.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Takerman.Publishing.Data.Entities.PlatformSecret", "PlatformSecret")
+                        .WithMany()
+                        .HasForeignKey("PlatformSecretId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Takerman.Publishing.Data.Entities.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId")
@@ -487,45 +467,9 @@ namespace Takerman.Publishing.Data.Migrations
 
                     b.Navigation("Platform");
 
-                    b.Navigation("PostType");
-
-                    b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("Takerman.Publishing.Data.Entities.ProjectPlatformSecret", b =>
-                {
-                    b.HasOne("Takerman.Publishing.Data.Entities.PlatformSecret", "PlatformSecret")
-                        .WithMany()
-                        .HasForeignKey("PlatformSecretId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Takerman.Publishing.Data.Entities.ProjectPlatform", "ProjectPlatform")
-                        .WithMany()
-                        .HasForeignKey("ProjectPlatformId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Takerman.Publishing.Data.Entities.ProjectPlatform", null)
-                        .WithMany("PlatformSecrets")
-                        .HasForeignKey("ProjectPlatformId1")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.Navigation("PlatformSecret");
 
-                    b.Navigation("ProjectPlatform");
-                });
-
-            modelBuilder.Entity("Takerman.Publishing.Data.Entities.Platform", b =>
-                {
-                    b.Navigation("PlatformLinks");
-
-                    b.Navigation("PlatformSecrets");
-                });
-
-            modelBuilder.Entity("Takerman.Publishing.Data.Entities.ProjectPlatform", b =>
-                {
-                    b.Navigation("PlatformSecrets");
+                    b.Navigation("Project");
                 });
 #pragma warning restore 612, 618
         }

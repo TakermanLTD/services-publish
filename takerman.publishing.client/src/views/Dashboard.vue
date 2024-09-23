@@ -13,7 +13,7 @@
 		</select>
 	</div>
 	<br />
-	<Platforms :project="Number(selectedProject)" :postType="Number(selectedPostType)" :projects="this.projects" :postTypes="this.postTypes" />
+	<Platforms :project="Number(selectedProject)" :projects="this.projects" :postTypes="this.postTypes" />
 	<Post :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 	<History :project="Number(selectedProject)" :postType="Number(selectedPostType)" />
 </template>

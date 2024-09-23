@@ -44,15 +44,12 @@ export default {
             this.publications = await (await fetch(this.postType + '/GetAll?project=' + this.project)).json();
         },
         async mounted() {
-            await this.refresh();
         }
     },
     watch: {
         async project(newProject) {
-            await this.refresh();
         },
         async postType(newPostType) {
-            await this.refresh();
         }
     },
     props: {

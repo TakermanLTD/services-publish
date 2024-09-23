@@ -5,7 +5,7 @@ using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Services.Services
 {
-    public class ProjectService(DefaultContext _context) : IProjectService
+    public class ProjectsService(DefaultContext _context) : IProjectsService
     {
         public async Task<Project> Create(Project Project)
         {

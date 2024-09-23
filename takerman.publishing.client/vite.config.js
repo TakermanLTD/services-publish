@@ -57,11 +57,15 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
+            '^/PlatformPostTypes': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
             '^/PlatformSecrets': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/Post': {
+            '^/Posts': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
@@ -73,7 +77,7 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/ProjectPlatforms': {
+            '^/ProjectSecrets': {
                 target: 'https://localhost:7023/',
                 secure: false
             }
