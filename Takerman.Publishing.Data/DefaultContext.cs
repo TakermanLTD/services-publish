@@ -111,6 +111,13 @@ namespace Takerman.Publishing.Data
             builder.Entity<ProjectPlatform>()
                 .HasOne(x => x.Project).WithMany().HasForeignKey(x => x.ProjectId).OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<ProjectPlatform>()
+                .HasMany(x => x.PlatformSecrets).WithOne().OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ProjectPlatform>()
+                .Navigation(x => x.PlatformSecrets)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
             builder.Entity<PlatformSecret>()
                 .HasOne(x => x.Platform).WithMany().HasForeignKey(x => x.PlatformId);
 

@@ -1,26 +1,25 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.Entities;
+using Takerman.Publishing.Services.Dtos;
 using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProjectPlatformsController(IProjectPlatformsService projectsService) : ControllerBase
+    public class ProjectPlatformsController(IProjectPlatformsService _projectsService) : ControllerBase
     {
-        private readonly IProjectPlatformsService _projectsService = projectsService;
-
-        [HttpPost("Add")]
-        public async Task<IActionResult> Add(ProjectPlatform model)
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(ProjectPlatform model)
         {
             return Ok(await _projectsService.Create(model));
         }
 
         [HttpDelete("Delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(ProjectPlatformSecretDto model)
         {
-            return Ok(await _projectsService.Delete(id));
+            return Ok(await _projectsService.Delete(model));
         }
 
         [HttpGet("GetAll")]
@@ -31,8 +30,8 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(platforms);
         }
 
-        [HttpPut("UpdateAll")]
-        public async Task<IActionResult> UpdateAll(List<ProjectPlatform> model)
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(ProjectPlatformSecretDto model)
         {
             return Ok(await _projectsService.Update(model));
         }

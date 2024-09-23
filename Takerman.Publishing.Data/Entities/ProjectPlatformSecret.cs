@@ -9,6 +9,8 @@ namespace Takerman.Publishing.Data.Entities
         [Key]
         public int Id { get; set; }
 
+        public string Value { get; set; } = string.Empty;
+
         [ForeignKey("ProjectPlatformSecret_ProjectPlatformId")]
         public int ProjectPlatformId { get; set; }
 

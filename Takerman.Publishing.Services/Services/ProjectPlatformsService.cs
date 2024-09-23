@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Entities;
+using Takerman.Publishing.Services.Dtos;
 using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Services.Services
@@ -12,6 +13,11 @@ namespace Takerman.Publishing.Services.Services
         public Task<ProjectPlatform> Get(int id)
         {
             return _context.ProjectPlatforms.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<ProjectPlatform> Get(int projectId, int platformId, int postTypeId)
+        {
+            return await _context.ProjectPlatforms.FirstOrDefaultAsync(x => x.ProjectId == projectId && x.PlatformId == platformId && x.PostTypeId == postTypeId);
         }
 
         public Task<List<ProjectPlatform>> GetAll()
@@ -37,20 +43,62 @@ namespace Takerman.Publishing.Services.Services
             return result.Entity;
         }
 
-        public async Task<ProjectPlatform> Delete(int id)
+        public async Task<ProjectPlatform> Delete(ProjectPlatformSecretDto model)
         {
-            var result = _context.ProjectPlatforms.Remove(await Get(id));
+            var entity = await Get(model.ProjectId, model.PlatformId, model.PostTypeId);
+
+            if (entity != null)
+            {
+                var secrets = _context.ProjectPlatformSecrets.Where(x => x.ProjectPlatformId == entity.Id);
+
+                _context.ProjectPlatformSecrets.RemoveRange(secrets);
+
+                await _context.SaveChangesAsync();
+            }
+
+            var result = _context.ProjectPlatforms.Remove(entity);
 
             await _context.SaveChangesAsync();
 
             return result.Entity;
         }
 
-        public async Task<bool> Update(List<ProjectPlatform> model)
+        public async Task<ProjectPlatform> Update(ProjectPlatformSecretDto model)
         {
-            _context.ProjectPlatforms.UpdateRange(model);
+            var projectPlatform = await Get(model.ProjectId, model.PlatformId, model.PostTypeId);
+            projectPlatform ??= await Create(new ProjectPlatform()
+            {
+                PlatformId = model.PlatformId,
+                PostTypeId = model.PostTypeId,
+                ProjectId = model.ProjectId,
+            });
+
             await _context.SaveChangesAsync();
-            return true;
+
+            foreach (var secret in model.Secrets)
+            {
+                var existing = await _context.ProjectPlatformSecrets.FirstOrDefaultAsync(x => x.ProjectPlatformId == projectPlatform.Id && x.PlatformSecretId == secret.Key);
+
+                if (existing == null)
+                {
+                    await _context.ProjectPlatformSecrets.AddAsync(new ProjectPlatformSecret()
+                    {
+                        PlatformSecretId = secret.Key,
+                        ProjectPlatformId = projectPlatform.Id,
+                        Value = secret.Value
+                    });
+                }
+                else
+                {
+                    existing.Value = secret.Value;
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            projectPlatform = await Get(model.ProjectId, model.PlatformId, model.PostTypeId);
+
+            return projectPlatform;
         }
     }
 }
