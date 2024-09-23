@@ -16,7 +16,7 @@ import ProjectPlatforms from './views/admin/ProjectPlatforms.vue';
 import PlatformLinks from './views/superAdmin/PlatformLinks.vue';
 import PostTypes from './views/superAdmin/PostTypes.vue';
 import Platforms from './views/superAdmin/Platforms.vue';
-import Projects from './views/superAdmin/Projects.vue';
+import Projects from './views/admin/Projects.vue';
 import PlatformSecrets from './views/superAdmin/PlatformSecrets.vue';
 
 createApp(App)
@@ -37,7 +37,7 @@ createApp(App)
             { path: '/', component: Home },
             { path: '/home', component: Home },
             { path: '/dashboard', component: Dashboard, beforeEnter: createAuthGuard(this) },
-            { path: '/super-admin/projects', component: Projects, beforeEnter: createAuthGuard(this) },
+            { path: '/admin/projects', component: Projects, beforeEnter: createAuthGuard(this) },
             { path: '/super-admin/platforms', component: Platforms, beforeEnter: createAuthGuard(this) },
             { path: '/super-admin/post-types', component: PostTypes, beforeEnter: createAuthGuard(this) },
             { path: '/super-admin/platform-links', component: PlatformLinks, beforeEnter: createAuthGuard(this) },

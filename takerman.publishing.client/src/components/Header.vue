@@ -18,6 +18,9 @@
                     <li>
                         <router-link to="/admin/project-platforms" class="dropdown-item">Project Platforms</router-link>
                     </li>
+                    <li>
+                        <router-link to="/admin/projects" class="dropdown-item">Projects</router-link>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
@@ -36,9 +39,6 @@
                     </li>
                     <li>
                         <router-link to="/super-admin/post-types" class="dropdown-item">Post Types</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/super-admin/projects" class="dropdown-item">Projects</router-link>
                     </li>
                 </ul>
             </li>
