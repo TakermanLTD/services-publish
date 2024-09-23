@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Takerman.Publishing.Data.Entities
@@ -10,21 +11,25 @@ namespace Takerman.Publishing.Data.Entities
 
         public int UserId { get; set; }
 
-        [ForeignKey(nameof(Platform))]
+        [ForeignKey("ProjectPlatform_PlatformId")]
         public int PlatformId { get; set; }
 
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public Platform Platform { get; set; }
 
-        [ForeignKey(nameof(PostType))]
+        [ForeignKey("ProjectPlatform_PostTypeId")]
         public int PostTypeId { get; set; }
 
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual PostType PostType { get; set; }
 
-        [ForeignKey(nameof(Project))]
+        [ForeignKey("ProjectPlatform_ProjectId")]
         public int ProjectId { get; set; }
 
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Project Project { get; set; }
 
-        public ICollection<ProjectPlatformSecrets> ProjectPlatformSecrets { get; set; } = [];
+        [DeleteBehavior(DeleteBehavior.NoAction)]
+        public ICollection<ProjectPlatformSecret> PlatformSecrets { get; set; } = [];
     }
 }

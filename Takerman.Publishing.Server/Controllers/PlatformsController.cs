@@ -18,7 +18,14 @@ namespace Takerman.Publishing.Server.Controllers
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _platformService.Delete(id));
+            try
+            {
+                return Ok(await _platformService.Delete(id));
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         [HttpGet("Get")]

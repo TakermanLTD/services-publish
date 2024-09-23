@@ -12,7 +12,7 @@ namespace Takerman.Publishing.Tests.Integration
         private readonly IPlatformService _platformService;
         private readonly IPostService _postService;
         private readonly IPostTypeService _postTypeService;
-        private readonly IProjectPlatformRecordService _projectPlatformRecordService;
+        private readonly IPlatformSecetsService _secretsService;
         private readonly IProjectPlatformsService _projectPlatformsService;
         private readonly IProjectService _projectService;
 
@@ -23,7 +23,7 @@ namespace Takerman.Publishing.Tests.Integration
             _platformService = _fixture.GetService<IPlatformService>(_testOutputHelper);
             _postService = _fixture.GetService<IPostService>(_testOutputHelper);
             _postTypeService = _fixture.GetService<IPostTypeService>(_testOutputHelper);
-            _projectPlatformRecordService = _fixture.GetService<IProjectPlatformRecordService>(_testOutputHelper);
+            _secretsService = _fixture.GetService<IPlatformSecetsService>(_testOutputHelper);
             _projectPlatformsService = _fixture.GetService<IProjectPlatformsService>(_testOutputHelper);
             _projectService = _fixture.GetService<IProjectService>(_testOutputHelper);
         }

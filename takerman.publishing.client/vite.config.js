@@ -49,11 +49,15 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
+            '^/Platforms': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
             '^/PlatformLinks': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/Platforms': {
+            '^/PlatformSecrets': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
@@ -65,15 +69,11 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
-            '^/ProjectPlatformRecords': {
+            '^/Projects': {
                 target: 'https://localhost:7023/',
                 secure: false
             },
             '^/ProjectPlatforms': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/Projects': {
                 target: 'https://localhost:7023/',
                 secure: false
             }

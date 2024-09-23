@@ -10,33 +10,41 @@
             <li class="nav-item">
                 <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
             </li>
-            <li class="nav-item">
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Admin
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarAdmin">
                     <li>
-                        <router-link to="/admin/platforms" class="dropdown-item">Platforms</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/admin/post-types" class="dropdown-item">Post Types</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/admin/platform-links" class="dropdown-item">Platform Links</router-link>
-                    </li>
-                    <li>
                         <router-link to="/admin/project-platforms" class="dropdown-item">Project Platforms</router-link>
                     </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarSuperAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Super Admin
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarSuperAdmin">
                     <li>
-                        <router-link to="/admin/project-platform-records" class="dropdown-item">Project Platform Records</router-link>
+                        <router-link to="/super-admin/platforms" class="dropdown-item">Platforms</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/super-admin/platform-links" class="dropdown-item">Platform Links</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/super-admin/platform-secrets" class="dropdown-item">Platform Secrets</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/super-admin/post-types" class="dropdown-item">Post Types</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/super-admin/projects" class="dropdown-item">Projects</router-link>
                     </li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img :src="this.user.picture" alt="User's profile picture" class="nav-user-profile rounded-circle" width="50" />
+                    <img :src="this.user.picture" alt="User's profile picture" class="nav-user-profile rounded-circle" width="30" />
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarProfile">
                     <li>

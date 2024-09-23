@@ -10,6 +10,8 @@ namespace Takerman.Publishing.Data
 
         public DbSet<PlatformLink> PlatformLinks { get; set; }
 
+        public DbSet<PlatformSecret> PlatformSecrets { get; set; }
+
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<PostType> PostTypes { get; set; }
@@ -18,7 +20,7 @@ namespace Takerman.Publishing.Data
 
         public DbSet<ProjectPlatform> ProjectPlatforms { get; set; }
 
-        public DbSet<ProjectPlatformSecrets> ProjectPlatformSecrets { get; set; }
+        public DbSet<ProjectPlatformSecret> ProjectPlatformSecrets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -69,34 +71,66 @@ namespace Takerman.Publishing.Data
             );
 
             builder.Entity<Platform>()
-                .HasMany(x => x.PlatformLinks);
+                .HasMany(x => x.PlatformLinks).WithOne().OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Platform>()
                 .Navigation(x => x.PlatformLinks)
                 .UsePropertyAccessMode(PropertyAccessMode.Property);
 
+            builder.Entity<Platform>()
+                .HasMany(x => x.PlatformSecrets).WithOne().OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Platform>()
+                .Navigation(x => x.PlatformSecrets)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
             builder.Entity<PlatformLink>()
-                .HasOne(x => x.Platform).WithMany().HasForeignKey(x => x.PlatformId);
+                .HasOne(x => x.Platform).WithMany().HasForeignKey(x => x.PlatformId).OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Post>()
                 .HasOne(x => x.ProjectPlatform).WithMany().HasForeignKey(x => x.ProjectPlatfromId);
 
-            builder.Entity<ProjectPlatform>()
-                .HasOne(x => x.Platform).WithMany().HasForeignKey(x => x.PlatformId);
-
-            builder.Entity<ProjectPlatform>()
-                .HasOne(x => x.PostType).WithMany().HasForeignKey(x => x.PostTypeId);
-
-            builder.Entity<ProjectPlatform>()
-                .HasOne(x => x.Project).WithMany().HasForeignKey(x => x.ProjectId);
-
-            builder.Entity<ProjectPlatform>()
-                .Navigation(x => x.ProjectPlatformSecrets)
+            builder.Entity<Post>()
+                .Navigation(x => x.ProjectPlatform)
                 .UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            builder.Entity<ProjectPlatformSecrets>()
-                .HasOne(x => x.ProjectPlatform).WithMany().HasForeignKey(x => x.ProjectPlatformId);
+            builder.Entity<ProjectPlatform>()
+                .HasOne(x => x.Platform).WithMany().HasForeignKey(x => x.PlatformId).OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<ProjectPlatform>()
+                .Navigation(x => x.Platform)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<ProjectPlatform>()
+                .HasOne(x => x.PostType).WithMany().HasForeignKey(x => x.PostTypeId).OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<ProjectPlatform>()
+                .Navigation(x => x.PostType)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<ProjectPlatform>()
+                .HasOne(x => x.Project).WithMany().HasForeignKey(x => x.ProjectId).OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<PlatformSecret>()
+                .HasOne(x => x.Platform).WithMany().HasForeignKey(x => x.PlatformId);
+
+            builder.Entity<PlatformSecret>()
+                .Navigation(x => x.Platform)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<ProjectPlatformSecret>()
+                .HasOne(x => x.PlatformSecret).WithMany().HasForeignKey(x => x.PlatformSecretId).OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<ProjectPlatformSecret>()
+                .Navigation(x => x.PlatformSecret)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            builder.Entity<ProjectPlatformSecret>()
+                .HasOne(x => x.ProjectPlatform).WithMany().HasForeignKey(x => x.ProjectPlatformId).OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<ProjectPlatformSecret>()
+                .Navigation(x => x.ProjectPlatform)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
         }
     }
 }

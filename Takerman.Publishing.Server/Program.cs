@@ -50,11 +50,11 @@ builder.Services.AddDbContext<DefaultContext>((options) =>
     options.EnableDetailedErrors();
 });
 builder.Services.AddTransient<DbContext, DefaultContext>();
-builder.Services.AddTransient<IPlatformLinksService, PlatformLinksService>();
 builder.Services.AddTransient<IPlatformService, PlatformService>();
+builder.Services.AddTransient<IPlatformLinksService, PlatformLinksService>();
+builder.Services.AddTransient<IPlatformSecetsService, PlatformSecretsService>();
 builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<IPostTypeService, PostTypeService>();
-builder.Services.AddTransient<IProjectPlatformRecordService, ProjectPlatformRecordService>();
 builder.Services.AddTransient<IProjectPlatformsService, ProjectPlatformsService>();
 builder.Services.AddTransient<IProjectService, ProjectService>();
 builder.Services.AddTransient<IContextInitializer, ContextInitializer>();

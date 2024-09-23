@@ -32,7 +32,7 @@ namespace Takerman.Publishing.Tests
                 .AddTransient<IPlatformService, PlatformService>()
                 .AddTransient<IPostService, PostService>()
                 .AddTransient<IPostTypeService, PostTypeService>()
-                .AddTransient<IProjectPlatformRecordService, ProjectPlatformRecordService>()
+                .AddTransient<IPlatformSecetsService, PlatformSecretsService>()
                 .AddTransient<IProjectPlatformsService, ProjectPlatformsService>()
                 .AddTransient<IProjectService, ProjectService>()
                 .AddTransient<IContextInitializer, ContextInitializer>()

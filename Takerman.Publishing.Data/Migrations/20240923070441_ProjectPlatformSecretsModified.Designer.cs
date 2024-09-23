@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Takerman.Publishing.Data;
 
@@ -11,9 +12,11 @@ using Takerman.Publishing.Data;
 namespace Takerman.Publishing.Data.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    partial class DefaultContextModelSnapshot : ModelSnapshot
+    [Migration("20240923070441_ProjectPlatformSecretsModified")]
+    partial class ProjectPlatformSecretsModified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,7 +174,10 @@ namespace Takerman.Publishing.Data.Migrations
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PlatformId1")
+                    b.Property<int>("PlatformId1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlatformId2")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -202,14 +208,9 @@ namespace Takerman.Publishing.Data.Migrations
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PlatformId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PlatformId");
-
-                    b.HasIndex("PlatformId1");
 
                     b.ToTable("PlatformSecrets");
                 });
@@ -430,7 +431,9 @@ namespace Takerman.Publishing.Data.Migrations
 
                     b.HasOne("Takerman.Publishing.Data.Entities.Platform", null)
                         .WithMany("PlatformLinks")
-                        .HasForeignKey("PlatformId1");
+                        .HasForeignKey("PlatformId1")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Platform");
                 });
@@ -440,12 +443,8 @@ namespace Takerman.Publishing.Data.Migrations
                     b.HasOne("Takerman.Publishing.Data.Entities.Platform", "Platform")
                         .WithMany()
                         .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("Takerman.Publishing.Data.Entities.Platform", null)
-                        .WithMany("PlatformSecrets")
-                        .HasForeignKey("PlatformId1");
 
                     b.Navigation("Platform");
                 });
@@ -515,8 +514,6 @@ namespace Takerman.Publishing.Data.Migrations
             modelBuilder.Entity("Takerman.Publishing.Data.Entities.Platform", b =>
                 {
                     b.Navigation("PlatformLinks");
-
-                    b.Navigation("PlatformSecrets");
                 });
 
             modelBuilder.Entity("Takerman.Publishing.Data.Entities.ProjectPlatform", b =>

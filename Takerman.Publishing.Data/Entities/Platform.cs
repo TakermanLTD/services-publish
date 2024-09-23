@@ -10,5 +10,7 @@ namespace Takerman.Publishing.Data.Entities
         public string Name { get; set; } = string.Empty;
 
         public ICollection<PlatformLink> PlatformLinks { get; set; } = [];
+
+        public ICollection<PlatformSecret> PlatformSecrets { get; set; } = [];
     }
 }
