@@ -6,7 +6,7 @@
                     <tr class="table-primary">
                         <th>
                             <label class="form-label text-center" for="ddlPlatform">Platform</label>
-                            <select @change="this.refresh()" v-model="selectedPlatform" class="form-select" id="ddlPlatform">
+                            <select @change="refresh" v-model="selectedPlatform" class="form-select" id="ddlPlatform">
                                 <option v-for="(platform, index) in platforms" :key="index" :value="platform.id">{{ platform.name }}</option>
                             </select>
                         </th>
@@ -51,16 +51,19 @@ export default {
             this.selectedPlatform = this.platforms[0].id;
         }
         this.postTypes = await (await fetch('/PostTypes/GetAll')).json();
-        this.platformPostTypes = await (await fetch('/PlatformPostTypes/GetAll?platformId=' + this.selectedPlatform)).json();
-        for (let i = 0; i < this.platformPostTypes.length; i++) {
-            const platformPostType = this.platformPostTypes[i];
-            const existing = document.getElementById('platformPostType' + platformPostType.postTypeId);
-            if (existing) {
-                existing.checked = true;
-            }
-        }
+        this.refresh();
     },
     methods: {
+        async refresh() {
+            this.platformPostTypes = await(await fetch('/PlatformPostTypes/GetAll?platformId=' + this.selectedPlatform)).json();
+            for (let i = 0; i < this.platformPostTypes.length; i++) {
+                const platformPostType = this.platformPostTypes[i];
+                const existing = document.getElementById('platformPostType' + platformPostType.postTypeId);
+                if (existing) {
+                    existing.checked = true;
+                }
+            }
+        },
         refreshSelected() {
             this.selectedPostTypes = [];
             var checked = document.querySelectorAll('.platform-post-type:checked');
@@ -87,6 +90,7 @@ export default {
                     postTypes: this.selectedPostTypes
                 })
             })).json();
+            this.refresh();
         }
     }
 }
