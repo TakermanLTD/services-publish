@@ -18,6 +18,7 @@ import Platforms from './views/superAdmin/Platforms.vue';
 import Projects from './views/admin/Projects.vue';
 import PlatformSecrets from './views/superAdmin/PlatformSecrets.vue';
 import ProjectSecrets from './views/admin/ProjectSecrets.vue';
+import PlatformPostTypes from './views/superAdmin/PlatformPostTypes.vue';
 
 createApp(App)
     .use(createI18n({
@@ -41,6 +42,7 @@ createApp(App)
             { path: '/admin/project-secrets', component: ProjectSecrets, beforeEnter: createAuthGuard(this) },
             { path: '/super-admin/platforms', component: Platforms, beforeEnter: createAuthGuard(this) },
             { path: '/super-admin/post-types', component: PostTypes, beforeEnter: createAuthGuard(this) },
+            { path: '/super-admin/platform-post-types', component: PlatformPostTypes, beforeEnter: createAuthGuard(this) },
             { path: '/super-admin/platform-links', component: PlatformLinks, beforeEnter: createAuthGuard(this) },
             { path: '/super-admin/platform-secrets', component: PlatformSecrets, beforeEnter: createAuthGuard(this) },
             { path: "/profile", component: Profile, beforeEnter: createAuthGuard(this) },

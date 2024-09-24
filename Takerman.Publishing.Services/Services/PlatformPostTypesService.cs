@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Entities;
+using Takerman.Publishing.Services.Dtos;
 using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Services.Services
@@ -57,11 +58,26 @@ namespace Takerman.Publishing.Services.Services
             return result;
         }
 
-        public async Task<PlatformPostType> Update(PlatformPostType PostTypes)
+        public async Task<List<int>> Update(PlatformPostTypesDto model)
         {
-            var result = _context.PlatformPostTypes.Update(PostTypes);
+            var postTypes = await _context.PostTypes.ToListAsync();
+
+            var platformPostTypes = await _context.PlatformPostTypes.Where(x => x.PlatformId == model.PlatformId).ToListAsync();
+
+            foreach (var postType in postTypes)
+            {
+                var existing = await _context.PlatformPostTypes.FirstOrDefaultAsync(x => x.PlatformId == model.PlatformId && x.PostTypeId == postType.Id);
+
+                if (existing != null && !model.PostTypes.Contains(postType.Id))
+                    _context.PlatformPostTypes.Remove(existing);
+                else if (existing == null && model.PostTypes.Contains(postType.Id))
+                    _context.PlatformPostTypes.Add(new PlatformPostType() { PlatformId = model.PlatformId, PostTypeId = postType.Id });
+            }
             await _context.SaveChangesAsync();
-            return result.Entity;
+
+            var result = await _context.PlatformPostTypes.Where(x => x.PlatformId == model.PlatformId).Select(x => x.PostTypeId).ToListAsync();
+
+            return result;
         }
     }
 }

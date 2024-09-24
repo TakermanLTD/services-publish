@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.Entities;
+using Takerman.Publishing.Services.Dtos;
 using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
@@ -34,7 +35,7 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(PlatformPostType model)
+        public async Task<IActionResult> Update(PlatformPostTypesDto model)
         {
             return Ok(await _platformPostTypesService.Update(model));
         }

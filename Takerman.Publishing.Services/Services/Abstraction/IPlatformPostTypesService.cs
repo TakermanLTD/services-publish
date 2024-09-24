@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Takerman.Publishing.Data.Entities;
+using Takerman.Publishing.Services.Dtos;
 
 namespace Takerman.Publishing.Services.Services.Abstraction
 {
@@ -17,6 +18,6 @@ namespace Takerman.Publishing.Services.Services.Abstraction
 
         Task<List<PlatformPostType>> GetAll(int platformID);
 
-        Task<PlatformPostType> Update(PlatformPostType PostTypes);
+        Task<List<int>> Update(PlatformPostTypesDto PostTypes);
     }
 }

@@ -65,6 +65,10 @@ export default defineConfig({
                 target: 'https://localhost:7023/',
                 secure: false
             },
+            '^/PlatformPostTypes': {
+                target: 'https://localhost:7023/',
+                secure: false
+            },
             '^/Posts': {
                 target: 'https://localhost:7023/',
                 secure: false

@@ -38,6 +38,9 @@
                         <router-link to="/super-admin/platform-secrets" class="dropdown-item">Platform Secrets</router-link>
                     </li>
                     <li>
+                        <router-link to="/super-admin/platform-post-types" class="dropdown-item">Platform Post Types</router-link>
+                    </li>
+                    <li>
                         <router-link to="/super-admin/post-types" class="dropdown-item">Post Types</router-link>
                     </li>
                 </ul>
