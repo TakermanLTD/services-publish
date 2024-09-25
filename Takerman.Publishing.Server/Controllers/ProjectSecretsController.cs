@@ -16,9 +16,9 @@ namespace Takerman.Publishing.Server.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int projectId)
+        public async Task<IActionResult> GetAll(int projectId, int platformId)
         {
-            var platforms = await _secretsService.Get(projectId);
+            var platforms = await _secretsService.Get(projectId, platformId);
 
             return Ok(platforms);
         }

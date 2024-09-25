@@ -14,11 +14,11 @@ import { createI18n } from 'vue-i18n';
 import en from './assets/languages/en.json';
 import PlatformLinks from './views/superAdmin/PlatformLinks.vue';
 import PostTypes from './views/superAdmin/PostTypes.vue';
-import Platforms from './views/superAdmin/Platforms.vue';
 import Projects from './views/admin/Projects.vue';
 import PlatformSecrets from './views/superAdmin/PlatformSecrets.vue';
 import ProjectSecrets from './views/admin/ProjectSecrets.vue';
 import PlatformPostTypes from './views/superAdmin/PlatformPostTypes.vue';
+import Platforms from './views/superAdmin/Platforms.vue';
 
 createApp(App)
     .use(createI18n({

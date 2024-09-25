@@ -58,6 +58,19 @@ namespace Takerman.Publishing.Services.Services
             return result;
         }
 
+        public async Task<List<Platform>> GetAvailable(int projectId, int postTypeId)
+        {
+            var platforms = await _context.PlatformPostTypes.Where(x=>x.PostTypeId == postTypeId).ToListAsync();
+            
+            var secrets = await _context.ProjectSecrets
+                .Where(x => x.ProjectId == projectId && platforms.Select(y => y.Id).Contains(x.PlatformId))
+                .Select(x=>x.PlatformId).ToListAsync();
+
+            var result = await _context.Platforms.Where(x=>secrets.Contains(x.Id)).ToListAsync();
+            
+            return result;
+        }
+
         public async Task<List<int>> Update(PlatformPostTypesDto model)
         {
             var postTypes = await _context.PostTypes.ToListAsync();

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Takerman.Publishing.Data.Entities;
+﻿using Takerman.Publishing.Data.Entities;
 using Takerman.Publishing.Services.Dtos;
 
 namespace Takerman.Publishing.Services.Services.Abstraction
@@ -17,6 +12,8 @@ namespace Takerman.Publishing.Services.Services.Abstraction
         Task<PlatformPostType> Get(int id);
 
         Task<List<PlatformPostType>> GetAll(int platformID);
+
+        Task<List<Platform>> GetAvailable(int projectId, int postTypeId);
 
         Task<List<int>> Update(PlatformPostTypesDto PostTypes);
     }

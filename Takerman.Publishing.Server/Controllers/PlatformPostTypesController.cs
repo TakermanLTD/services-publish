@@ -34,6 +34,12 @@ namespace Takerman.Publishing.Server.Controllers
             return Ok(await _platformPostTypesService.GetAll(platformId));
         }
 
+        [HttpGet("GetAvailable")]
+        public async Task<IActionResult> GetAvailable(int projectId, int postTypeId)
+        {
+            return Ok(await _platformPostTypesService.GetAvailable(projectId, postTypeId));
+        }
+
         [HttpPut("Update")]
         public async Task<IActionResult> Update(PlatformPostTypesDto model)
         {

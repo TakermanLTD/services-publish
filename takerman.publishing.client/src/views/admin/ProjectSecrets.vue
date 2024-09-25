@@ -3,7 +3,7 @@
         <thead>
             <tr class="table-primary">
                 <th style="width: 25%;">
-                    <select v-model="selectedProject" class="form-select" id="ddlProject">
+                    <select @change="refresh" v-model="selectedProject" class="form-select" id="ddlProject">
                         <option v-for="(project, index) in this.projects" :key="index" :value="project.id">{{ project.name }}</option>
                     </select>
                 </th>
@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(secret, index) in this.secretsData" :key="index">
+            <tr v-for="(secret, index) in this.platformSecrets" :key="index">
                 <td>{{ secret.name }}</td>
                 <td colspan="2">
                     <input type="text" class="form-control" v-model="secret.value">
@@ -44,7 +44,8 @@ export default {
             selectedPlatform: 1,
             projects: [],
             platforms: [],
-            secretsData: []
+            secretsData: [],
+            platformSecrets: []
         }
     },
     async mounted() {
@@ -60,7 +61,8 @@ export default {
     },
     methods: {
         async refresh() {
-            this.secretsData = await (await fetch('/ProjectSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
+            this.platformSecrets = await (await fetch('/PlatformSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
+            this.secretsData = await (await fetch('/ProjectSecrets/GetAll?projectId='+ this.selectedProject +'&platformId=' + this.selectedPlatform)).json();
         },
         async save() {
             let secrets = [];
