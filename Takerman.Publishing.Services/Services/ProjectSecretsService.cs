@@ -30,43 +30,55 @@ namespace Takerman.Publishing.Services.Services
             return secrets;
         }
 
-        /*
-        public async Task<ProjectSecret> Update(ProjectSecretDto model)
+        public async Task<List<ProjectSecret>> Update(ProjectSecretDto model)
         {
-            var secrets = await Get(model.ProjectId, model.PlatformId);
-            secrets ??= await Create(new ProjectPlatform()
+            try
             {
-                PlatformId = model.PlatformId,
-                ProjectId = model.ProjectId,
-            });
 
-            await _context.SaveChangesAsync();
-
-            foreach (var secret in model.Secrets)
-            {
-                var existing = await _context.ProjectSecrets.FirstOrDefaultAsync(x => x.ProjectPlatformId == secrets.Id && x.PlatformSecretId == secret.Key);
-
-                if (existing == null)
+                foreach (var secret in model.Secrets)
                 {
-                    await _context.ProjectSecrets.AddAsync(new ProjectSecret()
+                    var existing = await _context.ProjectSecrets.FirstOrDefaultAsync(x => x.ProjectId == model.ProjectId && x.PlatformSecretId == secret.Key);
+
+                    if (existing == null)
                     {
-                        PlatformSecretId = secret.Key,
-                        ProjectPlatformId = secrets.Id,
-                        Value = secret.Value
-                    });
+                        if (!string.IsNullOrEmpty(secret.Value))
+                        {
+                            await _context.ProjectSecrets.AddAsync(new ProjectSecret()
+                            {
+                                PlatformSecretId = secret.Key,
+                                ProjectId = model.ProjectId,
+                                PlatformId = model.PlatformId,
+                                UserId = 0,
+                                Value = secret.Value
+                            });
+                        }
+                    }
+                    else
+                    {
+                        existing.Value = secret.Value;
+                    }
                 }
-                else
-                {
-                    existing.Value = secret.Value;
-                }
+
+                await _context.SaveChangesAsync();
+
+                var result = await Get(model.ProjectId, model.PlatformId);
+
+                return result;
             }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());   
+                return null;
+            }
+        }
+
+        public async Task<ProjectSecret> Create(ProjectSecret model)
+        {
+            var result = await _context.ProjectSecrets.AddAsync(model);
 
             await _context.SaveChangesAsync();
 
-            secrets = await Get(model.ProjectId, model.PlatformId);
-
-            return secrets;
+            return result.Entity;
         }
-        */
     }
 }

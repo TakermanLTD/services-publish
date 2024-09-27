@@ -10,5 +10,9 @@ namespace Takerman.Publishing.Services.Services.Abstraction
         Task<List<ProjectSecret>> Get(int projectId, int platformId);
 
         Task<List<ProjectSecret>> Delete(ProjectSecretDto model);
+
+        Task<List<ProjectSecret>> Update(ProjectSecretDto model);
+
+        Task<ProjectSecret> Create(ProjectSecret model);
     }
 }

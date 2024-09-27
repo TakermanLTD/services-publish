@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publishing.Data.Entities;
+using Takerman.Publishing.Services.Dtos;
 using Takerman.Publishing.Services.Services.Abstraction;
 
 namespace Takerman.Publishing.Server.Controllers
@@ -21,6 +22,12 @@ namespace Takerman.Publishing.Server.Controllers
             var platforms = await _secretsService.Get(projectId, platformId);
 
             return Ok(platforms);
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(ProjectSecretDto model)
+        {
+            return Ok(await _secretsService.Update(model));
         }
     }
 }

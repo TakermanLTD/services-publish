@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Takerman.Publishing.Data.Entities;
 
 namespace Takerman.Publishing.Services.Dtos
 {
@@ -12,6 +13,6 @@ namespace Takerman.Publishing.Services.Dtos
 
         public int PlatformId { get; set; }
 
-        public IEnumerable<KeyValuePair<int, string>> Secrets { get; set; } = [];
+        public List<KeyValuePair<int, string>> Secrets { get; set; } = [];
     }
 }

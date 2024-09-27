@@ -14,7 +14,7 @@
                 </th>
                 <th>
                     <span v-for="(link, index) in this.platformLinks" :key="index">
-                        <a :href="link.url" target="_blank">{{ link.name }}</a> | 
+                        <a :href="link.url" target="_blank">{{ link.name }}</a> |
                     </span>
                 </th>
                 <th>
@@ -35,7 +35,7 @@
             <tr v-for="(secret, index) in this.platformSecrets" :key="index">
                 <td>{{ secret.name }}</td>
                 <td colspan="3">
-                    <input type="text" class="form-control" v-model="secret.value">
+                    <input :id="'txtSecret' + secret.id" type="text" class="form-control" v-model="secret.value">
                 </td>
             </tr>
         </tbody>
@@ -70,22 +70,30 @@ export default {
             this.platformSecrets = await (await fetch('/PlatformSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
             this.platformLinks = await (await fetch('/PlatformLinks/GetAll?platformId=' + this.selectedPlatform)).json();
             this.secretsData = await (await fetch('/ProjectSecrets/GetAll?projectId=' + this.selectedProject + '&platformId=' + this.selectedPlatform)).json();
+            for (let i = 0; i < this.secretsData.length; i++) {
+                const data = this.secretsData[i];
+                let field = document.getElementById('txtSecret' + data.platformSecretId);  
+                field.value = data.value;
+            }
+            
         },
         async save() {
             let secrets = [];
-            for (let i = 0; i < this.secretsData.length; i++) {
-                const secret = this.secretsData[i];
+            for (let i = 0; i < this.platformSecrets.length; i++) {
+                const secret = this.platformSecrets[i];
                 secrets.push({ key: secret.id, value: secret.value });
             }
+            const data = {
+                projectId: this.selectedProject,
+                platformId: this.selectedPlatform,
+                secrets: secrets
+            };
+            console.log(data);
+
             let secetsData = await (await fetch('/ProjectSecrets/Update', {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    projectId: this.selectedProject,
-                    platformId: this.selectedPlatform,
-                    postTypeId: this.selectedPostType,
-                    secrets: secrets
-                })
+                body: JSON.stringify(data)
             })).json();
             this.platformName = '';
             await this.refresh();
