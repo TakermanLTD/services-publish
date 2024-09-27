@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Azure;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Takerman.Publishing.Data;
 using Takerman.Publishing.Data.Entities;
@@ -18,7 +20,7 @@ namespace Takerman.Publishing.Services.Services
         public async Task<Post> Delete(int id)
         {
             var result = _context.Posts.Remove(await Get(id));
-            
+
             await _context.SaveChangesAsync();
 
             return result.Entity;

@@ -13,6 +13,11 @@
                     </select>
                 </th>
                 <th>
+                    <span v-for="(link, index) in this.platformLinks" :key="index">
+                        <a :href="link.url" target="_blank">{{ link.name }}</a> | 
+                    </span>
+                </th>
+                <th>
                     <button @click="this.save()" type="button" class="btn btn-success">
                         <i class="fa-solid fa-save"></i>
                     </button>
@@ -23,13 +28,13 @@
             </tr>
             <tr class="table-primary">
                 <th>Name</th>
-                <th colspan="2">Value</th>
+                <th colspan="3">Value</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="(secret, index) in this.platformSecrets" :key="index">
                 <td>{{ secret.name }}</td>
-                <td colspan="2">
+                <td colspan="3">
                     <input type="text" class="form-control" v-model="secret.value">
                 </td>
             </tr>
@@ -45,7 +50,8 @@ export default {
             projects: [],
             platforms: [],
             secretsData: [],
-            platformSecrets: []
+            platformSecrets: [],
+            platformLinks: []
         }
     },
     async mounted() {
@@ -62,7 +68,8 @@ export default {
     methods: {
         async refresh() {
             this.platformSecrets = await (await fetch('/PlatformSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
-            this.secretsData = await (await fetch('/ProjectSecrets/GetAll?projectId='+ this.selectedProject +'&platformId=' + this.selectedPlatform)).json();
+            this.platformLinks = await (await fetch('/PlatformLinks/GetAll?platformId=' + this.selectedPlatform)).json();
+            this.secretsData = await (await fetch('/ProjectSecrets/GetAll?projectId=' + this.selectedProject + '&platformId=' + this.selectedPlatform)).json();
         },
         async save() {
             let secrets = [];

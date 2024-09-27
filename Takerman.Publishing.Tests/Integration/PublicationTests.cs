@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Takerman.Publishing.Data.Entities;
 using Takerman.Publishing.Services.Services.Abstraction;
 using Xunit.Abstractions;
@@ -42,6 +43,22 @@ namespace Takerman.Publishing.Tests.Integration
             });
 
             Assert.Null(exception);
+        }
+
+        [Fact]
+        public async Task Should_PublishPostInFacebook_When_ThereIsCorrectConfiguration()
+        {
+            using var http = new HttpClient();
+            var postData = new Dictionary<string, string>
+            {
+                {"access_token", "1163145608385171|tO2_Pt_o7CZx97mDMMRyst0Ce_0" },
+                {"message", "Test content" }
+            };
+
+            var httpResponse = await http.PostAsync($"https://graph.facebook.com/takerprint/feed", new FormUrlEncodedContent(postData));
+            var httpContent = await httpResponse.Content.ReadAsStringAsync();
+            var response = new Tuple<int, string>((int)httpResponse.StatusCode, httpContent);
+            Assert.NotNull(response);
         }
     }
 }

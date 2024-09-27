@@ -6,17 +6,20 @@
             <table class="table table">
                 <thead>
                     <tr class="table-primary">
-                        <th></th>
                         <th colspan="3">
                             <label class="form-label text-center" for="ddlPlatform">Platform</label>
                             <select @change="this.refresh()" v-model="selectedPlatform" class="form-select" id="ddlPlatform">
                                 <option v-for="(platform, index) in platforms" :key="index" :value="platform.id">{{ platform.name }}</option>
                             </select>
+                            <p class="text-center">
+                                <span v-for="(link, index) in this.platformLinks" :key="index">
+                                    <a :href="link.url" target="_blank">{{ link.name }}</a> |
+                                </span>
+                            </p>
                         </th>
                     </tr>
                     <tr class="table-primary">
-                        <th scope="col"></th>
-                        <th>
+                        <th colspan="2">
                             <label for="platformLinkName" class="form-label">Name</label>
                             <input type="text" class="form-control" id="platformLinkName" placeholder="Name" v-model="this.newPlatformLinkName" />
                         </th>
@@ -54,7 +57,8 @@ export default {
             platforms: [],
             secretsData: [],
             selectedPlatform: 0,
-            newPlatformLinkName: ''
+            newPlatformLinkName: '',
+            platformLinks: []
         }
     },
     async mounted() {
@@ -67,6 +71,7 @@ export default {
     methods: {
         async refresh() {
             this.secretsData = await (await fetch('/PlatformSecrets/GetAll?platformId=' + this.selectedPlatform)).json();
+            this.platformLinks = await (await fetch('/PlatformLinks/GetAll?platformId=' + this.selectedPlatform)).json();
         },
         async add() {
             let newSecretsData = await (await fetch('/PlatformSecrets/Create', {
