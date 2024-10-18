@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.4.1" />
+    <PackageReference Include="Azure.Identity" Version="1.13.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.0.10</Version>
@@ -29,6 +30,9 @@
 	  <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
 	  <PackageReference Include="Serilog.Sinks.Slack" Version="2.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>
