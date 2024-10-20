@@ -14,6 +14,7 @@ using Takerman.Publishing.Data.Initialization;
 using Takerman.Publishing.Server.Middleware;
 using Takerman.Publishing.Services.Services;
 using Takerman.Publishing.Services.Services.Abstraction;
+using Takerman.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 var dataAssembly = "Takerman.Publishing.Data";
@@ -22,22 +23,6 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
-
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Warning()
-    .ReadFrom.Configuration(builder.Configuration)
-    .WriteTo.Slack(new SlackSinkOptions
-    {
-        WebHookUrl = "https://hooks.slack.com/services/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",
-        CustomIcon = ":postal_horn:",
-        Period = TimeSpan.FromSeconds(10),
-        ShowDefaultAttachments = false,
-        ShowExceptionAttachments = true,
-        MinimumLogEventLevel = LogEventLevel.Error,
-        PropertyDenyList = ["Level", "SourceContext"]
-    })
-    .CreateLogger();
-
 
 builder.Services.AddCors(options =>
 {
@@ -52,7 +37,8 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Host.UseSerilog(Log.Logger);
+builder.Host.AddTakermanLogging();
+builder.Logging.AddTakermanLogging();
 builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
