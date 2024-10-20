@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.Slack.Models;
+using Serilog.Sinks.Slack;
 using System.Reflection;
 using System.Security.Claims;
 using Takerman.Mail;
@@ -23,7 +26,18 @@ builder.Configuration
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Warning()
     .ReadFrom.Configuration(builder.Configuration)
+    .WriteTo.Slack(new SlackSinkOptions
+    {
+        WebHookUrl = "https://hooks.slack.com/services/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",
+        CustomIcon = ":postal_horn:",
+        Period = TimeSpan.FromSeconds(10),
+        ShowDefaultAttachments = false,
+        ShowExceptionAttachments = true,
+        MinimumLogEventLevel = LogEventLevel.Error,
+        PropertyDenyList = ["Level", "SourceContext"]
+    })
     .CreateLogger();
+
 
 builder.Services.AddCors(options =>
 {
