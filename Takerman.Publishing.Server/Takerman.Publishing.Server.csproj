@@ -33,7 +33,7 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" />
-    <PackageReference Include="Takerman.Logging" Version="1.0.4" />
+    <PackageReference Include="Takerman.Logging" Version="1.0.8" />
   </ItemGroup>
 
   <ItemGroup>
