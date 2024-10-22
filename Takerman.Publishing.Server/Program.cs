@@ -2,10 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.Slack.Models;
-using Serilog.Sinks.Slack;
 using System.Reflection;
 using System.Security.Claims;
 using Takerman.Mail;
@@ -37,7 +33,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Host.AddTakermanLogging();
 builder.Logging.AddTakermanLogging();
 builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
@@ -102,7 +97,6 @@ else
 using var scope = app.Services.CreateAsyncScope();
 await scope.ServiceProvider.GetRequiredService<IContextInitializer>().InitializeAsync();
 
-app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseAuthentication();
