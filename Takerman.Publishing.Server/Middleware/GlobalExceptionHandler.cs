@@ -9,7 +9,7 @@ namespace Takerman.Publishing.Server.Middleware
         {
             var message = exception.Message + (exception.InnerException == null ? string.Empty : exception.InnerException.Message);
 
-            _logger.LogError(exception, $"Exception occurred: {message}");
+            _logger.LogError(exception, $"*Publishing Service*: `{message}`");
 
             var problemDetails = new ProblemDetails
             {

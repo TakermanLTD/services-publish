@@ -14,7 +14,7 @@ namespace Takerman.Publishing.Server.Middleware
 
             var message = exception.Message + (exception.InnerException == null ? string.Empty : exception.InnerException.Message);
 
-            _logger.LogError(badRequestException, $"Exception occurred: {message}");
+            _logger.LogError(badRequestException, $"*Publishing Service*: `{message}`");
 
             var problemDetails = new ProblemDetails
             {
