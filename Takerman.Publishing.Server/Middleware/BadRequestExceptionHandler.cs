@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Takerman.Extensions;
 
 namespace Takerman.Publishing.Server.Middleware
 {
@@ -12,9 +13,7 @@ namespace Takerman.Publishing.Server.Middleware
                 return false;
             }
 
-            var message = exception.Message + (exception.InnerException == null ? string.Empty : exception.InnerException.Message);
-
-            _logger.LogError(badRequestException, $"*Publishing Service*: `{message}`");
+            _logger.LogError(badRequestException, $"*Publishing Service*: `{exception.GetMessage()}`");
 
             var problemDetails = new ProblemDetails
             {
