@@ -9,9 +9,11 @@ namespace Takerman.Publishing.Server.Controllers
     [Route("[controller]")]
     public class PostsController(IPostsService _postService) : ControllerBase
     {
-        [HttpGet("Create")]
+        [HttpPost("Create")]
         public async Task<IActionResult> Create(Post model)
         {
+            model.PostType = null;
+            model.Project = null;
             return Ok(await _postService.Create(model));
         }
 
@@ -30,12 +32,16 @@ namespace Takerman.Publishing.Server.Controllers
         [HttpPost("Publish")]
         public async Task<IActionResult> Publish(Post model)
         {
+            model.PostType = null;
+            model.Project = null;
             return Ok(await _postService.Publish(model));
         }
 
         [HttpGet("Update")]
         public async Task<IActionResult> Update(Post model)
         {
+            model.PostType = null;
+            model.Project = null;
             return Ok(await _postService.Update(model));
         }
     }
