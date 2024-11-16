@@ -1,1 +1,0 @@
-# takerman.publishing.client

@@ -38,7 +38,7 @@ namespace Takerman.Publishing.Tests.Integration
                     Content = "Test content",
                     DatePublished = DateTime.UtcNow,
                     IsDeleted = false,
-                    Name = "Test"
+                    Title = "Test"
                 });
             });
 

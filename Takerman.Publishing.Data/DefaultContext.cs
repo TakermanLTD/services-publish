@@ -6,14 +6,11 @@ namespace Takerman.Publishing.Data
 {
     public class DefaultContext(DbContextOptions options) : DbContext(options)
     {
-        public DbSet<Platform> Platforms { get; set; }
-
+        public DbSet<Attachment> Attachments { get; set; }
         public DbSet<PlatformLink> PlatformLinks { get; set; }
-
-        public DbSet<PlatformSecret> PlatformSecrets { get; set; }
-
         public DbSet<PlatformPostType> PlatformPostTypes { get; set; }
-
+        public DbSet<Platform> Platforms { get; set; }
+        public DbSet<PlatformSecret> PlatformSecrets { get; set; }
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<PostType> PostTypes { get; set; }
