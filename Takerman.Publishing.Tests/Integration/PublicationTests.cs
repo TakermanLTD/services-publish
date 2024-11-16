@@ -27,7 +27,6 @@ namespace Takerman.Publishing.Tests.Integration
             _projectService = _fixture.GetService<IProjectsService>(_testOutputHelper);
         }
 
-        //[Fact]
         [Fact(Skip = "Disable until the providers are ready")]
         public async Task Should_PublishSuccessfullyPost_When_TheCorrectDataIsPassed()
         {
@@ -37,7 +36,6 @@ namespace Takerman.Publishing.Tests.Integration
                 {
                     Content = "Test content",
                     DatePublished = DateTime.UtcNow,
-                    IsDeleted = false,
                     Title = "Test"
                 });
             });
