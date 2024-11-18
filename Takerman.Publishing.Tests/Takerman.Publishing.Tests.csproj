@@ -34,6 +34,7 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
     <PackageReference Include="System.Formats.Asn1" Version="9.0.0" />
     <PackageReference Include="System.Text.Json" Version="9.0.0" />
+    <PackageReference Include="Takerman.Extensions" Version="1.0.9" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="8.2.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0-pre.30">

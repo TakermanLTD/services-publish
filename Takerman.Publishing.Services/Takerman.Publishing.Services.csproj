@@ -18,6 +18,7 @@
     <PackageReference Include="System.Formats.Asn1" Version="9.0.0" />
     <PackageReference Include="System.Text.Json" Version="9.0.0" />
     <PackageReference Include="Takerman.AI" Version="1.0.6" />
+    <PackageReference Include="Takerman.Extensions" Version="1.0.9" />
     <PackageReference Include="Takerman.Notifications" Version="1.0.5" />
   </ItemGroup>
 
