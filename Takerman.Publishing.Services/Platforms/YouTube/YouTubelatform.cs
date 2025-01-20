@@ -2,57 +2,31 @@
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
+using Google.Apis.YouTube.v3.Data;
+using Microsoft.Extensions.Options;
+using Takerman.Publishing.Services.Platforms.YouTube;
 
 namespace Takerman.Publishing.Platforms.YouTube
 {
     public class YouTubelatform
     {
+        private readonly IOptions<YouTubeConfig> _youtubeConfig;
         public readonly HttpClient _httpClient;
+        private YouTubeService _youtubeService;
 
-        public YouTubelatform()
+        public YouTubelatform(IOptions<YouTubeConfig> youtubeConfig)
         {
-            _httpClient = new()
+            _youtubeConfig = youtubeConfig;
+            _youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
-                BaseAddress = new Uri("https://developers.google.com/youtube/v3")
-            };
-        }
-
-        public async Task<YouTubeService> Authenticate()
-        {
-            UserCredential credential;
-            using (var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
-            {
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    new[] { YouTubeService.Scope.YoutubeUpload },
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore("YouTubeAPI")
-                );
-            }
-
-            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = "YouTube Upload"
+                ApiKey = _youtubeConfig.Value.ApiKey,
+                ApplicationName = _youtubeConfig.Value.ApplicationName
             });
-
-            return youtubeService;
         }
 
         public async Task Download(string query)
         {
-            using var stream = new FileStream("youtube.json", FileMode.Open, FileAccess.Read);
-            var secrets = (await GoogleClientSecrets.FromStreamAsync(stream)).Secrets;
-            var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(secrets, [YouTubeService.Scope.Youtube], "user", CancellationToken.None, new FileDataStore("YouTubeAPI"));
-
-            var youtubeService = new YouTubeService(new BaseClientService.Initializer
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = "YouTube Video Search"
-            });
-
-            var searchListRequest = youtubeService.Search.List("snippet");
+            var searchListRequest = _youtubeService.Search.List("snippet");
             searchListRequest.Q = query;
             searchListRequest.MaxResults = 100;
             var searchListResponse = await searchListRequest.ExecuteAsync();
@@ -67,20 +41,22 @@ namespace Takerman.Publishing.Platforms.YouTube
 
         public async Task Upload(string title, string description, string tags, string pathToVideo)
         {
-            var youtubeService = await Authenticate();
-
-            var video = new Google.Apis.YouTube.v3.Data.Video();
-            video.Snippet = new Google.Apis.YouTube.v3.Data.VideoSnippet();
+            var video = new Video
+            {
+                Snippet = new VideoSnippet()
+            };
             video.Snippet.Title = title;
             video.Snippet.Description = description;
             video.Snippet.Tags = tags.Split(',');
             video.Snippet.CategoryId = "22"; // See https://developers.google.com/youtube/v3/docs/videoCategories/list
-            video.Status = new Google.Apis.YouTube.v3.Data.VideoStatus();
-            video.Status.PrivacyStatus = "public"; // "private" or "public" or "unlisted"
+            video.Status = new VideoStatus
+            {
+                PrivacyStatus = "public" // "private" or "public" or "unlisted"
+            };
 
             using (var fileStream = new FileStream(pathToVideo, FileMode.Open))
             {
-                var videosInsertRequest = youtubeService.Videos.Insert(video, "snippet,status", fileStream, "video/*");
+                var videosInsertRequest = _youtubeService.Videos.Insert(video, "snippet,status", fileStream, "video/*");
                 await videosInsertRequest.UploadAsync();
             }
         }

@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Unit\**" />
+    <EmbeddedResource Remove="Unit\**" />
+    <EntityDeploy Remove="Unit\**" />
+    <None Remove="Unit\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="test-appsettings.json" />
     <None Remove="test-appsettings.Production.json" />
   </ItemGroup>
@@ -51,10 +58,6 @@
     <ProjectReference Include="..\Takerman.Publishing.Data\Takerman.Publishing.Data.csproj" />
     <ProjectReference Include="..\Takerman.Publishing.Server\Takerman.Publishing.Server.csproj" />
     <ProjectReference Include="..\Takerman.Publishing.Services\Takerman.Publishing.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Unit\" />
   </ItemGroup>
 
 </Project>

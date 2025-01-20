@@ -12,9 +12,7 @@ using Takerman.Publishing.Services.Services;
 using Takerman.Publishing.Services.Services.Abstraction;
 using Takerman.Logging;
 using Takerman.Publishing.Generation.Abstraction;
-using Takerman.Publishing.Generation;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Takerman.Publishing.Services.Platforms.YouTube;
 
 var builder = WebApplication.CreateBuilder(args);
 var dataAssembly = "Takerman.Publishing.Data";
@@ -42,6 +40,9 @@ builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(Assembly.Load(dataAssembly));
+builder.Services.Configure<RabbitMqConfig>(builder.Configuration.GetSection(nameof(RabbitMqConfig)));
+builder.Services.Configure<YouTubeConfig>(builder.Configuration.GetSection(nameof(YouTubeConfig)));
 builder.Services.AddDbContext<DefaultContext>((options) =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(dataAssembly));
@@ -58,15 +59,10 @@ builder.Services.AddTransient<IPostsService, PostsService>();
 builder.Services.AddTransient<IPostTypesService, PostTypesService>();
 builder.Services.AddTransient<IProjectsService, ProjectsService>();
 builder.Services.AddTransient<IContextInitializer, ContextInitializer>();
-builder.Services.AddHostedService<VideoSongGeneratorService>();
-builder.Services.AddSingleton<IMusicGenerator, MusicGenerator>();
-builder.Services.AddSingleton<IVideoGenerator, VideoGenerator>();
+builder.Services.AddSingleton<IMixGenerator, MixGenerator>();
 builder.Services.AddSingleton<IYouTubeUploader, YouTubeUploader>();
-builder.Services.AddSingleton<IGenreAnalyzer, GenreAnalyzer>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.AddAutoMapper(Assembly.Load(dataAssembly));
-builder.Services.Configure<RabbitMqConfig>(builder.Configuration.GetSection(nameof(RabbitMqConfig)));
 builder.Services.AddHttpClient();
 var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

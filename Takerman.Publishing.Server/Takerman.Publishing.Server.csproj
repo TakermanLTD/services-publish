@@ -39,7 +39,6 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\Takerman.Publishing.Data\Takerman.Publishing.Data.csproj" />
-    <ProjectReference Include="..\Takerman.Publishing.Generation\Takerman.Publishing.Generation.csproj" />
     <ProjectReference Include="..\Takerman.Publishing.Services\Takerman.Publishing.Services.csproj" />
   </ItemGroup>
 

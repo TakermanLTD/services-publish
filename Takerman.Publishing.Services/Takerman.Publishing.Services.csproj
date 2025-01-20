@@ -10,9 +10,14 @@
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="AutoMapper.Collection.EntityFramework" Version="10.0.0" />
     <PackageReference Include="Azure.Identity" Version="1.13.2" />
+    <PackageReference Include="FFMpegCore" Version="5.1.0" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.68.0.3653" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.1" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="OllamaSharp" Version="5.0.2" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
     <PackageReference Include="SpotifyAPI.Web" Version="7.2.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
     <PackageReference Include="System.Formats.Asn1" Version="9.0.1" />

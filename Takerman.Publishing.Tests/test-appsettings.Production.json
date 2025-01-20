@@ -9,6 +9,11 @@
     "Password": "Hakerman91!",
     "Port": 5672
   },
+  "YouTubeConfig": {
+    "ApiKey": "AIzaSyD_6uJ4EkUoscIkZhLO9MESiI7lbLu2YYI",
+    "ApplicationName": "publishing",
+    "OutptDir": "C:\\Users\\takerman\\Videos\\Generated"
+  },
   "Logging": {
     "LogLevel": {
       "Default": "Information",
