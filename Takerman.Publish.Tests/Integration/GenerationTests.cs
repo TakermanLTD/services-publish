@@ -16,8 +16,7 @@ namespace Takerman.Publish.Tests.Integration
             _youtubeGenerator = _fixture.GetService<IYouTubeUploader>(_testOutputHelper);
         }
 
-        //[Fact(Skip = "Disable until the providers are ready")]
-        [Fact]
+        [Fact(Skip = "Disable until the providers are ready")]
         public void Should_GenerateVideoSong_When_GenreIsSet()
         {
             var exception = Record.Exception(() =>
