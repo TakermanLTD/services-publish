@@ -11,9 +11,9 @@ namespace Takerman.Publish.Services.Publishing.Abstraction
 
         Task<PostDto> Get(int id);
 
-        Task<List<PostDto>> GetByProject(int projectId);
+        Task<List<PostDto>> GetByProjectId(int projectId);
 
-        Task<List<PostDto>> GetByProject(string projectName);
+        Task<List<PostDto>> GetByProjectName(string projectName);
 
         Task<List<PostDto>> Publish(Post publication);
 

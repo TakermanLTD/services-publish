@@ -31,13 +31,13 @@ namespace Takerman.Publish.Services.Publishing
             return _mapper.Map<PostDto>(post);
         }
 
-        public async Task<List<PostDto>> GetByProject(int projectId)
+        public async Task<List<PostDto>> GetByProjectId(int projectId)
         {
             var posts = await _context.Posts.Where(p => p.ProjectId == projectId).ToListAsync();
             return _mapper.Map<List<PostDto>>(posts);
         }
 
-        public async Task<List<PostDto>> GetByProject(string projectName)
+        public async Task<List<PostDto>> GetByProjectName(string projectName)
         {
             var posts = await _context.Posts.Where(p => p.Project.Name == projectName).ToListAsync();
             return _mapper.Map<List<PostDto>>(posts);

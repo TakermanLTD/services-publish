@@ -33,16 +33,16 @@ namespace Takerman.Publish.Server.Controllers
 
         [AllowAnonymous]
         [HttpGet("GetByProjectId")]
-        public async Task<List<PostDto>> GetByProject(int projectId)
+        public async Task<List<PostDto>> GetByProjectId(int projectId)
         {
-            return await _postService.GetByProject(projectId);
+            return await _postService.GetByProjectId(projectId);
         }
 
         [AllowAnonymous]
         [HttpGet("GetByProjectName")]
-        public async Task<List<PostDto>> GetByProject(string projectName)
+        public async Task<List<PostDto>> GetByProjectName(string projectName)
         {
-            return await _postService.GetByProject(projectName);
+            return await _postService.GetByProjectName(projectName);
         }
 
         [HttpPost("Publish")]
