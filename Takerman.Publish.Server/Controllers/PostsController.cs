@@ -24,18 +24,21 @@ namespace Takerman.Publish.Server.Controllers
             return Ok(await _postService.Delete(id));
         }
 
+        [AllowAnonymous]
         [HttpGet("Get")]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _postService.Get(id));
         }
 
+        [AllowAnonymous]
         [HttpGet("GetByProjectId")]
         public async Task<List<PostDto>> GetByProject(int projectId)
         {
             return await _postService.GetByProject(projectId);
         }
 
+        [AllowAnonymous]
         [HttpGet("GetByProjectName")]
         public async Task<List<PostDto>> GetByProject(string projectName)
         {
