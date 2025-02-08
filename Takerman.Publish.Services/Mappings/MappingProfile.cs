@@ -11,6 +11,7 @@ namespace Takerman.Publish.Services.Mappings
             CreateMap<Post, PostDto>();
             CreateMap<PostDto, Post>();
             CreateMap<List<Post>, List<PostDto>>();
+            CreateMap<List<PostDto>, List<Post>>();
         }
     }
 }
