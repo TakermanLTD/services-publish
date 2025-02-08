@@ -24,18 +24,18 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        builder =>
-        {
-            builder
-            .WithOrigins("https://localhost:5175")
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
-        });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowSpecificOrigin",
+//        builder =>
+//        {
+//            builder
+//            .WithOrigins("https://localhost:5175")
+//            .AllowAnyMethod()
+//            .AllowAnyHeader()
+//            .AllowCredentials();
+//        });
+//});
 
 builder.Logging.AddTakermanLogging();
 builder.Services.AddProblemDetails();
