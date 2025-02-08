@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publish.Data.Entities;
+using Takerman.Publish.Services.Dtos;
 using Takerman.Publish.Services.Publishing.Abstraction;
 
 namespace Takerman.Publish.Server.Controllers
@@ -29,10 +30,16 @@ namespace Takerman.Publish.Server.Controllers
             return Ok(await _postService.Get(id));
         }
 
-        [HttpGet("GetByProject")]
-        public async Task<IActionResult> GetByProject(int projectId)
+        [HttpGet("GetByProjectId")]
+        public async Task<List<PostDto>> GetByProject(int projectId)
         {
-            return Ok(await _postService.GetByProject(projectId));
+            return await _postService.GetByProject(projectId);
+        }
+
+        [HttpGet("GetByProjectName")]
+        public async Task<List<PostDto>> GetByProject(string projectName)
+        {
+            return await _postService.GetByProject(projectName);
         }
 
         [HttpPost("Publish")]
