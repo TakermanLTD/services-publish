@@ -29,6 +29,12 @@ namespace Takerman.Publish.Server.Controllers
             return Ok(await _postService.Get(id));
         }
 
+        [HttpGet("GetByProject")]
+        public async Task<IActionResult> GetByProject(int projectId)
+        {
+            return Ok(await _postService.GetByProject(projectId));
+        }
+
         [HttpPost("Publish")]
         public async Task<IActionResult> Publish(Post model)
         {

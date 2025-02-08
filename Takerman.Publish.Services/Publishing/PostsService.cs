@@ -31,6 +31,16 @@ namespace Takerman.Publish.Services.Services
             return _context.Posts.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<List<Post>> GetByProject(int projectId)
+        {
+            return await _context.Posts.Where(p => p.ProjectId == projectId).ToListAsync();
+        }
+
+        public async Task<List<Post>> GetByProject(string projectName)
+        {
+            return await _context.Posts.Where(p => p.Project.Name == projectName).ToListAsync();
+        }
+
         public async Task<List<Post>> Publish(Post publication)
         {
             var result = await Create(publication);

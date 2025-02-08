@@ -10,6 +10,10 @@ namespace Takerman.Publish.Services.Services.Abstraction
 
         Task<Post> Get(int id);
 
+        Task<List<Post>> GetByProject(int projectId);
+
+        Task<List<Post>> GetByProject(string projectName);
+
         Task<List<Post>> Publish(Post publication);
 
         Task<Post> Update(Post publication);
