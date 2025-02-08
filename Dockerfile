@@ -5,24 +5,20 @@ ENV ASPNETCORE_ENVIRONMENT=Production
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-RUN apt-get update
-RUN apt-get install -y curl gnupg
-RUN apt-get install -y libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx
+RUN apt update && apt install -y curl gnupg libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx
 RUN curl -fsSL https://deb.nodesource.com/nsolid_setup_deb.sh | sh -s 20
 RUN apt-get install -y nodejs
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-RUN apt-get update
-RUN apt-get install -y curl
-RUN apt-get install -y libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx
+ENV ASPNETCORE_ENVIRONMENT=Production
+WORKDIR /src
+RUN apt update && apt install -y curl libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx
 RUN curl -fsSL https://deb.nodesource.com/nsolid_setup_deb.sh | sh -s 20
 RUN apt-get install -y nodejs
 ARG BUILD_CONFIGURATION=Release
 ARG NUGET_PASSWORD
 ARG SLACK_EXCEPTIONS
 ENV SLACK_WEBHOOK_URL=$SLACK_EXCEPTIONS
-
-WORKDIR /src
 
 COPY . .
 COPY ["takerman.publish.client/nuget.config", "./"]
