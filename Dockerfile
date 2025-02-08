@@ -25,18 +25,18 @@ ENV SLACK_WEBHOOK_URL=$SLACK_EXCEPTIONS
 WORKDIR /src
 
 COPY . .
-COPY ["takerman.publishing.client/nuget.config", "./"]
-COPY ["takerman.publishing.client/package.json", "package.json"]
+COPY ["takerman.publish.client/nuget.config", "./"]
+COPY ["takerman.publish.client/package.json", "package.json"]
 
 RUN sed -i "s|</configuration>|<packageSourceCredentials><github><add key=\"Username\" value=\"takerman\"/><add key=\"ClearTextPassword\" value=\"${NUGET_PASSWORD}\"/></github></packageSourceCredentials></configuration>|" nuget.config
 RUN dotnet nuget add source https://nuget.pkg.github.com/takermanltd/index.json --name github
 RUN echo //npm.pkg.github.com/:_authToken=$NUGET_PASSWORD >> ~/.npmrc
 RUN npm install --production
 
-WORKDIR "/src/Takerman.Publishing.Tests"
+WORKDIR "/src/Takerman.Publish.Tests"
 RUN dotnet test
 
-WORKDIR "/src/Takerman.Publishing.Server"
+WORKDIR "/src/Takerman.Publish.Server"
 RUN dotnet clean && dotnet restore && dotnet build -c $BUILD_CONFIGURATION -o /app/build
 RUN rm -f .npmrc
 
@@ -47,4 +47,4 @@ RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Takerman.Publishing.Server.dll"]
+ENTRYPOINT ["dotnet", "Takerman.Publish.Server.dll"]

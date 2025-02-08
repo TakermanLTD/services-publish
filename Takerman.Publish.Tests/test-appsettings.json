@@ -1,0 +1,24 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=takerman.net,5433;Initial Catalog=takerman_publish;Integrated Security=False;Persist Security Info=False;User ID=takerman;Password=Hakerman91!;Trust Server Certificate=True",
+    "DataProvider": "sqlserver"
+  },
+  "RabbitMqConfig": {
+    "Hostname": "devops_rabbitmq",
+    "Username": "takerman",
+    "Password": "Hakerman91!",
+    "Port": 5672
+  },
+  "YouTubeConfig": {
+    "ApiKey": "AIzaSyD_6uJ4EkUoscIkZhLO9MESiI7lbLu2YYI",
+    "ApplicationName": "publish",
+    "OutptDir": "C:\\Users\\takerman\\Videos\\Generated"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}

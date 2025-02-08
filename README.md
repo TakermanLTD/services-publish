@@ -1,9 +1,9 @@
-# Takerman.Publishing
+# Takerman.Publish
 
 ## Migrations
-On Takerman.Publishing.Server:
-dotnet ef migrations add [name] --project ../Takerman.Publishing.Data/Takerman.Publishing.Data.csproj
-dotnet ef database update --project ../Takerman.Publishing.Data/Takerman.Publishing.Data.csproj
+On Takerman.Publish.Server:
+dotnet ef migrations add [name] --project ../Takerman.Publish.Data/Takerman.Publish.Data.csproj
+dotnet ef database update --project ../Takerman.Publish.Data/Takerman.Publish.Data.csproj
 dotnet ef migrations remove
 
 ## E2E tests
