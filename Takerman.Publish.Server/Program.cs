@@ -15,6 +15,7 @@ using Takerman.Publish.Generation.Abstraction;
 using Takerman.Publish.Services.Platforms.YouTube;
 using Takerman.Publish.Services.Publishing.Abstraction;
 using Takerman.Publish.Services.Publishing;
+using Takerman.Publish.Services.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 var dataAssembly = "Takerman.Publish.Data";
@@ -52,6 +53,7 @@ builder.Services.AddDbContext<DefaultContext>((options) =>
     options.EnableDetailedErrors();
 });
 builder.Services.AddTransient<DbContext, DefaultContext>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddTransient<IPlatformsService, PlatformsService>();
 builder.Services.AddTransient<IPlatformLinksService, PlatformLinksService>();
 builder.Services.AddTransient<IPlatformPostTypesService, PlatformPostTypesService>();
