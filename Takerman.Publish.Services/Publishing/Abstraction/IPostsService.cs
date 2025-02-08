@@ -1,21 +1,22 @@
 ﻿using Takerman.Publish.Data.Entities;
+using Takerman.Publish.Services.Dtos;
 
-namespace Takerman.Publish.Services.Services.Abstraction
+namespace Takerman.Publish.Services.Publishing.Abstraction
 {
     public interface IPostsService
     {
-        Task<Post> Create(Post model);
+        Task<PostDto> Create(Post model);
 
-        Task<Post> Delete(int id);
+        Task<PostDto> Delete(int id);
 
-        Task<Post> Get(int id);
+        Task<PostDto> Get(int id);
 
-        Task<List<Post>> GetByProject(int projectId);
+        Task<List<PostDto>> GetByProject(int projectId);
 
-        Task<List<Post>> GetByProject(string projectName);
+        Task<List<PostDto>> GetByProject(string projectName);
 
-        Task<List<Post>> Publish(Post publication);
+        Task<List<PostDto>> Publish(Post publication);
 
-        Task<Post> Update(Post publication);
+        Task<PostDto> Update(Post publication);
     }
 }

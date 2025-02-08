@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publish.Data.Entities;
-using Takerman.Publish.Services.Services.Abstraction;
+using Takerman.Publish.Services.Publishing.Abstraction;
 
 namespace Takerman.Publish.Server.Controllers
 {

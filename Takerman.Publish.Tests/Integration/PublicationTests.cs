@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Azure.Core;
 using Takerman.Publish.Data.Entities;
+using Takerman.Publish.Services.Publishing.Abstraction;
 using Takerman.Publish.Services.Services.Abstraction;
 using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;

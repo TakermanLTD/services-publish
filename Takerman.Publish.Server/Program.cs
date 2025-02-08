@@ -13,6 +13,8 @@ using Takerman.Publish.Services.Services.Abstraction;
 using Takerman.Logging;
 using Takerman.Publish.Generation.Abstraction;
 using Takerman.Publish.Services.Platforms.YouTube;
+using Takerman.Publish.Services.Publishing.Abstraction;
+using Takerman.Publish.Services.Publishing;
 
 var builder = WebApplication.CreateBuilder(args);
 var dataAssembly = "Takerman.Publish.Data";

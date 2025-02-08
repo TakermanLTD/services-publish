@@ -8,6 +8,8 @@ using Takerman.Publish.Data.Initialization;
 using Takerman.Publish.Generation.Abstraction;
 using Takerman.Publish.Server.Middleware;
 using Takerman.Publish.Services.Platforms.YouTube;
+using Takerman.Publish.Services.Publishing;
+using Takerman.Publish.Services.Publishing.Abstraction;
 using Takerman.Publish.Services.Services;
 using Takerman.Publish.Services.Services.Abstraction;
 using Xunit.Microsoft.DependencyInjection;
