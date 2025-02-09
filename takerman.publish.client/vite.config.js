@@ -65,7 +65,7 @@ export default defineConfig({
             ['Home', 'Platforms', 'PlatformLinks', 'PlatformPostTypes', 'PlatformSecrets', 'Posts', 'PostTypes', 'Projects', 'ProjectSecrets'].map(controller => [
                 `^/${controller}`,
                 {
-                    target: 'https://localhost:7203/',
+                    target: 'https://localhost:7023/',
                     secure: false
                 }
             ])
