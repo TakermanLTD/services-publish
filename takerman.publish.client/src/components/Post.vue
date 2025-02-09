@@ -15,7 +15,13 @@
                     <br />
                     <div class="form-group">
                         <label for="content">Content</label>
-                        <editor api-key="u43iacolfm6l254nstw823zqhc7402lhndz1s3fd9tac7u51" id="content" class="form-control" placeholder="Content" aria-describedby="content" v-model="content"></editor>
+                        <tinymce api-key="u43iacolfm6l254nstw823zqhc7402lhndz1s3fd9tac7u51" id="content" class="form-control" 
+                        placeholder="Content" aria-describedby="content" v-model="content"
+                        :init="{
+                            selector: 'textarea',  // change this value according to your HTML
+                            skin: 'oxide-dark',
+                            content_css: 'dark'
+                        }" />
                     </div>
                     <div class="form-group">
                         <div v-if="postId">
@@ -32,7 +38,7 @@
     </div>
 </template>
 <script lang="js">
-import Editor from '@tinymce/tinymce-vue';
+import tinymce from '@tinymce/tinymce-vue';
 export default {
     data() {
         return {
@@ -43,17 +49,12 @@ export default {
         }
     },
     components: {
-        editor: Editor
+        tinymce
+    },
+    async mounted() {
+        this.userId = this.$auth0.user.sub;
     },
     methods: {
-        async mounted() {
-            tinymce.init({
-                selector: 'textarea',  // change this value according to your HTML
-                skin: 'oxide-dark',
-                content_css: 'dark'
-            });
-            userId = this.$auth0.user.sub;
-        },
         async create() {
             const data = JSON.stringify({
                 userId: this.userId,
@@ -70,7 +71,17 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: data
             };
-            const result = await fetch('/Posts/Create', requestOptions);
+            const result = await fetch('Posts/Create', requestOptions);
+            
+            if (result.ok) {
+                alert('Post created:', result.statusText);
+                this.title = '';
+                this.content = '';
+                this.price = 0;
+                await this.fetchPosts();
+            } else {
+                console.error('Failed to create post:', result.statusText);
+            }
         },
         async update() {
             const data = JSON.stringify({

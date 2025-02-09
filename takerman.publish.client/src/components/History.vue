@@ -14,15 +14,17 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Content</th>
+                                <th>Date Published</th>
                                 <th width="100px"></th>
                             </tr>
-                            <tr v-for="(publication, index) in this.publications" :key="index">
-                                <td>{{ publication.id }}</td>
-                                <td>{{ publication.postName }}</td>
-                                <td>{{ publication.postDescription.substring(0, 80) }}</td>
+                            <tr v-for="(post, index) in posts" :key="index">
+                                <td>{{ post.id }}</td>
+                                <td>{{ post.name }}</td>
+                                <td v-html="post.content.substring(0, 80)"></td>
+                                <td>{{ moment(post.datePublished).format('LL') }}</td>
                                 <td class="text-right" width="100px">
-                                    <button @click="this.delete(publication.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-                                    <button @click="this.fill(publication.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
+                                    <button @click="this.delete(post.id)" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
+                                    <button @click="fill(post.id)" class="btn btn-info"><i class="bi bi-arrow-up-square-fill"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -33,28 +35,63 @@
     </div>
 </template>
 <script lang="js">
+import moment from 'moment';
+
 export default {
     data() {
         return {
-            publications: []
+            moment: moment,
+            posts: []
         }
+    },
+    async mounted() {
+        await this.refresh();
     },
     methods: {
         async refresh() {
-            this.publications = await (await fetch(this.postType + '/GetAll?project=' + this.project)).json();
+            this.posts = await (await fetch('Posts/GetByProjectId?projectId=' + this.project)).json();
         },
-        async mounted() {
-        }
-    },
-    watch: {
-        async project(newProject) {
+        async delete(postId) {
+            await fetch(`Posts/Delete?id=${postId}`, { method: 'DELETE' });
+            await this.refresh();
         },
-        async postType(newPostType) {
+        fill(postId) {
+            const postToEdit = this.posts.find(post => post.id === postId);
+            if (postToEdit) {
+                this.populateEditForm(postToEdit);
+            }
+        },
+        populateEditForm(post) {
+            this.title = post.name;
+            this.content = post.content;
+            this.datePublished = post.datePublished;
         }
     },
     props: {
+        watch: {
+            project: 'refresh',
+            postType: 'refresh'
+        },
         project: Number,
-        postType: Number
+        postType: Number,
+        watch: {
+            project(newVal) {
+                this.refresh();
+            },
+            postType(newVal) {
+                this.refresh();
+            }
+        }
+    },
+    watch: {
+        project(newVal) {
+            this.refresh();
+        },
+        postType(newVal) {
+            this.refresh();
+        }
     }
 }
 </script>
+<style scoped>
+</style>

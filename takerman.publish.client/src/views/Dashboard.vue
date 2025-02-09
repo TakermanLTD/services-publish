@@ -64,7 +64,7 @@ export default {
 	},
 	methods: {
 		async refresh() {
-			this.platforms = await (await fetch('/PlatformPostTypes/GetAvailable?projectId=' + this.selectedProject + '&postTypeId=' + this.selectedPostType)).json();
+			this.platforms = await (await fetch('PlatformPostTypes/GetAvailable?projectId=' + this.selectedProject + '&postTypeId=' + this.selectedPostType)).json();
 		}
 	},
 	components: {

@@ -88,8 +88,6 @@ export default {
                 platformId: this.selectedPlatform,
                 secrets: secrets
             };
-            console.log(data);
-
             let secetsData = await (await fetch('/ProjectSecrets/Update', {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
