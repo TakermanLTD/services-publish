@@ -61,45 +61,16 @@ export default defineConfig({
         }
     },
     server: {
-        proxy: {
-            '^/Home': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/Platforms': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/PlatformLinks': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/PlatformPostTypes': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/PlatformSecrets': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/Posts': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/PostTypes': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/Projects': {
-                target: 'https://localhost:7023/',
-                secure: false
-            },
-            '^/ProjectSecrets': {
-                target: 'https://localhost:7023/',
-                secure: false
-            }
-        },
-        port: 51750,
+        proxy: Object.fromEntries(
+            ['Home', 'Platforms', 'PlatformLinks', 'PlatformPostTypes', 'PlatformSecrets', 'Posts', 'PostTypes', 'Projects', 'ProjectSecrets'].map(controller => [
+                `^/${controller}`,
+                {
+                    target: 'https://localhost:7203/',
+                    secure: false
+                }
+            ])
+        ),
+        port: 5175,
         https: {
             key: fs.readFileSync(keyFilePath),
             cert: fs.readFileSync(certFilePath),

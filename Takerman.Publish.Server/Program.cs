@@ -80,10 +80,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
-});
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
 
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
