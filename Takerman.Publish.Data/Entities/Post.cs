@@ -30,5 +30,7 @@ namespace Takerman.Publish.Data.Entities
 
         [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual PostType PostType { get; set; }
+
+        public string Thumbnail { get; set; }
     }
 }
