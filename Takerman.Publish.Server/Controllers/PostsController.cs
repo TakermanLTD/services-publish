@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Takerman.Publish.Data.Entities;
@@ -8,14 +9,13 @@ namespace Takerman.Publish.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostsController(IPostsService _postService) : ControllerBase
+    public class PostsController(IPostsService _postService, IMapper _mapper) : ControllerBase
     {
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(Post model)
+        public async Task<IActionResult> Create(PostDto model)
         {
-            model.PostType = null;
-            model.Project = null;
-            return Ok(await _postService.Create(model));
+            var post = _mapper.Map<Post>(model);
+            return Ok(await _postService.Create(post));
         }
 
         [HttpDelete("Delete")]
@@ -45,20 +45,21 @@ namespace Takerman.Publish.Server.Controllers
             return await _postService.GetByProjectName(projectName);
         }
 
+
         [HttpPost("Publish")]
-        public async Task<IActionResult> Publish(Post model)
+        public async Task<IActionResult> Publish(PostDto model)
         {
-            model.PostType = null;
-            model.Project = null;
-            return Ok(await _postService.Publish(model));
+            var post = _mapper.Map<Post>(model);
+            post.PostType = null;
+            post.Project = null;
+            return Ok(await _postService.Publish(post));
         }
 
-        [HttpGet("Update")]
-        public async Task<IActionResult> Update(Post model)
+        [HttpPost("Update")]
+        public async Task<IActionResult> Update(PostDto model)
         {
-            model.PostType = null;
-            model.Project = null;
-            return Ok(await _postService.Update(model));
+            var post = _mapper.Map<Post>(model);
+            return Ok(await _postService.Update(post));
         }
     }
 }

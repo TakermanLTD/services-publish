@@ -17,5 +17,7 @@
         public int ProjectId { get; set; }
 
         public int PostTypeId { get; set; }
+
+        public string Thumbnail { get; set; }
     }
 }
