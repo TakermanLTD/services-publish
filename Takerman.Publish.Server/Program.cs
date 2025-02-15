@@ -16,6 +16,7 @@ using Takerman.Publish.Services.Platforms.YouTube;
 using Takerman.Publish.Services.Publishing.Abstraction;
 using Takerman.Publish.Services.Publishing;
 using Takerman.Publish.Services.Mappings;
+using StackExchange;
 
 var builder = WebApplication.CreateBuilder(args);
 var dataAssembly = "Takerman.Publish.Data";
@@ -68,6 +69,10 @@ builder.Services.AddSingleton<IYouTubeUploader, YouTubeUploader>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddHttpClient();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
 var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>

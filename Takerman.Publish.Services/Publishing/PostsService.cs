@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Azure;
-using Azure.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using Takerman.Publish.Data;
 using Takerman.Publish.Data.Entities;
 using Takerman.Publish.Services.Dtos;
@@ -9,8 +9,10 @@ using Takerman.Publish.Services.Publishing.Abstraction;
 
 namespace Takerman.Publish.Services.Publishing
 {
-    public class PostsService(DefaultContext _context, IMapper _mapper) : IPostsService
+    public class PostsService(DefaultContext _context, IMapper _mapper, IDistributedCache _cache) : IPostsService
     {
+        private const string CacheKeyPrefix = "Post_";
+
         public async Task<PostDto> Create(Post model)
         {
             var entity = await _context.Posts.AddAsync(model);
@@ -22,13 +24,32 @@ namespace Takerman.Publish.Services.Publishing
         {
             var result = _context.Posts.Remove(await _context.Posts.FirstOrDefaultAsync(x => x.Id == id));
             await _context.SaveChangesAsync();
+            await _cache.RemoveAsync(CacheKeyPrefix + id);
             return _mapper.Map<PostDto>(result.Entity);
         }
 
         public async Task<PostDto> Get(int id)
         {
+            var cacheKey = CacheKeyPrefix + id;
+            var cachedPost = await _cache.GetStringAsync(cacheKey);
+
+            if (!string.IsNullOrEmpty(cachedPost))
+            {
+                return JsonConvert.DeserializeObject<PostDto>(cachedPost);
+            }
+
             var post = await _context.Posts.FirstOrDefaultAsync(x => x.Id == id);
-            return _mapper.Map<PostDto>(post);
+            var postDto = _mapper.Map<PostDto>(post);
+
+            if (postDto != null)
+            {
+                await _cache.SetStringAsync(cacheKey, JsonConvert.SerializeObject(postDto), new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+                });
+            }
+
+            return postDto;
         }
 
         public async Task<List<PostDto>> GetByProjectId(int projectId)
@@ -53,6 +74,7 @@ namespace Takerman.Publish.Services.Publishing
         {
             var result = _context.Posts.Update(publication);
             await _context.SaveChangesAsync();
+            await _cache.RemoveAsync(CacheKeyPrefix + publication.Id);
             return _mapper.Map<PostDto>(result.Entity);
         }
     }
